@@ -1,5 +1,6 @@
 # widuri
 
+# Pengembangan Aplikasi Akuntansi Berbasis Android Sebagai Media Penyusunan Laporan Keuangan Pada Usaha Mikro Kecil Menengah
 A new Flutter project.
 
 ## Getting Started
@@ -14,3 +15,13 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter, view our
 [online documentation](https://flutter.dev/docs), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+
+## Project PKL KJFD 
+
+## Anggota
+1. Muhammad Lamkhil Bashor  185150201111015
+2. Ryan Sutawijaya          185150200111033    
+3. Yualief Riswanda         185150207111008
+
+## Deskripsi
+
