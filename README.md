@@ -1,6 +1,6 @@
 # widuri
 
-# Pengembangan Aplikasi Akuntansi Berbasis Android Sebagai Media Penyusunan Laporan Keuangan Pada Usaha Mikro Kecil Menengah
+## Pengembangan Aplikasi Akuntansi Berbasis Android Sebagai Media Penyusunan Laporan Keuangan Pada Usaha Mikro Kecil Menengah
 A new Flutter project.
 
 ## Getting Started
