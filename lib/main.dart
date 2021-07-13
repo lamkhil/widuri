@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:widuri/views/home.dart';
+import 'package:widuri/views/navbar.dart';
 import 'package:widuri/views/register.dart';
 
 void main() {
@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: Home(),
+      home: NavBar(),
     );
   }
 }

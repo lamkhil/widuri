@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class tambah_transaksi extends StatelessWidget {
+class TambahTransaksi extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Container(
