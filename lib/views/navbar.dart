@@ -102,7 +102,6 @@ class _NavBarState extends State<NavBar> {
         activeColorPrimary: CupertinoColors.white,
         inactiveColorPrimary: CupertinoColors.white,
       ),
-
     ];
   }
 }
