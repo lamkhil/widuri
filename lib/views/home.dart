@@ -41,9 +41,10 @@ class _HomeState extends State<Home> {
         ),
         body: LayoutBuilder(
             builder: (BuildContext context, BoxConstraints viewport) {
+              var h = MediaQuery.of(context).size.height;
           return SingleChildScrollView(
             child: ConstrainedBox(
-              constraints: BoxConstraints(minHeight: viewport.maxHeight),
+              constraints: BoxConstraints(minHeight: viewport.maxHeight,),
               child: IntrinsicHeight(
                 child: Padding(
                   padding: EdgeInsets.all(12.0),
