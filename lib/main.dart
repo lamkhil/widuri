@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:widuri/views/navbar.dart';
-import 'package:widuri/views/register.dart';
 
 void main() {
   runApp(MyApp());
