@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 import 'package:widuri/colors.dart';
 import 'Widget/card_barang.dart';
 
@@ -183,6 +184,7 @@ class _DaftarBarangState extends State<DaftarBarang>
                               left: 10.0,
                             ),
                             child: new TextField(
+
                               decoration: new InputDecoration(
                                   hintText: 'contoh : Baju',
                                   hintStyle:
@@ -262,7 +264,12 @@ class _DaftarBarangState extends State<DaftarBarang>
                                       left: 10.0,
                                     ),
                                     child: new TextField(
+                                      keyboardType: TextInputType.number,
+                                      inputFormatters: [
+                                        WhitelistingTextInputFormatter.digitsOnly,
+                                      ],
                                       decoration: new InputDecoration(
+
                                           hintText: 'contoh : 13000',
                                           hintStyle: TextStyle(
                                               fontWeight: FontWeight.w300),
@@ -302,6 +309,10 @@ class _DaftarBarangState extends State<DaftarBarang>
                                       left: 10.0,
                                     ),
                                     child: new TextField(
+                                      keyboardType: TextInputType.number,
+                                      inputFormatters: [
+                                        WhitelistingTextInputFormatter.digitsOnly,
+                                      ],
                                       decoration: new InputDecoration(
                                           hintText: 'contoh : 13000',
                                           hintStyle: TextStyle(
