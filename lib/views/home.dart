@@ -5,16 +5,20 @@ import 'package:fl_chart/fl_chart.dart';
 import 'Widget/card_barang.dart';
 
 class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+  final String email;
+  const Home(this.email, {Key? key}) : super(key: key);
 
   @override
-  _HomeState createState() => _HomeState();
+  _HomeState createState() => _HomeState(email);
 }
 
 class _HomeState extends State<Home> {
+  String email;
   static const List<String> _list = ['Harian', 'Mingguan', 'Bulanan'];
 
   String _value = _list.first;
+
+  _HomeState(this.email);
 
   @override
   void initState() {
@@ -29,7 +33,7 @@ class _HomeState extends State<Home> {
     return Scaffold(
         appBar: AppBar(
           title: Text(
-            "Hi, Rudi!",
+            "Hi, $email!",
             style: TextStyle(
                 fontSize: 24, fontWeight: FontWeight.bold, color: Colors.black),
           ),

@@ -60,6 +60,7 @@ class _DaftarBarangState extends State<DaftarBarang>
                       color: Colors.black),
                 ),
                 FlatButton(
+                  padding: EdgeInsets.all(6.0),
                   child: Icon(
                     Icons.notifications,
                     color: Colors.black38,
@@ -67,7 +68,9 @@ class _DaftarBarangState extends State<DaftarBarang>
                   color: Colors.white,
                   height: 40,
                   minWidth: 40,
-                  shape: CircleBorder(),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12.0),
+                  ),
                   onPressed: () {},
                 ),
               ],
@@ -184,7 +187,6 @@ class _DaftarBarangState extends State<DaftarBarang>
                               left: 10.0,
                             ),
                             child: new TextField(
-
                               decoration: new InputDecoration(
                                   hintText: 'contoh : Baju',
                                   hintStyle:
@@ -266,10 +268,10 @@ class _DaftarBarangState extends State<DaftarBarang>
                                     child: new TextField(
                                       keyboardType: TextInputType.number,
                                       inputFormatters: [
-                                        WhitelistingTextInputFormatter.digitsOnly,
+                                        WhitelistingTextInputFormatter
+                                            .digitsOnly,
                                       ],
                                       decoration: new InputDecoration(
-
                                           hintText: 'contoh : 13000',
                                           hintStyle: TextStyle(
                                               fontWeight: FontWeight.w300),
@@ -311,7 +313,8 @@ class _DaftarBarangState extends State<DaftarBarang>
                                     child: new TextField(
                                       keyboardType: TextInputType.number,
                                       inputFormatters: [
-                                        WhitelistingTextInputFormatter.digitsOnly,
+                                        WhitelistingTextInputFormatter
+                                            .digitsOnly,
                                       ],
                                       decoration: new InputDecoration(
                                           hintText: 'contoh : 13000',
@@ -330,76 +333,96 @@ class _DaftarBarangState extends State<DaftarBarang>
                       SizedBox(
                         height: 23.0,
                       ),
-                      Container(
-                        padding: EdgeInsets.all(6),
-                        constraints: BoxConstraints(
-                            maxWidth: w * 0.2, maxHeight: h * 0.1),
-                        child: Card(
-                          margin: EdgeInsets.zero,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12.0),
-                          ),
-                          child: Column(
-                            children: <Widget>[
-                              Text(
-                                'Jumlah',
-                                style: TextStyle(
-                                    color: primaryColor, fontSize: 10),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Container(
+                            constraints: BoxConstraints(
+                                maxWidth: w * 0.2, maxHeight: h * 0.09),
+                            child: Card(
+                              elevation: 4.0,
+                              margin: EdgeInsets.zero,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12.0),
                               ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: <Widget>[
-                                  IconButton(
-                                      onPressed: () {},
-                                      icon: Icon(
-                                        Icons.add_circle_rounded,
-                                        color: primaryColor,
-                                      )),
-                                  Text(
-                                    '2',
-                                    style: TextStyle(fontSize: 10),
-                                  ),
-                                  IconButton(
-                                      onPressed: () {},
-                                      icon: Icon(
-                                        Icons.add_circle_rounded,
-                                        color: primaryColor,
-                                      ))
-                                ],
-                              )
-                            ],
+                              child: Padding(
+                                padding: EdgeInsets.all(12.0),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Text(
+                                      'Jumlah',
+                                      style: TextStyle(
+                                          color: primaryColor, fontSize: 10),
+                                    ),
+                                    SizedBox(
+                                      height: 4.0,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: <Widget>[
+                                        IconButton(
+                                            padding: EdgeInsets.zero,
+                                            constraints: BoxConstraints(),
+                                            onPressed: () {},
+                                            icon: Icon(
+                                              Icons.add_circle_rounded,
+                                              color: primaryColor,
+                                            )),
+                                        SizedBox(
+                                          width: 6.0,
+                                        ),
+                                        Text(
+                                          '2',
+                                          style: TextStyle(fontSize: 10),
+                                        ),
+                                        SizedBox(
+                                          width: 6.0,
+                                        ),
+                                        IconButton(
+                                            padding: EdgeInsets.zero,
+                                            constraints: BoxConstraints(),
+                                            onPressed: () {},
+                                            icon: Icon(
+                                              Icons.add_circle_rounded,
+                                              color: primaryColor,
+                                            ))
+                                      ],
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
                           ),
-                        ),
-                      ),
+                        ],
+                      )
                     ]),
               ),
             ),
             actions: [
               Container(
-                margin: EdgeInsets.all(12.0),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12.0 ),
-                  ),
-                  child : ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        primary: primaryColor,
-                        padding: EdgeInsets.all(12.0),
-                    ),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
+                margin: EdgeInsets.all(13.0),
+                child: RaisedButton(
+                  elevation: 4.0,
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  color: primaryColor,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12.0)),
+                  child: Padding(
+                    padding: EdgeInsets.all(12.0),
                     child: Text(
-                      "Simpan Barang",
+                      'Simpan Barang',
                       style: TextStyle(
-                          fontFamily: 'RobotoMono',
+                          color: Colors.white,
                           fontSize: 14,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white),
+                          fontWeight: FontWeight.bold),
                     ),
-                  )
+                  ),
+                ),
               ),
-
             ],
           );
         });
