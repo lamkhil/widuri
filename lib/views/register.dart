@@ -84,7 +84,7 @@ class _RegisterState extends State<Register> {
           ),
           SizedBox(height: 36),
           MaterialButton(
-              onPressed: (){
+              onPressed: () {
                 Navigator.pop(context);
               },
               child: Container(

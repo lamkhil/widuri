@@ -32,6 +32,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   fl_chart: ^0.36.2
   get: ^4.1.4
+  get_storage: ^2.0.2
   flutter_bloc: ^7.0.1
 
 dev_dependencies:
