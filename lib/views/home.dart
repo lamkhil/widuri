@@ -122,60 +122,51 @@ class _HomeState extends State<Home> {
                                 fontFamily: 'RobotoMono',
                                 color: Colors.black),
                           )),
-                      AspectRatio(
-                        aspectRatio: 1,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: backgroundColor,
-                            borderRadius: BorderRadius.all(Radius.circular(18)),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey,
-                                offset: Offset(0.0, 1.0), //(x,y)
-                                blurRadius: 6.0,
-                              ),
-                            ],
-                          ),
-                          child: Column(
-                            children: <Widget>[
-                              const SizedBox(
-                                height: 12,
-                              ),
-                              Container(
-                                padding: EdgeInsets.only(left: 12, right: 12),
-                                margin: EdgeInsets.all(12),
-                                decoration: BoxDecoration(
-                                    border: Border.all(color: Colors.grey),
-                                    borderRadius: BorderRadius.circular(12)),
-                                child: DropdownButton<String>(
-                                  value: _value,
-                                  iconSize: 24,
-                                  elevation: 16,
-                                  style: TextStyle(color: Colors.deepPurple),
-                                  onChanged: (var newValue) =>
-                                      setState(() => _value = newValue!),
-                                  items: _list
-                                      .map((String item) =>
-                                          DropdownMenuItem<String>(
-                                              child: Text(item), value: item))
-                                      .toList(),
+                      Expanded(
+                        child: AspectRatio(
+                          aspectRatio: 1.5,
+                          child: Card(
+                            elevation: 6,
+                            child: Column(
+                              children: <Widget>[
+                                const SizedBox(
+                                  height: 12,
                                 ),
-                              ),
-                              Expanded(
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      right: 16.0, left: 6.0),
-                                  child: LineChart(
-                                    sampleData1(),
-                                    swapAnimationDuration:
-                                        const Duration(milliseconds: 250),
+                                SizedBox(
+                                  width: w * 0.3,
+                                  child: DropdownButtonFormField<String>(
+                                    value: _value,
+                                    decoration: InputDecoration(
+                                      border: OutlineInputBorder(),
+                                    ),
+                                    iconSize: 24,
+                                    elevation: 16,
+                                    style: TextStyle(color: Colors.black),
+                                    onChanged: (var newValue) =>
+                                        setState(() => _value = newValue!),
+                                    items: _list
+                                        .map((String item) =>
+                                            DropdownMenuItem<String>(
+                                                child: Text(item), value: item))
+                                        .toList(),
                                   ),
                                 ),
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                            ],
+                                Expanded(
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        right: 16.0, left: 6.0),
+                                    child: LineChart(
+                                      sampleData1(),
+                                      swapAnimationDuration:
+                                          const Duration(milliseconds: 250),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
