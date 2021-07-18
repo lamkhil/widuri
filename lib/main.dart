@@ -18,8 +18,16 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       getPages: [
-        GetPage(name: '/', page: () => SplashScreen()),
-        GetPage(name: '/login', page: () => Login()),
+        GetPage(
+            name: '/',
+            page: () => SplashScreen(),
+            transition: Transition.zoom,
+            transitionDuration: Duration(milliseconds: 500)),
+        GetPage(
+            name: '/login',
+            page: () => Login(),
+            transition: Transition.zoom,
+            transitionDuration: Duration(milliseconds: 500)),
         GetPage(name: '/register', page: () => Register()),
         GetPage(name: '/main', page: () => NavBar('rudy')),
       ],
