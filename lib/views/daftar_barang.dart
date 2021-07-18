@@ -81,85 +81,79 @@ class _DaftarBarangState extends State<DaftarBarang>
         ),
         body: Container(
             child: Padding(
-              padding: EdgeInsets.all(12.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
+          padding: EdgeInsets.all(12.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              Card(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12.0)),
+                child: new ListTile(
+                  leading: new Icon(Icons.search),
+                  title: new TextField(
+                    decoration: new InputDecoration(
+                        hintText: 'Search', border: InputBorder.none),
+                    // onChanged: onSearchTextChanged,
+                  ),
+                  trailing: new IconButton(
+                    icon: new Icon(Icons.filter_list_rounded),
+                    onPressed: () {},
+                  ),
+                ),
+              ),
+              Container(
+                  alignment: Alignment.centerLeft,
+                  margin: EdgeInsets.all(12),
+                  child: Text(
+                    'Stock Barang',
+                    style: TextStyle(
+                        fontSize: 18.0,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'RobotoMono',
+                        color: Colors.black),
+                  )),
+              Stack(
                 children: <Widget>[
-                  Card(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12.0)),
-                    child: new ListTile(
-                      leading: new Icon(Icons.search),
-                      title: new TextField(
-                        decoration: new InputDecoration(
-                            hintText: 'Search', border: InputBorder.none),
-                        // onChanged: onSearchTextChanged,
-                      ),
-                      trailing: new IconButton(
-                        icon: new Icon(Icons.filter_list_rounded),
-                        onPressed: () {},
-                      ),
+                  SingleChildScrollView(
+                    child: Column(
+                      children: <Widget>[
+                        CardBarang(
+                          namaBarang: 'Hijab Segitiga',
+                          idBarang: 'Hij-001',
+                          jumlah: 5,
+                          harga: 10000,
+                        ),
+                        SizedBox(height: 12.0),
+                        CardBarang(
+                          namaBarang: 'Hijab kotak',
+                          idBarang: 'Hij-002',
+                          jumlah: 5,
+                          harga: 10000,
+                        ),
+                        SizedBox(height: 12.0),
+                        CardBarang(
+                          namaBarang: 'Hijab Langsung',
+                          idBarang: 'Hij-003',
+                          jumlah: 10,
+                          harga: 15000,
+                        ),
+                      ],
                     ),
                   ),
-                  Container(
-                      alignment: Alignment.centerLeft,
-                      margin: EdgeInsets.all(12),
-                      child: Text(
-                        'Stock Barang',
-                        style: TextStyle(
-                            fontSize: 18.0,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: 'RobotoMono',
-                            color: Colors.black),
-                      )),
-                  Stack(
-                    children: <Widget>[
-                      SingleChildScrollView(
-                        child: Column(
-                          children: <Widget>[
-                            CardBarang(
-                              namaBarang: 'Hijab Segitiga',
-                              idBarang: 'Hij-001',
-                              jumlah: 5,
-                              harga: 10000,
-                            ),
-                            SizedBox(height: 12.0),
-                            CardBarang(
-                              namaBarang: 'Hijab kotak',
-                              idBarang: 'Hij-002',
-                              jumlah: 5,
-                              harga: 10000,
-                            ),
-                            SizedBox(height: 12.0),
-                            CardBarang(
-                              namaBarang: 'Hijab Langsung',
-                              idBarang: 'Hij-003',
-                              jumlah: 10,
-                              harga: 15000,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 23.0),
                 ],
               ),
-            )));
+              SizedBox(height: 23.0),
+            ],
+          ),
+        )));
   }
 
   void popUpTambahBarang() {
     showDialog(
         context: context,
         builder: (BuildContext context) {
-          var w = MediaQuery
-              .of(context)
-              .size
-              .width;
-          var h = MediaQuery
-              .of(context)
-              .size
-              .height;
+          var w = MediaQuery.of(context).size.width;
+          var h = MediaQuery.of(context).size.height;
           return AlertDialog(
               scrollable: true,
               title: Text(
@@ -196,7 +190,7 @@ class _DaftarBarangState extends State<DaftarBarang>
                                 decoration: new InputDecoration(
                                     hintText: 'contoh : Baju',
                                     hintStyle:
-                                    TextStyle(fontWeight: FontWeight.w300),
+                                        TextStyle(fontWeight: FontWeight.w300),
                                     border: InputBorder.none),
                                 // onChanged: onSearchTextChanged,
                               ),
@@ -230,7 +224,7 @@ class _DaftarBarangState extends State<DaftarBarang>
                                 decoration: new InputDecoration(
                                     hintText: 'contoh : Baju Gamis L21',
                                     hintStyle:
-                                    TextStyle(fontWeight: FontWeight.w300),
+                                        TextStyle(fontWeight: FontWeight.w300),
                                     border: InputBorder.none),
                                 // onChanged: onSearchTextChanged,
                               ),
@@ -260,12 +254,12 @@ class _DaftarBarangState extends State<DaftarBarang>
                                 ),
                                 Container(
                                   constraints:
-                                  BoxConstraints(maxWidth: w * 0.335),
+                                      BoxConstraints(maxWidth: w * 0.335),
                                   child: Card(
                                     margin: EdgeInsets.zero,
                                     shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(
-                                            12.0),
+                                        borderRadius:
+                                            BorderRadius.circular(12.0),
                                         side: BorderSide(color: primaryColor)),
                                     child: Padding(
                                       padding: EdgeInsets.only(
@@ -306,12 +300,12 @@ class _DaftarBarangState extends State<DaftarBarang>
                                 ),
                                 Container(
                                   constraints:
-                                  BoxConstraints(maxWidth: w * 0.335),
+                                      BoxConstraints(maxWidth: w * 0.335),
                                   child: Card(
                                     margin: EdgeInsets.zero,
                                     shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(
-                                            12.0),
+                                        borderRadius:
+                                            BorderRadius.circular(12.0),
                                         side: BorderSide(color: primaryColor)),
                                     child: Padding(
                                       padding: EdgeInsets.only(
@@ -346,7 +340,7 @@ class _DaftarBarangState extends State<DaftarBarang>
                           children: <Widget>[
                             Container(
                               constraints: BoxConstraints(
-                                  maxWidth: w * 0.2, maxHeight: h * 0.09),
+                                  minWidth: w * 0.2, minHeight: h * 0.09),
                               child: Card(
                                 elevation: 4.0,
                                 margin: EdgeInsets.zero,
@@ -368,7 +362,7 @@ class _DaftarBarangState extends State<DaftarBarang>
                                       ),
                                       Row(
                                         mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
+                                            MainAxisAlignment.spaceEvenly,
                                         children: <Widget>[
                                           IconButton(
                                               padding: EdgeInsets.zero,
@@ -422,16 +416,14 @@ class _DaftarBarangState extends State<DaftarBarang>
                       },
                       child: Padding(
                         padding: EdgeInsets.all(12.0),
-                        child : Text(
+                        child: Text(
                           'Simpan Barang',
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: 14,
                               fontWeight: FontWeight.bold),
                         ),
-                      )
-
-                  ),
+                      )),
                 ),
               ]);
         });
