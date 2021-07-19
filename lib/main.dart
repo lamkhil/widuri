@@ -20,13 +20,11 @@ class MyApp extends StatelessWidget {
       getPages: [
         GetPage(
             name: '/',
-            page: () => SplashScreen(),
-            transition: Transition.zoom,
-            transitionDuration: Duration(milliseconds: 500)),
+            page: () => SplashScreen()),
         GetPage(
             name: '/login',
             page: () => Login(),
-            transition: Transition.zoom,
+            transition: Transition.fadeIn,
             transitionDuration: Duration(milliseconds: 500)),
         GetPage(name: '/register', page: () => Register()),
         GetPage(name: '/main', page: () => NavBar('rudy')),
