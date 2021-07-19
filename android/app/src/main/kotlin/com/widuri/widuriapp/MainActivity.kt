@@ -1,4 +1,4 @@
-package com.example.widuri
+package com.widuri.widuriapp
 
 import io.flutter.embedding.android.FlutterActivity
 

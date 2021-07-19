@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "653537984078",
+    "project_id": "widuri-533b2",
+    "storage_bucket": "widuri-533b2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:653537984078:android:e7072941d72be0dd18cd1f",
+        "android_client_info": {
+          "package_name": "com.widuri.widuriapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "653537984078-ufienf4vf5os63b9r49ce5q4v9s1fcld.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAKHQ6wbMItpsoU1ifvIJZqv7kvXxR2RWE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "653537984078-ufienf4vf5os63b9r49ce5q4v9s1fcld.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
