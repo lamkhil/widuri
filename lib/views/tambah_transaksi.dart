@@ -376,6 +376,25 @@ class _TambahTransaksiState extends State<TambahTransaksi> {
                                 ],
                               ),
                             ))),
+                    ElevatedButton.icon(
+                      style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10)),
+                          primary: primaryColor),
+                      onPressed: () {},
+                      icon: Icon(
+                        Icons.add_circle_rounded,
+                      ),
+                        label: Text("Tambah Barang"),
+                    ),
+
+                        // child: Row(
+                        //   mainAxisAlignment: MainAxisAlignment.start,
+                        //   children: [
+                        //     Icon(Icons.add_circle_rounded),
+                        //     Text(' Tambah Barang'),
+                        //   ],
+                        // )),
                   ],
                 )
               ],
