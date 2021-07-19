@@ -1,8 +1,10 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 import 'package:widuri/colors.dart';
-import './stockbarang.dart' as stock;
-import './barangmenipis.dart' as barangMenipis;
+import 'Widget/card_barang.dart';
 
 class DaftarBarang extends StatefulWidget {
   const DaftarBarang({Key? key}) : super(key: key);
@@ -29,8 +31,6 @@ class _DaftarBarangState extends State<DaftarBarang>
 
   @override
   Widget build(BuildContext context) {
-    var w = MediaQuery.of(context);
-
     return Scaffold(
         backgroundColor: backgroundColor,
         floatingActionButton: Padding(
@@ -38,7 +38,9 @@ class _DaftarBarangState extends State<DaftarBarang>
             bottom: 23.0,
           ),
           child: FloatingActionButton.extended(
-            onPressed: () {},
+            onPressed: () {
+              popUpTambahBarang();
+            },
             label: const Text('Tambah Barang'),
             icon: const Icon(Icons.add_circle_rounded),
             backgroundColor: primaryColor,
@@ -58,6 +60,7 @@ class _DaftarBarangState extends State<DaftarBarang>
                       color: Colors.black),
                 ),
                 FlatButton(
+                  padding: EdgeInsets.all(6.0),
                   child: Icon(
                     Icons.notifications,
                     color: Colors.black38,
@@ -65,7 +68,9 @@ class _DaftarBarangState extends State<DaftarBarang>
                   color: Colors.white,
                   height: 40,
                   minWidth: 40,
-                  shape: CircleBorder(),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12.0),
+                  ),
                   onPressed: () {},
                 ),
               ],
@@ -96,35 +101,17 @@ class _DaftarBarangState extends State<DaftarBarang>
                   ),
                 ),
               ),
-              new Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  TextButton(
-                    onPressed: () {},
-                    child: Text(
-                      'Daftar Barang',
-                      style: TextStyle(
+              Container(
+                  alignment: Alignment.centerLeft,
+                  margin: EdgeInsets.all(12),
+                  child: Text(
+                    'Stock Barang',
+                    style: TextStyle(
                         fontSize: 18.0,
                         fontWeight: FontWeight.bold,
                         fontFamily: 'RobotoMono',
-                        color: Colors.black,
-                      ),
-                    ),
-                  ),
-                  Text('|'),
-                  TextButton(
-                    onPressed: () {},
-                    child: Text(
-                      'Daftar Barang Menipis',
-                      style: TextStyle(
-                          fontSize: 18.0,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'RobotoMono',
-                          color: Colors.black),
-                    ),
-                  ),
-                ],
-              ),
+                        color: Colors.black),
+                  )),
               Stack(
                 children: <Widget>[
                   SingleChildScrollView(
@@ -160,126 +147,285 @@ class _DaftarBarangState extends State<DaftarBarang>
           ),
         )));
   }
-}
 
-class CardBarang extends StatelessWidget {
-  CardBarang(
-      {required this.namaBarang,
-      required this.idBarang,
-      required this.jumlah,
-      required this.harga});
-
-  String namaBarang;
-  String idBarang;
-  int jumlah;
-  int harga;
-
-  @override
-  Widget build(BuildContext context) {
-    var w = MediaQuery.of(context).size.width;
-    return new Container(
-      child: Card(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
-          child: Padding(
-              padding: EdgeInsets.all(12.0),
-              child: SizedBox(
-                height: 40,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Row(
+  void popUpTambahBarang() {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          var w = MediaQuery.of(context).size.width;
+          var h = MediaQuery.of(context).size.height;
+          return AlertDialog(
+              scrollable: true,
+              title: Text(
+                'Tambah Barang',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+              ),
+              content: Container(
+                width: w - 23,
+                child: Form(
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Icon(
-                          CupertinoIcons.cube_box_fill,
-                          color: Colors.amber,
+                        Text(
+                          'Kategori',
+                          style: TextStyle(
+                              fontSize: 16.0, fontWeight: FontWeight.w600),
                         ),
                         SizedBox(
-                          width: 12.0,
+                          height: 6.0,
                         ),
                         Container(
-                          constraints: BoxConstraints(maxWidth: w * 0.2),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              FittedBox(
-                                child: Text(
-                                  namaBarang,
-                                ),
+                          constraints: BoxConstraints(maxWidth: w * 1),
+                          child: Card(
+                            margin: EdgeInsets.zero,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12.0),
+                                side: BorderSide(color: primaryColor)),
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                right: 10.0,
+                                left: 10.0,
                               ),
-                              SizedBox(
-                                height: 4,
+                              child: new TextField(
+                                decoration: new InputDecoration(
+                                    hintText: 'contoh : Baju',
+                                    hintStyle:
+                                        TextStyle(fontWeight: FontWeight.w300),
+                                    border: InputBorder.none),
+                                // onChanged: onSearchTextChanged,
                               ),
-                              Text(
-                                idBarang,
-                                style: TextStyle(
-                                    fontSize: 10.0,
-                                    fontWeight: FontWeight.w200),
-                              )
-                            ],
+                            ),
                           ),
                         ),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Text(
-                                'Stock',
-                                style: TextStyle(
-                                    fontSize: 14.0, color: primaryColor),
+                        SizedBox(
+                          height: 23.0,
+                        ),
+                        Text(
+                          'Nama',
+                          style: TextStyle(
+                              fontSize: 16.0, fontWeight: FontWeight.w600),
+                        ),
+                        SizedBox(
+                          height: 6.0,
+                        ),
+                        Container(
+                          constraints: BoxConstraints(maxWidth: w * 1),
+                          child: Card(
+                            margin: EdgeInsets.zero,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12.0),
+                                side: BorderSide(color: primaryColor)),
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                right: 10.0,
+                                left: 10.0,
                               ),
-                              SizedBox(
-                                height: 4.0,
+                              child: new TextField(
+                                decoration: new InputDecoration(
+                                    hintText: 'contoh : Baju Gamis L21',
+                                    hintStyle:
+                                        TextStyle(fontWeight: FontWeight.w300),
+                                    border: InputBorder.none),
+                                // onChanged: onSearchTextChanged,
                               ),
-                              Container(
-                                constraints: BoxConstraints(minWidth: 16.0),
-                                child: Text(
-                                  '$jumlah',
-                                  textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 23.0,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Text(
+                                  'Harga Awal',
                                   style: TextStyle(
-                                    fontSize: 14.0,
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.w600,
+                                      fontFamily: 'RobotoMono'),
+                                ),
+                                SizedBox(
+                                  height: 6.0,
+                                ),
+                                Container(
+                                  constraints:
+                                      BoxConstraints(maxWidth: w * 0.335),
+                                  child: Card(
+                                    margin: EdgeInsets.zero,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(12.0),
+                                        side: BorderSide(color: primaryColor)),
+                                    child: Padding(
+                                      padding: EdgeInsets.only(
+                                        right: 10.0,
+                                        left: 10.0,
+                                      ),
+                                      child: new TextField(
+                                        keyboardType: TextInputType.number,
+                                        inputFormatters: [
+                                          WhitelistingTextInputFormatter
+                                              .digitsOnly,
+                                        ],
+                                        decoration: new InputDecoration(
+                                            hintText: 'contoh : 13000',
+                                            hintStyle: TextStyle(
+                                                fontWeight: FontWeight.w300),
+                                            border: InputBorder.none),
+                                        // onChanged: onSearchTextChanged,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Text(
+                                  'Rekomendasi Harga',
+                                  style: TextStyle(
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.w600,
+                                      fontFamily: 'RobotoMono'),
+                                ),
+                                SizedBox(
+                                  height: 6.0,
+                                ),
+                                Container(
+                                  constraints:
+                                      BoxConstraints(maxWidth: w * 0.335),
+                                  child: Card(
+                                    margin: EdgeInsets.zero,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(12.0),
+                                        side: BorderSide(color: primaryColor)),
+                                    child: Padding(
+                                      padding: EdgeInsets.only(
+                                        right: 10.0,
+                                        left: 10.0,
+                                      ),
+                                      child: new TextField(
+                                        keyboardType: TextInputType.number,
+                                        inputFormatters: [
+                                          WhitelistingTextInputFormatter
+                                              .digitsOnly,
+                                        ],
+                                        decoration: new InputDecoration(
+                                            hintText: 'contoh : 13000',
+                                            hintStyle: TextStyle(
+                                                fontWeight: FontWeight.w300),
+                                            border: InputBorder.none),
+                                        // onChanged: onSearchTextChanged,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                        SizedBox(
+                          height: 23.0,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Container(
+                              constraints: BoxConstraints(
+                                  minWidth: w * 0.2, minHeight: h * 0.09),
+                              child: Card(
+                                elevation: 4.0,
+                                margin: EdgeInsets.zero,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12.0),
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsets.all(12.0),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      Text(
+                                        'Jumlah',
+                                        style: TextStyle(
+                                            color: primaryColor, fontSize: 10),
+                                      ),
+                                      SizedBox(
+                                        height: 4.0,
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: <Widget>[
+                                          IconButton(
+                                              padding: EdgeInsets.zero,
+                                              constraints: BoxConstraints(),
+                                              onPressed: () {},
+                                              icon: Icon(
+                                                Icons.add_circle_rounded,
+                                                color: primaryColor,
+                                              )),
+                                          SizedBox(
+                                            width: 6.0,
+                                          ),
+                                          Text(
+                                            '2',
+                                            style: TextStyle(fontSize: 10),
+                                          ),
+                                          SizedBox(
+                                            width: 6.0,
+                                          ),
+                                          IconButton(
+                                              padding: EdgeInsets.zero,
+                                              constraints: BoxConstraints(),
+                                              onPressed: () {},
+                                              icon: Icon(
+                                                Icons.add_circle_rounded,
+                                                color: primaryColor,
+                                              ))
+                                        ],
+                                      )
+                                    ],
                                   ),
                                 ),
                               ),
-                            ]),
-                        SizedBox(
-                          width: 23.0,
-                        ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            FittedBox(
-                              fit: BoxFit.contain,
-                              child: Text(
-                                'Harga Awal',
-                                style: TextStyle(
-                                  fontSize: 14.0,
-                                  color: primaryColor,
-                                ),
-                              ),
                             ),
-                            SizedBox(
-                              height: 4.0,
-                            ),
-                            Text('Rp. $harga',
-                                style: TextStyle(
-                                  fontSize: 14.0,
-                                )),
                           ],
-                        ),
-                        IconButton(
-                            onPressed: () {},
-                            icon: Icon(Icons.arrow_forward_ios_rounded),iconSize: 16.0,)
-                      ],
-                    )
-                  ],
+                        )
+                      ]),
                 ),
-              ))),
-    );
+              ),
+              actions: [
+                Container(
+                  margin: EdgeInsets.all(13.0),
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12.0)),
+                        primary: primaryColor,
+                      ),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: Padding(
+                        padding: EdgeInsets.all(12.0),
+                        child: Text(
+                          'Simpan Barang',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      )),
+                ),
+              ]);
+        });
   }
 }

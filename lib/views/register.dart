@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:widuri/colors.dart';
 
+import 'login.dart';
+
 class Register extends StatefulWidget {
   const Register({Key? key}) : super(key: key);
 
@@ -82,7 +84,9 @@ class _RegisterState extends State<Register> {
           ),
           SizedBox(height: 36),
           MaterialButton(
-              onPressed: null,
+              onPressed: () {
+                Navigator.pop(context);
+              },
               child: Container(
                 alignment: Alignment.center,
                 padding: EdgeInsets.all(10),
