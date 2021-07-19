@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:widuri/colors.dart';
+import 'package:widuri/model/user.dart';
 import 'package:widuri/views/navbar.dart';
 import 'package:widuri/views/register.dart';
 
@@ -86,9 +87,9 @@ class _LoginState extends State<Login> {
                   child: Text("lupa kata sandi"))),
           SizedBox(height: 36),
           MaterialButton(
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => NavBar(_email)));
+              onPressed: () async {
+                await M_User.registerUser(
+                    "lamkhil3000@gmail.com", "masuk123", "lamkhil");
               },
               child: Container(
                 alignment: Alignment.center,
