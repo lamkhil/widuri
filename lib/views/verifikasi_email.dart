@@ -51,11 +51,7 @@ class _VerifikasiEmailState extends State<VerifikasiEmail> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Center(
-                    child : SvgPicture.asset(
-                      ilustrasi,
-                      height: 300,
-                      width: 300,
-                    ),
+                    child: Image.asset(amico),
                   ),
                   SizedBox(
                     height: 20.0,
