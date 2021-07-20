@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:widuri/model/user.dart';
+import 'package:widuri/model/m_user.dart';
 import 'package:widuri/views/login.dart';
 import 'package:widuri/views/navbar.dart';
 

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:widuri/colors.dart';
+import 'package:widuri/controller/c_user.dart';
 
+import 'Widget/loader_dialog.dart';
 import 'login.dart';
 
 class Register extends StatefulWidget {
@@ -11,6 +14,19 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
+  final email = TextEditingController();
+  final nama = TextEditingController();
+  final password = TextEditingController();
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    email.dispose();
+    nama.dispose();
+    password.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     var h = MediaQuery.of(context).size.height;
@@ -36,6 +52,7 @@ class _RegisterState extends State<Register> {
           Container(
             margin: EdgeInsets.all(10),
             child: TextFormField(
+                controller: nama,
                 decoration: InputDecoration(
                     contentPadding: EdgeInsets.all(6),
                     labelText: 'Nama',
@@ -48,18 +65,7 @@ class _RegisterState extends State<Register> {
           Container(
             margin: EdgeInsets.all(10),
             child: TextFormField(
-                decoration: InputDecoration(
-                    contentPadding: EdgeInsets.all(6),
-                    labelText: 'Username',
-                    prefixIcon: Icon(Icons.supervised_user_circle),
-                    labelStyle: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                        color: Colors.grey))),
-          ),
-          Container(
-            margin: EdgeInsets.all(10),
-            child: TextFormField(
+                controller: email,
                 decoration: InputDecoration(
                     contentPadding: EdgeInsets.all(6),
                     labelText: 'Email',
@@ -72,6 +78,7 @@ class _RegisterState extends State<Register> {
           Container(
             margin: EdgeInsets.all(10),
             child: TextFormField(
+                controller: password,
                 obscureText: true,
                 decoration: InputDecoration(
                     contentPadding: EdgeInsets.all(6),
@@ -84,8 +91,9 @@ class _RegisterState extends State<Register> {
           ),
           SizedBox(height: 36),
           MaterialButton(
-              onPressed: () {
-                Navigator.pop(context);
+              onPressed: () async {
+                C_User.registerUser(
+                    context, email.text, password.text, nama.text);
               },
               child: Container(
                 alignment: Alignment.center,

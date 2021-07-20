@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:widuri/colors.dart';
-import 'package:widuri/model/user.dart';
+import 'package:widuri/model/m_user.dart';
 import 'package:widuri/views/navbar.dart';
 import 'package:widuri/views/register.dart';
 
@@ -87,10 +87,7 @@ class _LoginState extends State<Login> {
                   child: Text("lupa kata sandi"))),
           SizedBox(height: 36),
           MaterialButton(
-              onPressed: () async {
-                await M_User.registerUser(
-                    "lamkhil3000@gmail.com", "masuk123", "lamkhil");
-              },
+              onPressed: () async {},
               child: Container(
                 alignment: Alignment.center,
                 padding: EdgeInsets.all(10),
@@ -105,7 +102,19 @@ class _LoginState extends State<Login> {
                       fontWeight: FontWeight.bold,
                       color: Colors.white),
                 ),
-              ))
+              )),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text("Belum punya akun? "),
+              TextButton(
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Register()));
+                  },
+                  child: Text("Register")),
+            ],
+          )
         ],
       ),
     ));
