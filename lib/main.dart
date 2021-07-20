@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:widuri/colors.dart';
 import 'package:widuri/views/login.dart';
 import 'package:widuri/views/navbar.dart';
 import 'package:widuri/views/register.dart';
@@ -17,10 +16,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       theme: ThemeData(
-        primarySwatch: Colors.red,
+        primarySwatch: Colors.blue,
       ),
       getPages: [
-        GetPage(name: '/', page: () => SplashScreen()),
+        GetPage(
+            name: '/',
+            page: () => SplashScreen()),
         GetPage(
             name: '/login',
             page: () => Login(),
