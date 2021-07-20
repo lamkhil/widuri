@@ -9,6 +9,7 @@ class CardBarang extends StatelessWidget {
       required this.jumlah,
       required this.harga});
 
+
   String namaBarang;
   String idBarang;
   int jumlah;
