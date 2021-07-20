@@ -45,33 +45,31 @@ class _VerifikasiEmailState extends State<VerifikasiEmail> {
       body: Container(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
-          child : Flexible(
+          child: Flexible(
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Center(
-                    child : SvgPicture.asset(
-                      ilustrasi,
-                      height: 300,
-                      width: 300,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 20.0,
-                  ),
-                  Text(
-                    'Link verifikasi telah dikirimkan ke ${user.email} . Segera cek email dan klik link yang ada agar dapat memasuki aplikasi',
-                    style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        color: Colors.black,
-                        fontSize: 16),
-                    textAlign: TextAlign.center,
-                  ),
-                ],
-              )
-          )
-          ),
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Center(
+                child: SvgPicture.asset(
+                  ilustrasi,
+                  height: 300,
+                  width: 300,
+                ),
+              ),
+              SizedBox(
+                height: 20.0,
+              ),
+              Text(
+                'Link verifikasi telah dikirimkan ke ${user.email} . Segera cek email dan klik link yang ada agar dapat memasuki aplikasi',
+                style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    color: Colors.black,
+                    fontSize: 16),
+                textAlign: TextAlign.center,
+              ),
+            ],
+          ))),
     );
   }
 

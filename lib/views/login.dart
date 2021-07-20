@@ -107,8 +107,7 @@ class _LoginState extends State<Login> {
               Text("Belum punya akun? "),
               TextButton(
                   onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => Register()));
+                    Get.toNamed("/register");
                   },
                   child: Text("Register")),
             ],

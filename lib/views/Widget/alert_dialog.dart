@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-errorDialog(BuildContext context, String message) {
+customDialog(BuildContext context, String title, String message) {
   return showDialog(
       context: context,
       barrierDismissible: true,
       builder: (context) {
         return AlertDialog(
-          title: Text('Opps!'),
+          title: Text(title),
           content: Text(message),
         );
       });
