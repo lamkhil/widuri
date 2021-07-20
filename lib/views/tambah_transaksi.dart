@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../colors.dart';
+import 'Widget/category_widget.dart';
 
 class TambahTransaksi extends StatefulWidget {
   const TambahTransaksi({Key? key}) : super(key: key);
@@ -12,6 +13,7 @@ class TambahTransaksi extends StatefulWidget {
 }
 
 class _TambahTransaksiState extends State<TambahTransaksi> {
+  int _activeCategory = 0;
   @override
   Widget build(BuildContext context) {
     var h = MediaQuery.of(context).size.height;
@@ -71,75 +73,24 @@ class _TambahTransaksiState extends State<TambahTransaksi> {
                             SizedBox(
                               height: 6,
                             ),
-                            SingleChildScrollView(
-                              scrollDirection: Axis.horizontal,
-                              child: Row(
-                                children: [
-                                  ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                          shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(20)),
-                                          primary: primaryColor),
-                                      onPressed: () {},
-                                      child: Text('+100000')),
-                                  SizedBox(
-                                    width: w * 0.01,
-                                  ),
-                                  ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                          shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(20)),
-                                          primary: primaryColor),
-                                      onPressed: () {},
-                                      child: Text('+100000')),
-                                  SizedBox(
-                                    width: w * 0.01,
-                                  ),
-                                  ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                          shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(20)),
-                                          primary: primaryColor),
-                                      onPressed: () {},
-                                      child: Text('+100000')),
-                                  SizedBox(
-                                    width: w * 0.01,
-                                  ),
-                                  ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                          shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(20)),
-                                          primary: primaryColor),
-                                      onPressed: () {},
-                                      child: Text('+100000')),
-                                  SizedBox(
-                                    width: w * 0.01,
-                                  ),
-                                  ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                          shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(20)),
-                                          primary: primaryColor),
-                                      onPressed: () {},
-                                      child: Text('+100000')),
-                                  SizedBox(
-                                    width: w * 0.01,
-                                  ),
-                                  ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                          shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(20)),
-                                          primary: primaryColor),
-                                      onPressed: () {},
-                                      child: Text('+100000')),
-                                ],
-                              ),
+                            Container(
+                              height: 40.0,
+                              child: ListView.separated(
+                                  clipBehavior: Clip.none,
+                                  scrollDirection: Axis.horizontal,
+                                  itemBuilder: (context, i) => CategoryWidget(
+                                        name: '+5000',
+                                        isActive: _activeCategory == i,
+                                        onClick: () {
+                                          setState(() {
+                                            _activeCategory = i;
+                                          });
+                                        },
+                                      ),
+                                  separatorBuilder: (context, i) => SizedBox(
+                                        width: 6.0,
+                                      ),
+                                  itemCount: 5),
                             ),
                             SizedBox(
                               height: 6,
