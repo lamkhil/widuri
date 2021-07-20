@@ -21,6 +21,7 @@ class _VerifikasiEmailState extends State<VerifikasiEmail> {
   final auth = FirebaseAuth.instance;
   late User user;
   late Timer timer;
+  var data = Get.arguments;
 
   @override
   void initState() {
@@ -79,6 +80,7 @@ class _VerifikasiEmailState extends State<VerifikasiEmail> {
     await user.reload();
     if (user.emailVerified) {
       timer.cancel();
+      await user.updateDisplayName(data);
       Get.offNamed('/main');
     }
   }

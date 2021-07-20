@@ -2,8 +2,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:widuri/views/login.dart';
-import 'package:widuri/views/navbar.dart';
 
 import '../colors.dart';
 
@@ -27,7 +25,7 @@ class _SplashScreenState extends State<SplashScreen> {
     return new Timer(_duration, navigatePage);
   }
 
-  void navigatePage() {
+  void navigatePage() async {
     var user = storage.read('user');
     if (user == null) {
       Get.offNamed('/login');
