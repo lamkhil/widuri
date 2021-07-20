@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:widuri/colors.dart';
@@ -15,6 +16,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   String email;
   static const List<String> _list = ['Harian', 'Mingguan', 'Bulanan'];
+  final auth = FirebaseAuth.instance;
 
   String _value = _list.first;
 
@@ -33,7 +35,7 @@ class _HomeState extends State<Home> {
     return Scaffold(
         appBar: AppBar(
           title: Text(
-            "Hi, $email!",
+            "Hi, ${auth.currentUser!.displayName}!",
             style: TextStyle(
                 fontSize: 24, fontWeight: FontWeight.bold, color: Colors.black),
           ),
