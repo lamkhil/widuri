@@ -39,7 +39,7 @@ class _HomeState extends State<Home> {
             style: TextStyle(
                 fontSize: 24, fontWeight: FontWeight.bold, color: Colors.black),
           ),
-          backgroundColor: Colors.white,
+          backgroundColor: backgroundColor,
           elevation: 0,
           actions: [
             IconButton(onPressed: null, icon: Icon(Icons.notifications))
@@ -47,10 +47,12 @@ class _HomeState extends State<Home> {
         ),
         body: LayoutBuilder(
             builder: (BuildContext context, BoxConstraints viewport) {
-              var h = MediaQuery.of(context).size.height;
+          var h = MediaQuery.of(context).size.height;
           return SingleChildScrollView(
             child: ConstrainedBox(
-              constraints: BoxConstraints(minHeight: viewport.maxHeight,),
+              constraints: BoxConstraints(
+                minHeight: viewport.maxHeight,
+              ),
               child: IntrinsicHeight(
                 child: Padding(
                   padding: EdgeInsets.all(12.0),

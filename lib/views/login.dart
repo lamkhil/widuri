@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:widuri/colors.dart';
-import 'package:widuri/model/m_user.dart';
-import 'package:widuri/views/navbar.dart';
-import 'package:widuri/views/register.dart';
-
-import 'home.dart';
+import 'package:widuri/controller/c_user.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -80,12 +76,14 @@ class _LoginState extends State<Login> {
               alignment: Alignment.centerRight,
               child: TextButton(
                   onPressed: () {
-                    Get.toNamed('/lupa_password');
+                    Get.toNamed("/lupa");
                   },
                   child: Text("lupa kata sandi"))),
           SizedBox(height: 36),
           MaterialButton(
-              onPressed: () async {},
+              onPressed: () {
+                C_User.loginUser(context, _email.text, _password.text);
+              },
               child: Container(
                 alignment: Alignment.center,
                 padding: EdgeInsets.all(10),
