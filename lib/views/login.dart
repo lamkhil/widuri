@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:widuri/colors.dart';
 import 'package:widuri/model/m_user.dart';
 import 'package:widuri/views/navbar.dart';
@@ -16,7 +17,8 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   @override
   bool _isHidden = true;
-  String _email = '', _kataSandi = '';
+  final _email = TextEditingController();
+  final _password = TextEditingController();
 
   Widget build(BuildContext context) {
     var h = MediaQuery.of(context).size.height;
@@ -42,6 +44,7 @@ class _LoginState extends State<Login> {
           Container(
             margin: EdgeInsets.all(10),
             child: TextFormField(
+              controller: _email,
               decoration: InputDecoration(
                 contentPadding: EdgeInsets.all(6),
                 labelText: 'Email',
@@ -51,16 +54,12 @@ class _LoginState extends State<Login> {
                     fontSize: 18,
                     color: Colors.grey),
               ),
-              onChanged: (String value) {
-                setState(() {
-                  _email = value;
-                });
-              },
             ),
           ),
           Container(
             margin: EdgeInsets.all(10),
             child: TextFormField(
+              controller: _password,
               obscureText: _isHidden,
               decoration: InputDecoration(
                   contentPadding: EdgeInsets.all(6),
@@ -81,8 +80,7 @@ class _LoginState extends State<Login> {
               alignment: Alignment.centerRight,
               child: TextButton(
                   onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => Register()));
+                    Get.toNamed('/lupa_password');
                   },
                   child: Text("lupa kata sandi"))),
           SizedBox(height: 36),
