@@ -68,4 +68,11 @@ class C_User {
       customDialog(context, "Oops!", result);
     }
   }
+  static Future <void> logOutUser(BuildContext context)async{
+    var result = await M_User.logOut();
+    if (!(result is String)) {
+      storage.remove('user');
+      Get.offNamed('/login');
+    }
+  }
 }

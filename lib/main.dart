@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
             transitionDuration: Duration(milliseconds: 500)),
         GetPage(name: '/lupa', page: () => LupaPassword()),
         GetPage(name: '/register', page: () => Register()),
-        GetPage(name: '/main', page: () => NavBar('rudy')),
+        GetPage(name: '/main', page: () => NavBar()),
         GetPage(name: '/verif', page: () => VerifikasiEmail()),
       ],
     );

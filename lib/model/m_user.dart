@@ -44,4 +44,9 @@ class M_User {
       return result.toString();
     }
   }
+  static Future<dynamic> logOut()async{
+    await _auth.signOut();
+  }
+
+
 }
