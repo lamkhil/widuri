@@ -24,6 +24,7 @@ class _LupaPasswordState extends State<LupaPassword> {
           iconTheme: IconThemeData(color: primaryColor),
         ),
         body: Container(
+          decoration: BoxDecoration(color: backgroundColor),
           height: h,
           width: w,
           child: Column(

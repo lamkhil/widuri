@@ -38,6 +38,7 @@ class _RegisterState extends State<Register> {
           iconTheme: IconThemeData(color: primaryColor),
         ),
         body: Container(
+          decoration: BoxDecoration(color: backgroundColor),
           height: h,
           width: w,
           child: Column(
