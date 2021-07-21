@@ -11,11 +11,11 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  @override
   bool _isHidden = true;
   final _email = TextEditingController();
   final _password = TextEditingController();
 
+  @override
   Widget build(BuildContext context) {
     var h = MediaQuery.of(context).size.height;
     var w = MediaQuery.of(context).size.width;

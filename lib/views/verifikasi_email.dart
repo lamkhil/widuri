@@ -75,7 +75,7 @@ class _VerifikasiEmailState extends State<VerifikasiEmail> {
     if (user.emailVerified) {
       timer.cancel();
       await user.updateDisplayName(data);
-      Get.offNamed('/main');
+      Get.offAllNamed('/main');
     }
   }
 }
