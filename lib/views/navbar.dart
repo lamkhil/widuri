@@ -10,19 +10,17 @@ import 'profil.dart';
 
 
 class NavBar extends StatefulWidget {
-  final String email;
-  const NavBar(this.email,{Key? key}) : super(key: key);
+
+  const NavBar({Key? key}) : super(key: key);
 
   @override
-  _NavBarState createState() => _NavBarState(email);
+  _NavBarState createState() => _NavBarState();
 }
 
 class _NavBarState extends State<NavBar> {
   late PersistentTabController _controller;
   late bool _hideNavBar;
-  String email;
 
-  _NavBarState(this.email);
 
   @override
   void initState() {
