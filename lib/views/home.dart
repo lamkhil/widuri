@@ -7,14 +7,13 @@ import 'Widget/card_barang.dart';
 import 'Widget/graphic.dart';
 
 class Home extends StatefulWidget {
-  const Home( {Key? key}) : super(key: key);
+  const Home({Key? key}) : super(key: key);
 
   @override
   _HomeState createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
-
   static const List<String> _list = ['Harian', 'Mingguan', 'Bulanan'];
   final auth = FirebaseAuth.instance;
 
@@ -185,6 +184,4 @@ class _HomeState extends State<Home> {
           );
         }));
   }
-
-
 }
