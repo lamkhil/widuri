@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:widuri/colors.dart';
 import 'package:widuri/controller/c_barang.dart';
 import 'Widget/card_barang.dart';
@@ -23,6 +24,7 @@ class _DaftarBarangState extends State<DaftarBarang>
   final hA = TextEditingController();
   final rH = TextEditingController();
   final jmlh = C_Barang();
+  final barangController = Get.put(C_Barang());
 
   @override
   void initState() {
@@ -124,35 +126,29 @@ class _DaftarBarangState extends State<DaftarBarang>
                         fontFamily: 'RobotoMono',
                         color: Colors.black),
                   )),
-              Stack(
-                children: <Widget>[
-                  SingleChildScrollView(
-                    child: Column(
-                      children: <Widget>[
-                        CardBarang(
-                          namaBarang: 'Hijab Segitiga',
-                          idBarang: 'Hij-001',
-                          jumlah: 5,
-                          harga: 10000,
-                        ),
-                        SizedBox(height: 12.0),
-                        CardBarang(
-                          namaBarang: 'Hijab kotak',
-                          idBarang: 'Hij-002',
-                          jumlah: 5,
-                          harga: 10000,
-                        ),
-                        SizedBox(height: 12.0),
-                        CardBarang(
-                          namaBarang: 'Hijab Langsung',
-                          idBarang: 'Hij-003',
-                          jumlah: 10,
-                          harga: 15000,
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+              Expanded(
+                child: Obx(() {
+                  if (barangController.isLoading.value) {
+                    return Center(
+                        child: SpinKitFadingCube(
+                      color: primaryColor,
+                    ));
+                  } else {
+                    return ListView.builder(
+                        itemCount: barangController.barangList.length,
+                        itemBuilder: (context, index) {
+                          return CardBarang(
+                              namaBarang: barangController.barangList[index]
+                                  ['namaBarang'],
+                              idBarang: barangController.barangList[index]
+                                  ['id'],
+                              jumlah: barangController.barangList[index]
+                                  ['jumlah'],
+                              harga: barangController.barangList[index]
+                                  ['hargaAwal']);
+                        });
+                  }
+                }),
               ),
               SizedBox(height: 23.0),
             ],
@@ -480,6 +476,11 @@ class _DaftarBarangState extends State<DaftarBarang>
                             int.parse(rH.text),
                             int.parse(
                                 jmlh.textController.value.text.toString()));
+                        k.text = '';
+                        n.text = '';
+                        hA.text = '';
+                        rH.text = '';
+                        jmlh.textController.value.text = '';
                         Navigator.of(context).pop();
                       },
                       child: Padding(
