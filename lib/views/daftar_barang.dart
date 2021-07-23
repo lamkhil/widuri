@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:widuri/colors.dart';
+import 'package:widuri/controller/c_barang.dart';
 import 'Widget/card_barang.dart';
+import 'package:get/get.dart';
 
 class DaftarBarang extends StatefulWidget {
   const DaftarBarang({Key? key}) : super(key: key);
@@ -16,6 +18,11 @@ class DaftarBarang extends StatefulWidget {
 class _DaftarBarangState extends State<DaftarBarang>
     with SingleTickerProviderStateMixin {
   late TabController controller;
+  final k = TextEditingController();
+  final n = TextEditingController();
+  final hA = TextEditingController();
+  final rH = TextEditingController();
+  final jmlh = C_Barang();
 
   @override
   void initState() {
@@ -26,6 +33,11 @@ class _DaftarBarangState extends State<DaftarBarang>
   @override
   void dispose() {
     controller.dispose();
+    k.dispose();
+    n.dispose();
+    hA.dispose();
+    rH.dispose();
+    jmlh.dispose();
     super.dispose();
   }
 
@@ -81,85 +93,79 @@ class _DaftarBarangState extends State<DaftarBarang>
         ),
         body: Container(
             child: Padding(
-              padding: EdgeInsets.all(12.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
+          padding: EdgeInsets.all(12.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              Card(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12.0)),
+                child: new ListTile(
+                  leading: new Icon(Icons.search),
+                  title: new TextField(
+                    decoration: new InputDecoration(
+                        hintText: 'Search', border: InputBorder.none),
+                    // onChanged: onSearchTextChanged,
+                  ),
+                  trailing: new IconButton(
+                    icon: new Icon(Icons.filter_list_rounded),
+                    onPressed: () {},
+                  ),
+                ),
+              ),
+              Container(
+                  alignment: Alignment.centerLeft,
+                  margin: EdgeInsets.all(12),
+                  child: Text(
+                    'Stock Barang',
+                    style: TextStyle(
+                        fontSize: 18.0,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'RobotoMono',
+                        color: Colors.black),
+                  )),
+              Stack(
                 children: <Widget>[
-                  Card(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12.0)),
-                    child: new ListTile(
-                      leading: new Icon(Icons.search),
-                      title: new TextField(
-                        decoration: new InputDecoration(
-                            hintText: 'Search', border: InputBorder.none),
-                        // onChanged: onSearchTextChanged,
-                      ),
-                      trailing: new IconButton(
-                        icon: new Icon(Icons.filter_list_rounded),
-                        onPressed: () {},
-                      ),
+                  SingleChildScrollView(
+                    child: Column(
+                      children: <Widget>[
+                        CardBarang(
+                          namaBarang: 'Hijab Segitiga',
+                          idBarang: 'Hij-001',
+                          jumlah: 5,
+                          harga: 10000,
+                        ),
+                        SizedBox(height: 12.0),
+                        CardBarang(
+                          namaBarang: 'Hijab kotak',
+                          idBarang: 'Hij-002',
+                          jumlah: 5,
+                          harga: 10000,
+                        ),
+                        SizedBox(height: 12.0),
+                        CardBarang(
+                          namaBarang: 'Hijab Langsung',
+                          idBarang: 'Hij-003',
+                          jumlah: 10,
+                          harga: 15000,
+                        ),
+                      ],
                     ),
                   ),
-                  Container(
-                      alignment: Alignment.centerLeft,
-                      margin: EdgeInsets.all(12),
-                      child: Text(
-                        'Stock Barang',
-                        style: TextStyle(
-                            fontSize: 18.0,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: 'RobotoMono',
-                            color: Colors.black),
-                      )),
-                  Stack(
-                    children: <Widget>[
-                      SingleChildScrollView(
-                        child: Column(
-                          children: <Widget>[
-                            CardBarang(
-                              namaBarang: 'Hijab Segitiga',
-                              idBarang: 'Hij-001',
-                              jumlah: 5,
-                              harga: 10000,
-                            ),
-                            SizedBox(height: 12.0),
-                            CardBarang(
-                              namaBarang: 'Hijab kotak',
-                              idBarang: 'Hij-002',
-                              jumlah: 5,
-                              harga: 10000,
-                            ),
-                            SizedBox(height: 12.0),
-                            CardBarang(
-                              namaBarang: 'Hijab Langsung',
-                              idBarang: 'Hij-003',
-                              jumlah: 10,
-                              harga: 15000,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 23.0),
                 ],
               ),
-            )));
+              SizedBox(height: 23.0),
+            ],
+          ),
+        )));
   }
 
   void popUpTambahBarang() {
     showDialog(
         context: context,
         builder: (BuildContext context) {
-          var w = MediaQuery
-              .of(context)
-              .size
-              .width;
-          var h = MediaQuery
-              .of(context)
-              .size
-              .height;
+          var w = MediaQuery.of(context).size.width;
+          var h = MediaQuery.of(context).size.height;
           return AlertDialog(
               scrollable: true,
               title: Text(
@@ -193,10 +199,11 @@ class _DaftarBarangState extends State<DaftarBarang>
                                 left: 10.0,
                               ),
                               child: new TextField(
+                                controller: k,
                                 decoration: new InputDecoration(
                                     hintText: 'contoh : Baju',
                                     hintStyle:
-                                    TextStyle(fontWeight: FontWeight.w300),
+                                        TextStyle(fontWeight: FontWeight.w300),
                                     border: InputBorder.none),
                                 // onChanged: onSearchTextChanged,
                               ),
@@ -227,10 +234,11 @@ class _DaftarBarangState extends State<DaftarBarang>
                                 left: 10.0,
                               ),
                               child: new TextField(
+                                controller: n,
                                 decoration: new InputDecoration(
                                     hintText: 'contoh : Baju Gamis L21',
                                     hintStyle:
-                                    TextStyle(fontWeight: FontWeight.w300),
+                                        TextStyle(fontWeight: FontWeight.w300),
                                     border: InputBorder.none),
                                 // onChanged: onSearchTextChanged,
                               ),
@@ -260,12 +268,12 @@ class _DaftarBarangState extends State<DaftarBarang>
                                 ),
                                 Container(
                                   constraints:
-                                  BoxConstraints(maxWidth: w * 0.335),
+                                      BoxConstraints(maxWidth: w * 0.335),
                                   child: Card(
                                     margin: EdgeInsets.zero,
                                     shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(
-                                            12.0),
+                                        borderRadius:
+                                            BorderRadius.circular(12.0),
                                         side: BorderSide(color: primaryColor)),
                                     child: Padding(
                                       padding: EdgeInsets.only(
@@ -273,6 +281,7 @@ class _DaftarBarangState extends State<DaftarBarang>
                                         left: 10.0,
                                       ),
                                       child: new TextField(
+                                        controller: hA,
                                         keyboardType: TextInputType.number,
                                         inputFormatters: [
                                           WhitelistingTextInputFormatter
@@ -306,12 +315,12 @@ class _DaftarBarangState extends State<DaftarBarang>
                                 ),
                                 Container(
                                   constraints:
-                                  BoxConstraints(maxWidth: w * 0.335),
+                                      BoxConstraints(maxWidth: w * 0.335),
                                   child: Card(
                                     margin: EdgeInsets.zero,
                                     shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(
-                                            12.0),
+                                        borderRadius:
+                                            BorderRadius.circular(12.0),
                                         side: BorderSide(color: primaryColor)),
                                     child: Padding(
                                       padding: EdgeInsets.only(
@@ -319,6 +328,7 @@ class _DaftarBarangState extends State<DaftarBarang>
                                         left: 10.0,
                                       ),
                                       child: new TextField(
+                                        controller: rH,
                                         keyboardType: TextInputType.number,
                                         inputFormatters: [
                                           WhitelistingTextInputFormatter
@@ -346,7 +356,7 @@ class _DaftarBarangState extends State<DaftarBarang>
                           children: <Widget>[
                             Container(
                               constraints: BoxConstraints(
-                                  maxWidth: w * 0.2, maxHeight: h * 0.09),
+                                  maxWidth: w * 0.2, minHeight: h * 0.09),
                               child: Card(
                                 elevation: 4.0,
                                 margin: EdgeInsets.zero,
@@ -368,30 +378,74 @@ class _DaftarBarangState extends State<DaftarBarang>
                                       ),
                                       Row(
                                         mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
+                                            MainAxisAlignment.spaceBetween,
                                         children: <Widget>[
                                           IconButton(
                                               padding: EdgeInsets.zero,
                                               constraints: BoxConstraints(),
-                                              onPressed: () {},
+                                              onPressed: () {
+                                                jmlh.kurangJumlahBarang();
+                                              },
                                               icon: Icon(
-                                                Icons.add_circle_rounded,
+                                                Icons.remove_circle_rounded,
                                                 color: primaryColor,
                                               )),
                                           SizedBox(
                                             width: 6.0,
                                           ),
-                                          Text(
-                                            '2',
-                                            style: TextStyle(fontSize: 10),
-                                          ),
+                                          Expanded(
+                                              child: Obx(
+                                            () => FocusScope(
+                                              onFocusChange: (value) {
+                                                String result = jmlh
+                                                    .textController.value.text
+                                                    .toString();
+                                                if (value) {
+                                                  if (result == '0') {
+                                                    jmlh.textController.value
+                                                        .text = '';
+                                                  }
+                                                } else {
+                                                  if (result == '' ||
+                                                      result == '0') {
+                                                    jmlh.textController.value
+                                                        .text = '1';
+                                                  } else {
+                                                    var i = int.parse(result);
+                                                    if (i > 0) {
+                                                      jmlh.textController.value
+                                                          .text = i.toString();
+                                                    } else {
+                                                      jmlh.textController.value
+                                                          .text = '1';
+                                                    }
+                                                  }
+                                                }
+                                              },
+                                              child: TextFormField(
+                                                textAlign: TextAlign.center,
+                                                controller:
+                                                    jmlh.textController.value,
+                                                keyboardType:
+                                                    TextInputType.number,
+                                                inputFormatters: [
+                                                  FilteringTextInputFormatter
+                                                      .digitsOnly
+                                                ],
+                                                decoration: InputDecoration(
+                                                    border: InputBorder.none),
+                                              ),
+                                            ),
+                                          )),
                                           SizedBox(
                                             width: 6.0,
                                           ),
                                           IconButton(
                                               padding: EdgeInsets.zero,
                                               constraints: BoxConstraints(),
-                                              onPressed: () {},
+                                              onPressed: () {
+                                                jmlh.tambahJumlahBarang();
+                                              },
                                               icon: Icon(
                                                 Icons.add_circle_rounded,
                                                 color: primaryColor,
@@ -418,20 +472,26 @@ class _DaftarBarangState extends State<DaftarBarang>
                         primary: primaryColor,
                       ),
                       onPressed: () {
+                        C_Barang.tambahBarang(
+                            context,
+                            k.text,
+                            n.text,
+                            int.parse(hA.text),
+                            int.parse(rH.text),
+                            int.parse(
+                                jmlh.textController.value.text.toString()));
                         Navigator.of(context).pop();
                       },
                       child: Padding(
                         padding: EdgeInsets.all(12.0),
-                        child : Text(
+                        child: Text(
                           'Simpan Barang',
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: 14,
                               fontWeight: FontWeight.bold),
                         ),
-                      )
-
-                  ),
+                      )),
                 ),
               ]);
         });

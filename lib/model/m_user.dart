@@ -1,9 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:translator/translator.dart';
-import 'package:widuri/views/Widget/alert_dialog.dart';
 
+// ignore: camel_case_types
 class M_User {
   static final translator = GoogleTranslator();
   static FirebaseAuth _auth = FirebaseAuth.instance;
@@ -44,9 +42,8 @@ class M_User {
       return result.toString();
     }
   }
-  static Future<dynamic> logOut()async{
+
+  static Future<dynamic> logOut() async {
     await _auth.signOut();
   }
-
-
 }
