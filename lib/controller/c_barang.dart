@@ -12,6 +12,7 @@ import 'package:widuri/views/Widget/loader_dialog.dart';
 // ignore: camel_case_types
 class C_Barang extends GetxController {
   var _textController = TextEditingController(text: '1').obs;
+  var query = ''.obs;
   var barangList = <dynamic>[].obs;
   static var isLoadingStatic = false.obs;
 

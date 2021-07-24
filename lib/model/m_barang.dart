@@ -5,22 +5,6 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:translator/translator.dart';
 import 'package:widuri/colors.dart';
 
-// ignore: camel_case_types
-class Barang {
-  late String kategori;
-  late String namaBarang;
-  late int hargaAwal;
-  late int rekomendasiHarga;
-  late int jmlh;
-  Barang(String k, String n, int h, int r, int j) {
-    this.kategori = k;
-    this.namaBarang = n;
-    this.hargaAwal = h;
-    this.rekomendasiHarga = r;
-    this.jmlh = j;
-  }
-}
-
 class M_Barang {
   static final _translator = GoogleTranslator();
   static FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -53,7 +37,8 @@ class M_Barang {
                   'namaBarang': e['namaBarang'],
                   'hargaAwal': e['hargaAwal'],
                   'rekomendasiHarga': e['rekomendasiHarga'],
-                  'jumlah': e['jumlah']
+                  'jumlah': e['jumlah'],
+                  'caseSearch': e['caseSearch']
                 })
             .toList();
       } else {
@@ -61,6 +46,16 @@ class M_Barang {
         return widget;
       }
     });
+  }
+
+  static List<String> setSearchParam(String caseString) {
+    List<String> caseSearchList = [];
+    String temp = "";
+    for (int i = 0; i < caseString.length; i++) {
+      temp = temp + caseString[i];
+      caseSearchList.add(temp);
+    }
+    return caseSearchList;
   }
 
   static Future<dynamic> tambahBarang(String kategori, String namaBarang,
@@ -72,6 +67,8 @@ class M_Barang {
     if (id.size > 0) {
       i = int.parse(id.docs.last.id.split('-')[1]) + 1;
     }
+    var caseSearch = setSearchParam("${kategori.toLowerCase()}-$i");
+    caseSearch.addAll(setSearchParam(namaBarang.toLowerCase()));
     bool err = false;
     String error = '';
     id.docs.forEach((element) {
@@ -90,6 +87,7 @@ class M_Barang {
         'namaBarang': namaBarang,
         'hargaAwal': hargaAwal,
         'rekomendasiHarga': rekomendasiHarga,
+        'caseSearch': caseSearch,
         'jumlah': jmlh
       });
       return 1;

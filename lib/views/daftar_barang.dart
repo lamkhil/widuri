@@ -109,6 +109,9 @@ class _DaftarBarangState extends State<DaftarBarang>
                     decoration: new InputDecoration(
                         hintText: 'Search', border: InputBorder.none),
                     // onChanged: onSearchTextChanged,
+                    onChanged: (value) {
+                      barangController.query.value = value.toLowerCase();
+                    },
                   ),
                   trailing: new IconButton(
                     icon: new Icon(Icons.filter_list_rounded),
@@ -135,21 +138,29 @@ class _DaftarBarangState extends State<DaftarBarang>
                       color: primaryColor,
                     ));
                   } else {
-                    if (barangController.barangList[0] is int) {
+                    var viewList = [];
+                    if (barangController.query.value == '') {
+                      viewList = barangController.barangList;
+                    } else {
+                      viewList = barangController.barangList
+                          .where((value) => value['caseSearch']
+                              .contains(barangController.query.value))
+                          .toList();
+                      if (viewList.isEmpty) {
+                        return Text('Belum ada barang');
+                      }
+                    }
+                    if (viewList[0] is int) {
                       return Text('Belum ada barang');
                     } else {
                       return ListView.builder(
-                          itemCount: barangController.barangList.length,
+                          itemCount: viewList.length,
                           itemBuilder: (context, index) {
                             return CardBarang(
-                                namaBarang: barangController.barangList[index]
-                                    ['namaBarang'],
-                                idBarang: barangController.barangList[index]
-                                    ['id'],
-                                jumlah: barangController.barangList[index]
-                                    ['jumlah'],
-                                harga: barangController.barangList[index]
-                                    ['hargaAwal']);
+                                namaBarang: viewList[index]['namaBarang'],
+                                idBarang: viewList[index]['id'],
+                                jumlah: viewList[index]['jumlah'],
+                                harga: viewList[index]['hargaAwal']);
                           });
                     }
                   }
