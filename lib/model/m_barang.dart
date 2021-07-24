@@ -1,7 +1,9 @@
 import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:translator/translator.dart';
+import 'package:widuri/colors.dart';
 
 // ignore: camel_case_types
 class Barang {
@@ -24,7 +26,7 @@ class M_Barang {
   static FirebaseFirestore firestore = FirebaseFirestore.instance;
   static CollectionReference _barang =
       FirebaseFirestore.instance.collection('barang');
-  static Future<dynamic> getAllBarang() async {
+  static Future<List<dynamic>> cekBarang() async {
     var list = [];
     var result = await _barang.get();
     result.docs.forEach((element) {
@@ -38,6 +40,27 @@ class M_Barang {
       });
     });
     return list;
+  }
+
+  static Stream<List<dynamic>> getBarangStream() {
+    Stream<QuerySnapshot> stream = _barang.snapshots();
+    return stream.map((event) {
+      if (event.docs.isNotEmpty) {
+        return event.docs
+            .map((e) => {
+                  'id': e.id,
+                  'kategori': e['kategori'],
+                  'namaBarang': e['namaBarang'],
+                  'hargaAwal': e['hargaAwal'],
+                  'rekomendasiHarga': e['rekomendasiHarga'],
+                  'jumlah': e['jumlah']
+                })
+            .toList();
+      } else {
+        List<dynamic> widget = [1];
+        return widget;
+      }
+    });
   }
 
   static Future<dynamic> tambahBarang(String kategori, String namaBarang,

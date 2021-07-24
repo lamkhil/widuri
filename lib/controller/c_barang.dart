@@ -12,24 +12,13 @@ import 'package:widuri/views/Widget/loader_dialog.dart';
 // ignore: camel_case_types
 class C_Barang extends GetxController {
   var _textController = TextEditingController(text: '1').obs;
-  var isLoading = true.obs;
   var barangList = <dynamic>[].obs;
+  static var isLoadingStatic = false.obs;
 
   @override
   void onInit() {
-    fetchBarang();
+    barangList.bindStream(M_Barang.getBarangStream());
     super.onInit();
-  }
-
-  void fetchBarang() async {
-    try {
-      isLoading(true);
-      var barang = await M_Barang.getAllBarang();
-      print(barang);
-      barangList.value = barang;
-    } finally {
-      isLoading(false);
-    }
   }
 
   tambahJumlahBarang() {
@@ -56,11 +45,11 @@ class C_Barang extends GetxController {
 
   static Future<void> tambahBarang(BuildContext context, String kategori,
       String namaBarang, int hargaAwal, int rekomendasiHarga, int jmlh) async {
-    loaderDialog(
-        context, SpinKitFadingCube(color: primaryColor), 'Tunggu Sebentar!');
+    isLoadingStatic.value = true;
     var id = kategori + 1.toString();
     var result = await M_Barang.tambahBarang(
         kategori, namaBarang, hargaAwal, rekomendasiHarga, jmlh);
+    isLoadingStatic.value = false;
     Navigator.of(context).pop();
     if (!(result is String)) {
       customDialog(context, "Alhamdulillah!", 'Barang berhasil ditambah');
