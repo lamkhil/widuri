@@ -9,7 +9,7 @@ class M_Barang {
   static final _translator = GoogleTranslator();
   static FirebaseFirestore firestore = FirebaseFirestore.instance;
   static CollectionReference _barang =
-      FirebaseFirestore.instance.collection('barang');
+  FirebaseFirestore.instance.collection('barang');
   static Future<List<dynamic>> cekBarang() async {
     var list = [];
     var result = await _barang.get();

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:widuri/colors.dart';
+import 'package:widuri/controller/c_barang.dart';
 
 class CardBarang extends StatelessWidget {
   CardBarang(
@@ -14,6 +15,7 @@ class CardBarang extends StatelessWidget {
   String idBarang;
   int jumlah;
   int harga;
+
 
   @override
   Widget build(BuildContext context) {
