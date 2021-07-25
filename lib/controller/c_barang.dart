@@ -15,6 +15,12 @@ class C_Barang extends GetxController {
   var query = ''.obs;
   var barangList = <dynamic>[].obs;
   static var isLoadingStatic = false.obs;
+  static const List<String> listDropdownHome = [
+    'Harian',
+    'Mingguan',
+    'Bulanan'
+  ];
+  var valueDropdownHome = listDropdownHome.first.obs;
 
   @override
   void onInit() {
