@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
+import 'package:widuri/controller/c_transaksi.dart';
 
 import '../colors.dart';
 import 'Widget/category_widget.dart';
@@ -14,6 +16,7 @@ class TambahTransaksi extends StatefulWidget {
 
 class _TambahTransaksiState extends State<TambahTransaksi> {
   int _activeCategory = 0;
+  var transaksiController = Get.put(C_Transaksi());
   @override
   Widget build(BuildContext context) {
     var h = MediaQuery.of(context).size.height;
@@ -119,25 +122,33 @@ class _TambahTransaksiState extends State<TambahTransaksi> {
                               height: 8,
                             ),
                             Container(
-                              padding: EdgeInsets.only(left: 10, right: 10),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  border: Border.all(
-                                    color: primaryColor,
-                                    width: 1.0,
-                                  )),
-                              child: TextFormField(
-                                keyboardType: TextInputType.number,
-                                inputFormatters: [
-                                  FilteringTextInputFormatter.digitsOnly
-                                ],
-                                decoration: InputDecoration(
-                                  hintText: "contoh: 100.000",
-                                  border: InputBorder.none,
-                                  suffixText: "Rupiah",
-                                ),
-                              ),
-                            ),
+                                width: w * 0.35,
+                                padding: EdgeInsets.only(left: 10, right: 10),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    border: Border.all(
+                                      color: primaryColor,
+                                      width: 1.0,
+                                    )),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    IconButton(
+                                      onPressed: () {},
+                                      icon: Icon(Icons.calendar_today_outlined),
+                                      color: primaryColor,
+                                    ),
+                                    Obx(() {
+                                      if (transaksiController.date.value ==
+                                          '') {
+                                        return Text('Pilih Tanggal');
+                                      } else {
+                                        return Text(
+                                            transaksiController.date.value);
+                                      }
+                                    })
+                                  ],
+                                )),
                             SizedBox(
                               height: 8,
                             ),
@@ -350,7 +361,7 @@ class _TambahTransaksiState extends State<TambahTransaksi> {
                         ),
                         label: Text("Tambah Barang"),
                       ),
-
+                      SizedBox(height: 36)
                       // child: Row(
                       //   mainAxisAlignment: MainAxisAlignment.start,
                       //   children: [

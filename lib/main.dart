@@ -21,9 +21,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primaryColor: primaryColorSwatch,
-      ),
+      theme:
+          ThemeData(primaryColor: primaryColor, accentColor: Colors.redAccent),
       getPages: [
         GetPage(name: '/', page: () => SplashScreen()),
         GetPage(

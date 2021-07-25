@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:widuri/colors.dart';
 import 'package:widuri/controller/c_barang.dart';
+import 'Widget/alert_dialog.dart';
 import 'Widget/card_barang.dart';
 import 'package:get/get.dart';
 
@@ -173,6 +174,7 @@ class _DaftarBarangState extends State<DaftarBarang>
   }
 
   void popUpTambahBarang() {
+    final _formKey = GlobalKey<FormState>();
     showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -193,6 +195,7 @@ class _DaftarBarangState extends State<DaftarBarang>
                   return Container(
                     width: w - 23,
                     child: Form(
+                      key: _formKey,
                       child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
@@ -208,21 +211,43 @@ class _DaftarBarangState extends State<DaftarBarang>
                               constraints: BoxConstraints(maxWidth: w * 1),
                               child: Card(
                                 margin: EdgeInsets.zero,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(12.0),
-                                    side: BorderSide(color: primaryColor)),
                                 child: Padding(
                                   padding: EdgeInsets.only(
                                     right: 10.0,
                                     left: 10.0,
                                   ),
-                                  child: new TextField(
+                                  child: new TextFormField(
+                                    validator: (value) {
+                                      if (value == '') {
+                                        return 'Jangan Dikosongi';
+                                      }
+                                      return null;
+                                    },
                                     controller: k,
                                     decoration: new InputDecoration(
                                         hintText: 'contoh : Baju',
+                                        focusColor: primaryColor,
                                         hintStyle: TextStyle(
                                             fontWeight: FontWeight.w300),
-                                        border: InputBorder.none),
+                                        focusedBorder: new OutlineInputBorder(
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                              const Radius.circular(12.0),
+                                            ),
+                                            borderSide: BorderSide(
+                                                color: primaryColor,
+                                                width: 2.0)),
+                                        border: new OutlineInputBorder(
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                              const Radius.circular(12.0),
+                                            ),
+                                            borderSide: BorderSide(
+                                                color: primaryColor,
+                                                width: 2.0)),
+                                        contentPadding:
+                                            new EdgeInsets.symmetric(
+                                                horizontal: 10.0)),
                                     // onChanged: onSearchTextChanged,
                                   ),
                                 ),
@@ -243,21 +268,42 @@ class _DaftarBarangState extends State<DaftarBarang>
                               constraints: BoxConstraints(maxWidth: w * 1),
                               child: Card(
                                 margin: EdgeInsets.zero,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(12.0),
-                                    side: BorderSide(color: primaryColor)),
                                 child: Padding(
                                   padding: EdgeInsets.only(
                                     right: 10.0,
                                     left: 10.0,
                                   ),
-                                  child: new TextField(
+                                  child: new TextFormField(
+                                    validator: (value) {
+                                      if (value == '') {
+                                        return 'Jangan Dikosongi';
+                                      }
+                                      return null;
+                                    },
                                     controller: n,
                                     decoration: new InputDecoration(
                                         hintText: 'contoh : Baju Gamis L21',
                                         hintStyle: TextStyle(
                                             fontWeight: FontWeight.w300),
-                                        border: InputBorder.none),
+                                        focusedBorder: new OutlineInputBorder(
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                              const Radius.circular(12.0),
+                                            ),
+                                            borderSide: BorderSide(
+                                                color: primaryColor,
+                                                width: 2.0)),
+                                        border: new OutlineInputBorder(
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                              const Radius.circular(12.0),
+                                            ),
+                                            borderSide: BorderSide(
+                                                color: primaryColor,
+                                                width: 2.0)),
+                                        contentPadding:
+                                            new EdgeInsets.symmetric(
+                                                horizontal: 10.0)),
                                     // onChanged: onSearchTextChanged,
                                   ),
                                 ),
@@ -289,17 +335,18 @@ class _DaftarBarangState extends State<DaftarBarang>
                                           BoxConstraints(maxWidth: w * 0.335),
                                       child: Card(
                                         margin: EdgeInsets.zero,
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(12.0),
-                                            side: BorderSide(
-                                                color: primaryColor)),
                                         child: Padding(
                                           padding: EdgeInsets.only(
                                             right: 10.0,
                                             left: 10.0,
                                           ),
-                                          child: new TextField(
+                                          child: new TextFormField(
+                                            validator: (value) {
+                                              if (value == '') {
+                                                return 'Jangan Dikosongi';
+                                              }
+                                              return null;
+                                            },
                                             controller: hA,
                                             keyboardType: TextInputType.number,
                                             inputFormatters: [
@@ -311,7 +358,29 @@ class _DaftarBarangState extends State<DaftarBarang>
                                                 hintStyle: TextStyle(
                                                     fontWeight:
                                                         FontWeight.w300),
-                                                border: InputBorder.none),
+                                                focusedBorder:
+                                                    new OutlineInputBorder(
+                                                        borderRadius:
+                                                            const BorderRadius
+                                                                .all(
+                                                          const Radius.circular(
+                                                              12.0),
+                                                        ),
+                                                        borderSide: BorderSide(
+                                                            color: primaryColor,
+                                                            width: 2.0)),
+                                                border: new OutlineInputBorder(
+                                                    borderRadius:
+                                                        const BorderRadius.all(
+                                                      const Radius.circular(
+                                                          12.0),
+                                                    ),
+                                                    borderSide: BorderSide(
+                                                        color: primaryColor,
+                                                        width: 2.0)),
+                                                contentPadding:
+                                                    new EdgeInsets.symmetric(
+                                                        horizontal: 10.0)),
                                             // onChanged: onSearchTextChanged,
                                           ),
                                         ),
@@ -338,17 +407,18 @@ class _DaftarBarangState extends State<DaftarBarang>
                                           BoxConstraints(maxWidth: w * 0.335),
                                       child: Card(
                                         margin: EdgeInsets.zero,
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(12.0),
-                                            side: BorderSide(
-                                                color: primaryColor)),
                                         child: Padding(
                                           padding: EdgeInsets.only(
                                             right: 10.0,
                                             left: 10.0,
                                           ),
-                                          child: new TextField(
+                                          child: new TextFormField(
+                                            validator: (value) {
+                                              if (value == '') {
+                                                return 'Jangan Dikosongi';
+                                              }
+                                              return null;
+                                            },
                                             controller: rH,
                                             keyboardType: TextInputType.number,
                                             inputFormatters: [
@@ -360,7 +430,29 @@ class _DaftarBarangState extends State<DaftarBarang>
                                                 hintStyle: TextStyle(
                                                     fontWeight:
                                                         FontWeight.w300),
-                                                border: InputBorder.none),
+                                                focusedBorder:
+                                                    new OutlineInputBorder(
+                                                        borderRadius:
+                                                            const BorderRadius
+                                                                .all(
+                                                          const Radius.circular(
+                                                              12.0),
+                                                        ),
+                                                        borderSide: BorderSide(
+                                                            color: primaryColor,
+                                                            width: 2.0)),
+                                                border: new OutlineInputBorder(
+                                                    borderRadius:
+                                                        const BorderRadius.all(
+                                                      const Radius.circular(
+                                                          12.0),
+                                                    ),
+                                                    borderSide: BorderSide(
+                                                        color: primaryColor,
+                                                        width: 2.0)),
+                                                contentPadding:
+                                                    new EdgeInsets.symmetric(
+                                                        horizontal: 10.0)),
                                             // onChanged: onSearchTextChanged,
                                           ),
                                         ),
@@ -378,7 +470,7 @@ class _DaftarBarangState extends State<DaftarBarang>
                               children: <Widget>[
                                 Container(
                                   constraints: BoxConstraints(
-                                      maxWidth: w * 0.2, minHeight: h * 0.09),
+                                      maxWidth: w * 0.35, minHeight: h * 0.09),
                                   child: Card(
                                     elevation: 4.0,
                                     margin: EdgeInsets.zero,
@@ -507,23 +599,25 @@ class _DaftarBarangState extends State<DaftarBarang>
                             primary: primaryColor,
                           ),
                           onPressed: () async {
-                            var kategori = k.text;
-                            var nama = n.text;
-                            var hargaAwal = hA.text;
-                            var rekomHarga = rH.text;
-                            var j = jmlh.textController.value.text.toString();
-                            k.text = '';
-                            n.text = '';
-                            hA.text = '';
-                            rH.text = '';
-                            jmlh.textController.value.text = '1';
-                            await C_Barang.tambahBarang(
-                                context,
-                                kategori,
-                                nama,
-                                int.parse(hargaAwal),
-                                int.parse(rekomHarga),
-                                int.parse(j));
+                            if (_formKey.currentState!.validate()) {
+                              var kategori = k.text;
+                              var nama = n.text;
+                              var hargaAwal = hA.text;
+                              var rekomHarga = rH.text;
+                              var j = jmlh.textController.value.text.toString();
+                              k.text = '';
+                              n.text = '';
+                              hA.text = '';
+                              rH.text = '';
+                              jmlh.textController.value.text = '1';
+                              await C_Barang.tambahBarang(
+                                  context,
+                                  kategori,
+                                  nama,
+                                  int.parse(hargaAwal),
+                                  int.parse(rekomHarga),
+                                  int.parse(j));
+                            }
                           },
                           child: Padding(
                             padding: EdgeInsets.all(12.0),
