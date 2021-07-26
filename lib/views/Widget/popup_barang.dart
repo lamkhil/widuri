@@ -80,10 +80,7 @@ class PopUpBarang {
                             Container(
                               constraints: BoxConstraints(maxWidth: w * 1),
                               child: Padding(
-                                padding: EdgeInsets.only(
-                                  right: 10.0,
-                                  left: 10.0,
-                                ),
+                                padding: EdgeInsets.zero,
                                 child: new TextFormField(
                                   validator: (value) {
                                     if (value == '') {
@@ -129,10 +126,7 @@ class PopUpBarang {
                             Container(
                               constraints: BoxConstraints(maxWidth: w * 1),
                               child: Padding(
-                                padding: EdgeInsets.only(
-                                  right: 10.0,
-                                  left: 10.0,
-                                ),
+                                padding: EdgeInsets.zero,
                                 child: new TextFormField(
                                   validator: (value) {
                                     if (value == '') {
@@ -188,10 +182,7 @@ class PopUpBarang {
                                       constraints:
                                           BoxConstraints(maxWidth: w * 0.335),
                                       child: Padding(
-                                        padding: EdgeInsets.only(
-                                          right: 10.0,
-                                          left: 10.0,
-                                        ),
+                                        padding: EdgeInsets.zero,
                                         child: new TextFormField(
                                           validator: (value) {
                                             if (value == '') {
@@ -255,10 +246,7 @@ class PopUpBarang {
                                       constraints:
                                           BoxConstraints(maxWidth: w * 0.335),
                                       child: Padding(
-                                        padding: EdgeInsets.only(
-                                          right: 10.0,
-                                          left: 10.0,
-                                        ),
+                                        padding: EdgeInsets.zero,
                                         child: new TextFormField(
                                           validator: (value) {
                                             if (value == '') {
@@ -322,7 +310,7 @@ class PopUpBarang {
                                       borderRadius: BorderRadius.circular(12.0),
                                     ),
                                     child: Padding(
-                                      padding: EdgeInsets.all(12.0),
+                                      padding: EdgeInsets.symmetric(horizontal : 12.0),
                                       child: Column(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
@@ -332,9 +320,6 @@ class PopUpBarang {
                                             style: TextStyle(
                                                 color: primaryColor,
                                                 fontSize: 10),
-                                          ),
-                                          SizedBox(
-                                            height: 4.0,
                                           ),
                                           Row(
                                             mainAxisAlignment:

@@ -116,6 +116,7 @@ class BodyBarang {
             child: new ListTile(
               leading: new Icon(Icons.search),
               title: new TextField(
+                autofocus: false,
                 decoration: new InputDecoration(
                     hintText: 'Search', border: InputBorder.none),
                 // onChanged: onSearchTextChanged,
@@ -152,12 +153,13 @@ class BodyBarang {
                 if (barangController.query.value == '') {
                   viewList = barangController.barangList;
                 } else {
-                  viewList = barangController.barangList
-                      .where((value) => value['caseSearch']
-                          .contains(barangController.query.value))
-                      .toList();
-                  if (viewList.isEmpty) {
-                    return Text('Belum ada barang');
+                  if (!(barangController.barangList.value [0] is int) ){
+                    viewList = barangController.barangList
+                        .where((value) => value['caseSearch']
+                        .contains(barangController.query.value))
+                        .toList();
+                  } else{
+                    return Text('Masih Belum ada barang');
                   }
                 }
                 if (viewList[0] is int) {

@@ -74,24 +74,33 @@ class _HomeState extends State<Home> {
                 ));
               } else {
                 if (barangController.barangList[0] is int) {
-                  return Text('Belum ada barang');
+                  return Center(
+                    child :
+                    Text('Belum ada barang'),
+                  );
                 } else {
                   var viewList = barangController.barangList
                       .where((value) => value['jumlah'] < 3)
                       .toList();
-                  return ListView.builder(
-                      physics: NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: viewList.length,
-                      itemBuilder: (context, index) {
-                        return CardBarang(
-                            namaBarang: viewList[index]['namaBarang'],
-                            idBarang: viewList[index]['id'],
-                            jumlah: viewList[index]['jumlah'],
-                            harga: viewList[index]['hargaAwal'],
-                            kategori: viewList[index]['kategori'],
-                            rekomendasi: viewList[index]['rekomendasiHarga']);
-                      });
+                 if (viewList.isEmpty){
+                   return Center(
+                     child: Text("Belum ada barang menipis"),
+                   );
+                 }else{
+                   return ListView.builder(
+                       physics: NeverScrollableScrollPhysics(),
+                       shrinkWrap: true,
+                       itemCount: viewList.length,
+                       itemBuilder: (context, index) {
+                         return CardBarang(
+                             namaBarang: viewList[index]['namaBarang'],
+                             idBarang: viewList[index]['id'],
+                             jumlah: viewList[index]['jumlah'],
+                             harga: viewList[index]['hargaAwal'],
+                             kategori: viewList[index]['kategori'],
+                             rekomendasi: viewList[index]['rekomendasiHarga']);
+                       });
+                 }
                 }
               }
             }),
