@@ -469,7 +469,7 @@ class PopUpBarang {
                               _n.text = '';
                               _hA.text = '';
                               _rH.text = '';
-                              C_Barang.hapusBarang(context, idBarang!);
+                              C_Barang.hapusBarang(context, idBarang);
                             }
                           },
                           child: Padding(
