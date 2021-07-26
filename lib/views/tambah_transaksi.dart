@@ -17,6 +17,7 @@ class TambahTransaksi extends StatefulWidget {
 class _TambahTransaksiState extends State<TambahTransaksi> {
   int _activeCategory = 0;
   var transaksiController = Get.put(C_Transaksi());
+  var _catatanController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     var h = MediaQuery.of(context).size.height;
@@ -164,7 +165,7 @@ class _TambahTransaksiState extends State<TambahTransaksi> {
                                     ),
                                     label: Text(
                                       transaksiController.date.value,
-                                      style: TextStyle(color: primaryColor),
+                                      style: TextStyle(color: Colors.black),
                                     ),
                                   );
                                 })),
@@ -183,34 +184,49 @@ class _TambahTransaksiState extends State<TambahTransaksi> {
                               height: 8,
                             ),
                             Container(
-                              padding: EdgeInsets.only(left: 10, right: 10),
-                              height: 72,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  border: Border.all(
-                                    color: primaryColor,
-                                    width: 1.0,
-                                  )),
-                              child: TextFormField(
-                                keyboardType: TextInputType.multiline,
-                                decoration: InputDecoration(
-                                  hintText:
-                                      "contoh : Ini merupakan transaksi lama dari ibu sumiati yang ngutang dan sekarang baru dibayar.",
-                                  hintMaxLines: 3,
-                                  border: InputBorder.none,
-                                ),
-                              ),
-                            ),
+                                padding: EdgeInsets.only(left: 10, right: 10),
+                                height: 72,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    border: Border.all(
+                                      color: primaryColor,
+                                      width: 1.0,
+                                    )),
+                                child: TextFormField(
+                                  controller: transaksiController
+                                      .controllerCatatan.value,
+                                  keyboardType: TextInputType.multiline,
+                                  maxLength: 100,
+                                  maxLines: null,
+                                  onChanged: (value) {
+                                    transaksiController.catatan.value = value;
+                                  },
+                                  decoration: InputDecoration(
+                                    counterText: '',
+                                    hintText:
+                                        "contoh : Ini merupakan transaksi lama dari ibu sumiati yang ngutang dan sekarang baru dibayar.",
+                                    hintMaxLines: 3,
+                                    border: InputBorder.none,
+                                  ),
+                                )),
                             SizedBox(
                               height: 6,
                             ),
-                            Text(
-                              'Batas teks 100 karakter',
-                              style: TextStyle(
-                                  fontSize: 14.0,
-                                  fontFamily: 'RobotoMono',
-                                  color: Colors.black),
-                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Obx(
+                                  () => Text(
+                                    '${transaksiController.catatan.value.length.toString()}/100',
+                                    textAlign: TextAlign.end,
+                                    style: TextStyle(
+                                        fontSize: 14.0,
+                                        fontFamily: 'RobotoMono',
+                                        color: Colors.black),
+                                  ),
+                                )
+                              ],
+                            )
                           ],
                         ),
                       )),
