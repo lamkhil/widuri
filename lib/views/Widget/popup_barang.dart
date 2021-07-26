@@ -34,12 +34,16 @@ class PopUpBarang {
 
   void popUpTambahBarang() {
     final _formKey = GlobalKey<FormState>();
+    var _title = '';
     if (edit) {
       _k.text = kategori!;
       _n.text = namaBarang!;
       _hA.text = hargaAwal.toString();
       _rH.text = rekomendasiHarga.toString();
       _jmlh.textController.value.text = jumlah.toString();
+      _title = 'Edit Barang';
+    } else {
+      _title = 'Tambah Barang';
     }
     showDialog(
         context: context,
@@ -49,7 +53,7 @@ class PopUpBarang {
           return AlertDialog(
               scrollable: true,
               title: Text(
-                'Tambah Barang',
+                _title,
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
               ),
               content: Obx(() {
