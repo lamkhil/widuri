@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:widuri/controller/c_transaksi.dart';
-
+import 'package:intl/intl.dart';
 import '../colors.dart';
 import 'Widget/category_widget.dart';
 
@@ -124,7 +124,6 @@ class _TambahTransaksiState extends State<TambahTransaksi> {
                               height: 8,
                             ),
                             Container(
-                                width: w * 0.35,
                                 padding: EdgeInsets.only(left: 10, right: 10),
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10),
@@ -132,25 +131,43 @@ class _TambahTransaksiState extends State<TambahTransaksi> {
                                       color: primaryColor,
                                       width: 1.0,
                                     )),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    IconButton(
-                                      onPressed: () {},
-                                      icon: Icon(Icons.calendar_today_outlined),
+                                child: Obx(() {
+                                  var date = DateTime.now();
+
+                                  if (transaksiController.date.value == '') {
+                                    transaksiController.date.value =
+                                        DateFormat('dd-MM-yyyy').format(date);
+                                  }
+                                  return ElevatedButton.icon(
+                                    style: ElevatedButton.styleFrom(
+                                        primary: backgroundColor),
+                                    onPressed: () async {
+                                      DateTime selectedDate = date;
+                                      final DateTime? picked =
+                                          await showDatePicker(
+                                        context: context,
+                                        initialDate: selectedDate,
+                                        firstDate: DateTime(1975),
+                                        lastDate: DateTime(2050),
+                                        // selectableDayPredicate: (DateTime val) =>
+                                        //     val.weekday == 6 || val.weekday == 7 ? true : false,
+                                      );
+                                      if (picked != null) {
+                                        transaksiController.date.value =
+                                            DateFormat('dd-MM-yyyy')
+                                                .format(picked);
+                                      }
+                                    },
+                                    icon: Icon(
+                                      Icons.date_range,
                                       color: primaryColor,
                                     ),
-                                    Obx(() {
-                                      if (transaksiController.date.value ==
-                                          '') {
-                                        return Text('Pilih Tanggal');
-                                      } else {
-                                        return Text(
-                                            transaksiController.date.value);
-                                      }
-                                    })
-                                  ],
-                                )),
+                                    label: Text(
+                                      transaksiController.date.value,
+                                      style: TextStyle(color: primaryColor),
+                                    ),
+                                  );
+                                })),
                             SizedBox(
                               height: 8,
                             ),
@@ -356,7 +373,7 @@ class _TambahTransaksiState extends State<TambahTransaksi> {
                         height: 23.0,
                       ),
                       SizedBox(
-                        height: h*0.05,
+                        height: h * 0.05,
                         child: ElevatedButton.icon(
                           style: ElevatedButton.styleFrom(
                               shape: RoundedRectangleBorder(
@@ -366,7 +383,6 @@ class _TambahTransaksiState extends State<TambahTransaksi> {
                           icon: Icon(
                             Icons.add_circle_rounded,
                           ),
-
                           label: Text("Tambah Barang"),
                         ),
                       ),
