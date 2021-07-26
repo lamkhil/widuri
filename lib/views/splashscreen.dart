@@ -28,7 +28,6 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void navigatePage() async {
     var user = storage.read('user');
-    print(user);
     if (user == null) {
       Get.offNamed('/login');
     } else {

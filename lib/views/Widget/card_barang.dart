@@ -10,7 +10,8 @@ class CardBarang extends StatelessWidget {
       required this.jumlah,
       required this.harga,
       required this.kategori,
-      required this.rekomendasi});
+      required this.rekomendasi,
+      this.transaksi = false});
 
   String namaBarang;
   String idBarang;
@@ -18,6 +19,7 @@ class CardBarang extends StatelessWidget {
   int jumlah;
   int harga;
   int rekomendasi;
+  bool transaksi;
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +45,7 @@ class CardBarang extends StatelessWidget {
                           width: 12.0,
                         ),
                         Container(
-                          constraints: BoxConstraints(maxWidth: w * 0.2),
+                          constraints: BoxConstraints(maxWidth: w * 0.3),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -76,7 +78,7 @@ class CardBarang extends StatelessWidget {
                               Text(
                                 'Stock',
                                 style: TextStyle(
-                                    fontSize: 14.0, color: primaryColor),
+                                    fontSize: 12.0, color: primaryColor),
                               ),
                               SizedBox(
                                 height: 4.0,
@@ -87,13 +89,13 @@ class CardBarang extends StatelessWidget {
                                   '$jumlah',
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-                                    fontSize: 14.0,
+                                    fontSize: 12.0,
                                   ),
                                 ),
                               ),
                             ]),
                         SizedBox(
-                          width: 23.0,
+                          width: 16.0,
                         ),
                         Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -103,7 +105,7 @@ class CardBarang extends StatelessWidget {
                               child: Text(
                                 'Harga Awal',
                                 style: TextStyle(
-                                  fontSize: 14.0,
+                                  fontSize: 12.0,
                                   color: primaryColor,
                                 ),
                               ),
@@ -113,7 +115,32 @@ class CardBarang extends StatelessWidget {
                             ),
                             Text('Rp. $harga',
                                 style: TextStyle(
-                                  fontSize: 14.0,
+                                  fontSize: 12.0,
+                                )),
+                          ],
+                        ),
+                        SizedBox(
+                          width: 16.0,
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            FittedBox(
+                              fit: BoxFit.contain,
+                              child: Text(
+                                'Harga Jual',
+                                style: TextStyle(
+                                  fontSize: 12.0,
+                                  color: primaryColor,
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 4.0,
+                            ),
+                            Text('Rp. $rekomendasi',
+                                style: TextStyle(
+                                  fontSize: 12.0,
                                 )),
                           ],
                         ),

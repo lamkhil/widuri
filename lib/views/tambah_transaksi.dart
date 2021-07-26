@@ -4,8 +4,10 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:widuri/controller/c_transaksi.dart';
 import 'package:intl/intl.dart';
+import 'package:widuri/views/Widget/tambah_barang_transaksi.dart';
 import '../colors.dart';
 import 'Widget/category_widget.dart';
+import 'daftar_barang.dart';
 
 class TambahTransaksi extends StatefulWidget {
   const TambahTransaksi({Key? key}) : super(key: key);
@@ -395,7 +397,9 @@ class _TambahTransaksiState extends State<TambahTransaksi> {
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10)),
                               primary: primaryColor),
-                          onPressed: () {},
+                          onPressed: () {
+                            Get.to(TambahBarangTransaksi());
+                          },
                           icon: Icon(
                             Icons.add_circle_rounded,
                           ),

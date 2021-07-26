@@ -21,12 +21,6 @@ class DaftarBarang extends StatefulWidget {
 class _DaftarBarangState extends State<DaftarBarang>
     with SingleTickerProviderStateMixin {
   late TabController controller;
-  final k = TextEditingController();
-  final n = TextEditingController();
-  final hA = TextEditingController();
-  final rH = TextEditingController();
-  final jmlh = C_Barang();
-  final barangController = Get.put(C_Barang());
 
   @override
   void initState() {
@@ -37,12 +31,12 @@ class _DaftarBarangState extends State<DaftarBarang>
   @override
   void dispose() {
     controller.dispose();
-    k.dispose();
-    n.dispose();
-    hA.dispose();
-    rH.dispose();
-    jmlh.dispose();
-    barangController.dispose();
+    BodyBarang.k.dispose();
+    BodyBarang.n.dispose();
+    BodyBarang.hA.dispose();
+    BodyBarang.rH.dispose();
+    BodyBarang.jmlh.dispose();
+    BodyBarang.barangController.dispose();
     super.dispose();
   }
 
@@ -96,84 +90,98 @@ class _DaftarBarangState extends State<DaftarBarang>
           backgroundColor: Colors.transparent,
           elevation: 0.0,
         ),
-        body: Container(
-            child: Padding(
-          padding: EdgeInsets.all(12.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              Card(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12.0)),
-                child: new ListTile(
-                  leading: new Icon(Icons.search),
-                  title: new TextField(
-                    decoration: new InputDecoration(
-                        hintText: 'Search', border: InputBorder.none),
-                    // onChanged: onSearchTextChanged,
-                    onChanged: (value) {
-                      barangController.query.value = value.toLowerCase();
-                    },
-                  ),
-                  trailing: new IconButton(
-                    icon: new Icon(Icons.filter_list_rounded),
-                    onPressed: () {},
-                  ),
-                ),
+        body: BodyBarang.bodyDaftarBarang(context));
+  }
+}
+
+class BodyBarang {
+  static final k = TextEditingController();
+  static final n = TextEditingController();
+  static final hA = TextEditingController();
+  static final rH = TextEditingController();
+  static final jmlh = C_Barang();
+  static final barangController = Get.put(C_Barang());
+
+  static Widget bodyDaftarBarang(BuildContext context,
+      [bool transaksi = false]) {
+    return Container(
+        child: Padding(
+      padding: EdgeInsets.all(12.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: <Widget>[
+          Card(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12.0)),
+            child: new ListTile(
+              leading: new Icon(Icons.search),
+              title: new TextField(
+                decoration: new InputDecoration(
+                    hintText: 'Search', border: InputBorder.none),
+                // onChanged: onSearchTextChanged,
+                onChanged: (value) {
+                  barangController.query.value = value.toLowerCase();
+                },
               ),
-              Container(
-                  alignment: Alignment.centerLeft,
-                  margin: EdgeInsets.all(12),
-                  child: Text(
-                    'Stock Barang',
-                    style: TextStyle(
-                        fontSize: 18.0,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'RobotoMono',
-                        color: Colors.black),
-                  )),
-              Expanded(
-                child: Obx(() {
-                  if (barangController.barangList.isEmpty) {
-                    return Center(
-                        child: SpinKitFadingCube(
-                      color: primaryColor,
-                    ));
-                  } else {
-                    var viewList = [];
-                    if (barangController.query.value == '') {
-                      viewList = barangController.barangList;
-                    } else {
-                      viewList = barangController.barangList
-                          .where((value) => value['caseSearch']
-                              .contains(barangController.query.value))
-                          .toList();
-                      if (viewList.isEmpty) {
-                        return Text('Belum ada barang');
-                      }
-                    }
-                    if (viewList[0] is int) {
-                      return Text('Belum ada barang');
-                    } else {
-                      return ListView.builder(
-                          itemCount: viewList.length,
-                          itemBuilder: (context, index) {
-                            return CardBarang(
-                                namaBarang: viewList[index]['namaBarang'],
-                                idBarang: viewList[index]['id'],
-                                jumlah: viewList[index]['jumlah'],
-                                harga: viewList[index]['hargaAwal'],
-                                kategori: viewList[index]['kategori'],
-                                rekomendasi: viewList[index]
-                                    ['rekomendasiHarga']);
-                          });
-                    }
-                  }
-                }),
+              trailing: new IconButton(
+                icon: new Icon(Icons.filter_list_rounded),
+                onPressed: () {},
               ),
-              SizedBox(height: 23.0),
-            ],
+            ),
           ),
-        )));
+          Container(
+              alignment: Alignment.centerLeft,
+              margin: EdgeInsets.all(12),
+              child: Text(
+                'Stock Barang',
+                style: TextStyle(
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'RobotoMono',
+                    color: Colors.black),
+              )),
+          Expanded(
+            child: Obx(() {
+              if (barangController.barangList.isEmpty) {
+                return Center(
+                    child: SpinKitFadingCube(
+                  color: primaryColor,
+                ));
+              } else {
+                var viewList = [];
+                if (barangController.query.value == '') {
+                  viewList = barangController.barangList;
+                } else {
+                  viewList = barangController.barangList
+                      .where((value) => value['caseSearch']
+                          .contains(barangController.query.value))
+                      .toList();
+                  if (viewList.isEmpty) {
+                    return Text('Belum ada barang');
+                  }
+                }
+                if (viewList[0] is int) {
+                  return Text('Belum ada barang');
+                } else {
+                  return ListView.builder(
+                      itemCount: viewList.length,
+                      itemBuilder: (context, index) {
+                        return CardBarang(
+                            namaBarang: viewList[index]['namaBarang'],
+                            idBarang: viewList[index]['id'],
+                            jumlah: viewList[index]['jumlah'],
+                            harga: viewList[index]['hargaAwal'],
+                            kategori: viewList[index]['kategori'],
+                            rekomendasi: viewList[index]['rekomendasiHarga'],
+                            transaksi: transaksi);
+                      });
+                }
+              }
+            }),
+          ),
+          SizedBox(height: 23.0),
+        ],
+      ),
+    ));
   }
 }
