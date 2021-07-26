@@ -61,6 +61,7 @@ class _TambahTransaksiState extends State<TambahTransaksi> {
               child: Column(
                 children: [
                   Card(
+                      color: backgroundColor,
                       elevation: 2,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12.0)),
@@ -143,7 +144,7 @@ class _TambahTransaksiState extends State<TambahTransaksi> {
                                   }
                                   return ElevatedButton.icon(
                                     style: ElevatedButton.styleFrom(
-                                        primary: backgroundColor),
+                                        elevation: 0, primary: backgroundColor),
                                     onPressed: () async {
                                       DateTime selectedDate = date;
                                       final DateTime? picked =

@@ -45,7 +45,7 @@ class CardBarang extends StatelessWidget {
                           width: 12.0,
                         ),
                         Container(
-                          constraints: BoxConstraints(maxWidth: w * 0.3),
+                          constraints: BoxConstraints(maxWidth: w * 0.25),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -95,7 +95,7 @@ class CardBarang extends StatelessWidget {
                               ),
                             ]),
                         SizedBox(
-                          width: 16.0,
+                          width: 12.0,
                         ),
                         Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -120,7 +120,7 @@ class CardBarang extends StatelessWidget {
                           ],
                         ),
                         SizedBox(
-                          width: 16.0,
+                          width: 12.0,
                         ),
                         Column(
                           mainAxisAlignment: MainAxisAlignment.center,

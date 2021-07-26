@@ -79,47 +79,39 @@ class PopUpBarang {
                             ),
                             Container(
                               constraints: BoxConstraints(maxWidth: w * 1),
-                              child: Card(
-                                margin: EdgeInsets.zero,
-                                child: Padding(
-                                  padding: EdgeInsets.only(
-                                    right: 10.0,
-                                    left: 10.0,
-                                  ),
-                                  child: new TextFormField(
-                                    validator: (value) {
-                                      if (value == '') {
-                                        return 'Jangan Dikosongi';
-                                      }
-                                      return null;
-                                    },
-                                    controller: _k,
-                                    decoration: new InputDecoration(
-                                        hintText: 'contoh : Baju',
-                                        focusColor: primaryColor,
-                                        hintStyle: TextStyle(
-                                            fontWeight: FontWeight.w300),
-                                        focusedBorder: new OutlineInputBorder(
-                                            borderRadius:
-                                                const BorderRadius.all(
-                                              const Radius.circular(12.0),
-                                            ),
-                                            borderSide: BorderSide(
-                                                color: primaryColor,
-                                                width: 2.0)),
-                                        border: new OutlineInputBorder(
-                                            borderRadius:
-                                                const BorderRadius.all(
-                                              const Radius.circular(12.0),
-                                            ),
-                                            borderSide: BorderSide(
-                                                color: primaryColor,
-                                                width: 2.0)),
-                                        contentPadding:
-                                            new EdgeInsets.symmetric(
-                                                horizontal: 10.0)),
-                                    // onChanged: onSearchTextChanged,
-                                  ),
+                              child: Padding(
+                                padding: EdgeInsets.only(
+                                  right: 10.0,
+                                  left: 10.0,
+                                ),
+                                child: new TextFormField(
+                                  validator: (value) {
+                                    if (value == '') {
+                                      return 'Jangan Dikosongi';
+                                    }
+                                    return null;
+                                  },
+                                  controller: _k,
+                                  decoration: new InputDecoration(
+                                      hintText: 'contoh : Baju',
+                                      focusColor: primaryColor,
+                                      hintStyle: TextStyle(
+                                          fontWeight: FontWeight.w300),
+                                      focusedBorder: new OutlineInputBorder(
+                                          borderRadius: const BorderRadius.all(
+                                            const Radius.circular(12.0),
+                                          ),
+                                          borderSide: BorderSide(
+                                              color: primaryColor, width: 2.0)),
+                                      border: new OutlineInputBorder(
+                                          borderRadius: const BorderRadius.all(
+                                            const Radius.circular(12.0),
+                                          ),
+                                          borderSide: BorderSide(
+                                              color: primaryColor, width: 2.0)),
+                                      contentPadding: new EdgeInsets.symmetric(
+                                          horizontal: 10.0)),
+                                  // onChanged: onSearchTextChanged,
                                 ),
                               ),
                             ),
@@ -136,46 +128,38 @@ class PopUpBarang {
                             ),
                             Container(
                               constraints: BoxConstraints(maxWidth: w * 1),
-                              child: Card(
-                                margin: EdgeInsets.zero,
-                                child: Padding(
-                                  padding: EdgeInsets.only(
-                                    right: 10.0,
-                                    left: 10.0,
-                                  ),
-                                  child: new TextFormField(
-                                    validator: (value) {
-                                      if (value == '') {
-                                        return 'Jangan Dikosongi';
-                                      }
-                                      return null;
-                                    },
-                                    controller: _n,
-                                    decoration: new InputDecoration(
-                                        hintText: 'contoh : Baju Gamis L21',
-                                        hintStyle: TextStyle(
-                                            fontWeight: FontWeight.w300),
-                                        focusedBorder: new OutlineInputBorder(
-                                            borderRadius:
-                                                const BorderRadius.all(
-                                              const Radius.circular(12.0),
-                                            ),
-                                            borderSide: BorderSide(
-                                                color: primaryColor,
-                                                width: 2.0)),
-                                        border: new OutlineInputBorder(
-                                            borderRadius:
-                                                const BorderRadius.all(
-                                              const Radius.circular(12.0),
-                                            ),
-                                            borderSide: BorderSide(
-                                                color: primaryColor,
-                                                width: 2.0)),
-                                        contentPadding:
-                                            new EdgeInsets.symmetric(
-                                                horizontal: 10.0)),
-                                    // onChanged: onSearchTextChanged,
-                                  ),
+                              child: Padding(
+                                padding: EdgeInsets.only(
+                                  right: 10.0,
+                                  left: 10.0,
+                                ),
+                                child: new TextFormField(
+                                  validator: (value) {
+                                    if (value == '') {
+                                      return 'Jangan Dikosongi';
+                                    }
+                                    return null;
+                                  },
+                                  controller: _n,
+                                  decoration: new InputDecoration(
+                                      hintText: 'contoh : Baju Gamis L21',
+                                      hintStyle: TextStyle(
+                                          fontWeight: FontWeight.w300),
+                                      focusedBorder: new OutlineInputBorder(
+                                          borderRadius: const BorderRadius.all(
+                                            const Radius.circular(12.0),
+                                          ),
+                                          borderSide: BorderSide(
+                                              color: primaryColor, width: 2.0)),
+                                      border: new OutlineInputBorder(
+                                          borderRadius: const BorderRadius.all(
+                                            const Radius.circular(12.0),
+                                          ),
+                                          borderSide: BorderSide(
+                                              color: primaryColor, width: 2.0)),
+                                      contentPadding: new EdgeInsets.symmetric(
+                                          horizontal: 10.0)),
+                                  // onChanged: onSearchTextChanged,
                                 ),
                               ),
                             ),
@@ -203,56 +187,51 @@ class PopUpBarang {
                                     Container(
                                       constraints:
                                           BoxConstraints(maxWidth: w * 0.335),
-                                      child: Card(
-                                        margin: EdgeInsets.zero,
-                                        child: Padding(
-                                          padding: EdgeInsets.only(
-                                            right: 10.0,
-                                            left: 10.0,
-                                          ),
-                                          child: new TextFormField(
-                                            validator: (value) {
-                                              if (value == '') {
-                                                return 'Jangan Dikosongi';
-                                              }
-                                              return null;
-                                            },
-                                            controller: _hA,
-                                            keyboardType: TextInputType.number,
-                                            inputFormatters: [
-                                              WhitelistingTextInputFormatter
-                                                  .digitsOnly,
-                                            ],
-                                            decoration: new InputDecoration(
-                                                hintText: 'contoh : 13000',
-                                                hintStyle: TextStyle(
-                                                    fontWeight:
-                                                        FontWeight.w300),
-                                                focusedBorder:
-                                                    new OutlineInputBorder(
-                                                        borderRadius:
-                                                            const BorderRadius
-                                                                .all(
-                                                          const Radius.circular(
-                                                              12.0),
-                                                        ),
-                                                        borderSide: BorderSide(
-                                                            color: primaryColor,
-                                                            width: 2.0)),
-                                                border: new OutlineInputBorder(
-                                                    borderRadius:
-                                                        const BorderRadius.all(
-                                                      const Radius.circular(
-                                                          12.0),
-                                                    ),
-                                                    borderSide: BorderSide(
-                                                        color: primaryColor,
-                                                        width: 2.0)),
-                                                contentPadding:
-                                                    new EdgeInsets.symmetric(
-                                                        horizontal: 10.0)),
-                                            // onChanged: onSearchTextChanged,
-                                          ),
+                                      child: Padding(
+                                        padding: EdgeInsets.only(
+                                          right: 10.0,
+                                          left: 10.0,
+                                        ),
+                                        child: new TextFormField(
+                                          validator: (value) {
+                                            if (value == '') {
+                                              return 'Jangan Dikosongi';
+                                            }
+                                            return null;
+                                          },
+                                          controller: _hA,
+                                          keyboardType: TextInputType.number,
+                                          inputFormatters: [
+                                            WhitelistingTextInputFormatter
+                                                .digitsOnly,
+                                          ],
+                                          decoration: new InputDecoration(
+                                              hintText: 'contoh : 13000',
+                                              hintStyle: TextStyle(
+                                                  fontWeight: FontWeight.w300),
+                                              focusedBorder:
+                                                  new OutlineInputBorder(
+                                                      borderRadius:
+                                                          const BorderRadius
+                                                              .all(
+                                                        const Radius.circular(
+                                                            12.0),
+                                                      ),
+                                                      borderSide: BorderSide(
+                                                          color: primaryColor,
+                                                          width: 2.0)),
+                                              border: new OutlineInputBorder(
+                                                  borderRadius:
+                                                      const BorderRadius.all(
+                                                    const Radius.circular(12.0),
+                                                  ),
+                                                  borderSide: BorderSide(
+                                                      color: primaryColor,
+                                                      width: 2.0)),
+                                              contentPadding:
+                                                  new EdgeInsets.symmetric(
+                                                      horizontal: 10.0)),
+                                          // onChanged: onSearchTextChanged,
                                         ),
                                       ),
                                     ),
@@ -275,56 +254,51 @@ class PopUpBarang {
                                     Container(
                                       constraints:
                                           BoxConstraints(maxWidth: w * 0.335),
-                                      child: Card(
-                                        margin: EdgeInsets.zero,
-                                        child: Padding(
-                                          padding: EdgeInsets.only(
-                                            right: 10.0,
-                                            left: 10.0,
-                                          ),
-                                          child: new TextFormField(
-                                            validator: (value) {
-                                              if (value == '') {
-                                                return 'Jangan Dikosongi';
-                                              }
-                                              return null;
-                                            },
-                                            controller: _rH,
-                                            keyboardType: TextInputType.number,
-                                            inputFormatters: [
-                                              WhitelistingTextInputFormatter
-                                                  .digitsOnly,
-                                            ],
-                                            decoration: new InputDecoration(
-                                                hintText: 'contoh : 13000',
-                                                hintStyle: TextStyle(
-                                                    fontWeight:
-                                                        FontWeight.w300),
-                                                focusedBorder:
-                                                    new OutlineInputBorder(
-                                                        borderRadius:
-                                                            const BorderRadius
-                                                                .all(
-                                                          const Radius.circular(
-                                                              12.0),
-                                                        ),
-                                                        borderSide: BorderSide(
-                                                            color: primaryColor,
-                                                            width: 2.0)),
-                                                border: new OutlineInputBorder(
-                                                    borderRadius:
-                                                        const BorderRadius.all(
-                                                      const Radius.circular(
-                                                          12.0),
-                                                    ),
-                                                    borderSide: BorderSide(
-                                                        color: primaryColor,
-                                                        width: 2.0)),
-                                                contentPadding:
-                                                    new EdgeInsets.symmetric(
-                                                        horizontal: 10.0)),
-                                            // onChanged: onSearchTextChanged,
-                                          ),
+                                      child: Padding(
+                                        padding: EdgeInsets.only(
+                                          right: 10.0,
+                                          left: 10.0,
+                                        ),
+                                        child: new TextFormField(
+                                          validator: (value) {
+                                            if (value == '') {
+                                              return 'Jangan Dikosongi';
+                                            }
+                                            return null;
+                                          },
+                                          controller: _rH,
+                                          keyboardType: TextInputType.number,
+                                          inputFormatters: [
+                                            WhitelistingTextInputFormatter
+                                                .digitsOnly,
+                                          ],
+                                          decoration: new InputDecoration(
+                                              hintText: 'contoh : 13000',
+                                              hintStyle: TextStyle(
+                                                  fontWeight: FontWeight.w300),
+                                              focusedBorder:
+                                                  new OutlineInputBorder(
+                                                      borderRadius:
+                                                          const BorderRadius
+                                                              .all(
+                                                        const Radius.circular(
+                                                            12.0),
+                                                      ),
+                                                      borderSide: BorderSide(
+                                                          color: primaryColor,
+                                                          width: 2.0)),
+                                              border: new OutlineInputBorder(
+                                                  borderRadius:
+                                                      const BorderRadius.all(
+                                                    const Radius.circular(12.0),
+                                                  ),
+                                                  borderSide: BorderSide(
+                                                      color: primaryColor,
+                                                      width: 2.0)),
+                                              contentPadding:
+                                                  new EdgeInsets.symmetric(
+                                                      horizontal: 10.0)),
+                                          // onChanged: onSearchTextChanged,
                                         ),
                                       ),
                                     ),
@@ -340,7 +314,7 @@ class PopUpBarang {
                               children: <Widget>[
                                 Container(
                                   constraints: BoxConstraints(
-                                      maxWidth: w * 0.35, minHeight: h * 0.09),
+                                      maxWidth: w * 0.35, minHeight: 10),
                                   child: Card(
                                     elevation: 4.0,
                                     margin: EdgeInsets.zero,
@@ -459,7 +433,6 @@ class PopUpBarang {
                 Builder(builder: (BuildContext context) {
                   if (edit) {
                     return Container(
-                      margin: EdgeInsets.all(13.0),
                       child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             shape: RoundedRectangleBorder(
@@ -476,15 +449,12 @@ class PopUpBarang {
                               C_Barang.hapusBarang(context, idBarang);
                             }
                           },
-                          child: Padding(
-                            padding: EdgeInsets.all(12.0),
-                            child: Text(
-                              'Hapus Barang',
-                              style: TextStyle(
-                                  color: primaryColor,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold),
-                            ),
+                          child: Text(
+                            'Hapus Barang',
+                            style: TextStyle(
+                                color: primaryColor,
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold),
                           )),
                     );
                   } else {
@@ -496,7 +466,6 @@ class PopUpBarang {
                     return Container();
                   } else {
                     return Container(
-                      margin: EdgeInsets.all(13.0),
                       child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             shape: RoundedRectangleBorder(
@@ -526,15 +495,12 @@ class PopUpBarang {
                                   idBarang);
                             }
                           },
-                          child: Padding(
-                            padding: EdgeInsets.all(12.0),
-                            child: Text(
-                              'Simpan Barang',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold),
-                            ),
+                          child: Text(
+                            'Simpan Barang',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold),
                           )),
                     );
                   }
