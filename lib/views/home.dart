@@ -88,7 +88,9 @@ class _HomeState extends State<Home> {
                             namaBarang: viewList[index]['namaBarang'],
                             idBarang: viewList[index]['id'],
                             jumlah: viewList[index]['jumlah'],
-                            harga: viewList[index]['hargaAwal']);
+                            harga: viewList[index]['hargaAwal'],
+                            kategori: viewList[index]['kategori'],
+                            rekomendasi: viewList[index]['rekomendasiHarga']);
                       });
                 }
               }

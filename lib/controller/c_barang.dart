@@ -50,16 +50,37 @@ class C_Barang extends GetxController {
     return _textController;
   }
 
-  static Future<void> tambahBarang(BuildContext context, String kategori,
-      String namaBarang, int hargaAwal, int rekomendasiHarga, int jmlh) async {
+  static Future<void> hapusBarang(BuildContext context, String id) async {
     isLoadingStatic.value = true;
-    var id = kategori + 1.toString();
-    var result = await M_Barang.tambahBarang(
-        kategori, namaBarang, hargaAwal, rekomendasiHarga, jmlh);
+    var result = await M_Barang.hapusBarang(id);
     isLoadingStatic.value = false;
     Navigator.of(context).pop();
     if (!(result is String)) {
-      customDialog(context, "Alhamdulillah!", 'Barang berhasil ditambah');
+      customDialog(context, "Alhamdulillah!", 'Barang berhasil dihapus');
+    } else {
+      customDialog(context, "Oops!", result);
+    }
+  }
+
+  static Future<void> tambahBarang(
+      BuildContext context,
+      String kategori,
+      String namaBarang,
+      int hargaAwal,
+      int rekomendasiHarga,
+      int jmlh,
+      String idBarang) async {
+    isLoadingStatic.value = true;
+    var result = await M_Barang.tambahBarang(
+        kategori, namaBarang, hargaAwal, rekomendasiHarga, jmlh, idBarang);
+    isLoadingStatic.value = false;
+    Navigator.of(context).pop();
+    if (!(result is String)) {
+      if (idBarang == '') {
+        customDialog(context, "Alhamdulillah!", 'Barang berhasil ditambah');
+      } else {
+        customDialog(context, "Alhamdulillah!", 'Barang berhasil diubah');
+      }
     } else {
       customDialog(context, "Oops!", result);
     }

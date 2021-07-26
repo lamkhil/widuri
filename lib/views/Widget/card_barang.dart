@@ -1,19 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:widuri/colors.dart';
+import 'package:widuri/views/Widget/popup_barang.dart';
 
 class CardBarang extends StatelessWidget {
   CardBarang(
       {required this.namaBarang,
       required this.idBarang,
       required this.jumlah,
-      required this.harga});
-
+      required this.harga,
+      required this.kategori,
+      required this.rekomendasi});
 
   String namaBarang;
   String idBarang;
+  String kategori;
   int jumlah;
   int harga;
+  int rekomendasi;
 
   @override
   Widget build(BuildContext context) {
@@ -114,7 +118,18 @@ class CardBarang extends StatelessWidget {
                           ],
                         ),
                         IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            PopUpBarang(
+                                    edit: true,
+                                    context: context,
+                                    kategori: this.kategori,
+                                    hargaAwal: harga,
+                                    rekomendasiHarga: rekomendasi,
+                                    namaBarang: this.namaBarang,
+                                    jumlah: this.jumlah,
+                                    idBarang: this.idBarang)
+                                .popUpTambahBarang();
+                          },
                           icon: Icon(Icons.arrow_forward_ios_rounded),
                           iconSize: 16.0,
                         )

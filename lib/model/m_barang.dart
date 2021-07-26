@@ -58,31 +58,45 @@ class M_Barang {
     return caseSearchList;
   }
 
-  static Future<dynamic> tambahBarang(String kategori, String namaBarang,
-      int hargaAwal, int rekomendasiHarga, int jmlh) async {
-    var id = await _barang
-        .where('kategori', isEqualTo: kategori.toLowerCase())
-        .get();
-    var i = id.size;
-    if (id.size > 0) {
-      i = int.parse(id.docs.last.id.split('-')[1]) + 1;
-    }
-    var caseSearch = setSearchParam("${kategori.toLowerCase()}-$i");
-    caseSearch.addAll(setSearchParam(namaBarang.toLowerCase()));
-    bool err = false;
-    String error = '';
-    id.docs.forEach((element) {
-      if (namaBarang.toLowerCase() ==
-          element['namaBarang'].toString().toLowerCase()) {
-        error = 'Barang Sudah Ada';
-        err = true;
-      }
-    });
-    if (err) {
-      return error;
-    }
+  static Future<dynamic> hapusBarang(String id) async {
     try {
-      await _barang.doc("${kategori.toLowerCase()}-$i").set({
+      await _barang.doc(id).delete();
+      return 1;
+    } catch (e) {
+      var result = await _translator.translate(e.toString().split('] ')[1],
+          from: 'en', to: 'id');
+      return result.toString();
+    }
+  }
+
+  static Future<dynamic> tambahBarang(String kategori, String namaBarang,
+      int hargaAwal, int rekomendasiHarga, int jmlh, String idBarang) async {
+    if (idBarang == '') {
+      var id = await _barang
+          .where('kategori', isEqualTo: kategori.toLowerCase())
+          .get();
+      var i = id.size;
+      if (id.size > 0) {
+        i = int.parse(id.docs.last.id.split('-')[1]) + 1;
+      }
+      bool err = false;
+      String error = '';
+      id.docs.forEach((element) {
+        if (namaBarang.toLowerCase() ==
+            element['namaBarang'].toString().toLowerCase()) {
+          error = 'Barang Sudah Ada';
+          err = true;
+        }
+      });
+      if (err) {
+        return error;
+      }
+      idBarang = "${kategori.toLowerCase()}-$i";
+    }
+    var caseSearch = setSearchParam(idBarang);
+    caseSearch.addAll(setSearchParam(namaBarang.toLowerCase()));
+    try {
+      await _barang.doc(idBarang).set({
         'kategori': kategori.toLowerCase(),
         'namaBarang': namaBarang,
         'hargaAwal': hargaAwal,
