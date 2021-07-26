@@ -58,7 +58,9 @@ class _TambahTransaksiState extends State<TambahTransaksi> {
               child: Column(
                 children: [
                   Card(
-                      elevation: 4,
+                      elevation: 2,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12.0)),
                       child: Padding(
                         padding: EdgeInsets.all(20),
                         child: Column(
@@ -350,17 +352,25 @@ class _TambahTransaksiState extends State<TambahTransaksi> {
                                   ],
                                 ),
                               ))),
-                      ElevatedButton.icon(
-                        style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10)),
-                            primary: primaryColor),
-                        onPressed: () {},
-                        icon: Icon(
-                          Icons.add_circle_rounded,
-                        ),
-                        label: Text("Tambah Barang"),
+                      SizedBox(
+                        height: 23.0,
                       ),
+                      SizedBox(
+                        height: h*0.05,
+                        child: ElevatedButton.icon(
+                          style: ElevatedButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10)),
+                              primary: primaryColor),
+                          onPressed: () {},
+                          icon: Icon(
+                            Icons.add_circle_rounded,
+                          ),
+
+                          label: Text("Tambah Barang"),
+                        ),
+                      ),
+
                       SizedBox(height: 36)
                       // child: Row(
                       //   mainAxisAlignment: MainAxisAlignment.start,

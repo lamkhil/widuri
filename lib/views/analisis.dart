@@ -1,5 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:widuri/controller/c_barang.dart';
 
 import '../colors.dart';
 import 'Widget/graphic.dart';
@@ -12,8 +14,7 @@ class Analisis extends StatefulWidget {
 }
 
 class _AnalisisState extends State<Analisis> {
-  static const List<String> _list = ['Harian', 'Mingguan', 'Bulanan'];
-  String _value = _list.first;
+  final barangController = Get.put(C_Barang());
 
   @override
   Widget build(BuildContext context) {
@@ -56,8 +57,7 @@ class _AnalisisState extends State<Analisis> {
       ),
       body: Container(
         padding: EdgeInsets.all(12.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: ListView(
           children: [
             Card(
               elevation: 2.0,
@@ -99,36 +99,45 @@ class _AnalisisState extends State<Analisis> {
                                   ),
                                 ],
                               )),
-                          ElevatedButton(
-                            onPressed: () {},
-                            style: ElevatedButton.styleFrom(
-                                padding: EdgeInsets.all(12.0),
-                                primary: primaryColor,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(12.0))),
-                            child: Text(
-                              'Bulan ini',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'Roboto',
-                                  fontSize: 14.0),
+                          SizedBox(
+                            height: h * 0.05,
+                            width: w * 0.2,
+                            child: ElevatedButton(
+                              onPressed: () {},
+                              style: ElevatedButton.styleFrom(
+                                  primary: primaryColor,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius:
+                                          BorderRadius.circular(12.0))),
+                              child: Text(
+                                'Bulan ini',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'Roboto',
+                                    fontSize: 14.0),
+                              ),
                             ),
                           ),
-                          ElevatedButton(
-                            onPressed: () {},
-                            style: ElevatedButton.styleFrom(
-                                padding: EdgeInsets.all(12.0),
-                                primary: primaryColor,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(12.0))),
-                            child: Text(
-                              'Bulan lalu',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'Roboto',
-                                  fontSize: 14.0),
+                          SizedBox(
+                            height: h * 0.05,
+                            width: w * 0.2,
+                            child: ElevatedButton(
+                              onPressed: () {},
+                              style: ElevatedButton.styleFrom(
+                                  padding: EdgeInsets.all(12.0),
+                                  primary: primaryColor,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius:
+                                          BorderRadius.circular(12.0))),
+                              child: Text(
+                                'Bulan lalu',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'Roboto',
+                                    fontSize: 14.0),
+                              ),
                             ),
-                          ),
+                          )
                         ],
                       ),
                       SizedBox(
@@ -258,52 +267,51 @@ class _AnalisisState extends State<Analisis> {
                   fontSize: 18.0,
                 )),
             SizedBox(height: 12.0),
-            Expanded(
-              child: AspectRatio(
-                aspectRatio: 1.5,
-                child: Card(
-                  elevation: 2.0,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12.0)),
-                  child: Column(
-                    children: <Widget>[
-                      const SizedBox(
-                        height: 12,
-                      ),
-                      SizedBox(
-                        width: w * 0.3,
-                        child: DropdownButtonFormField<String>(
-                          value: _value,
+            AspectRatio(
+              aspectRatio: 1.5,
+              child: Card(
+                elevation: 2.0,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12.0)),
+                child: Column(
+                  children: <Widget>[
+                    const SizedBox(
+                      height: 12,
+                    ),
+                    SizedBox(
+                      width: w * 0.3,
+                      child: Obx(() {
+                        return DropdownButtonFormField<String>(
+                          value: barangController.valueDropdownHome.value,
                           decoration: InputDecoration(
                             border: OutlineInputBorder(),
                           ),
                           iconSize: 24,
                           elevation: 16,
                           style: TextStyle(color: Colors.black),
-                          onChanged: (var newValue) =>
-                              setState(() => _value = newValue!),
-                          items: _list
+                          onChanged: (var newValue) => barangController
+                              .valueDropdownHome.value = newValue!,
+                          items: C_Barang.listDropdownHome
                               .map((String item) => DropdownMenuItem<String>(
                                   child: Text(item), value: item))
                               .toList(),
+                        );
+                      }),
+                    ),
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 16.0, left: 6.0),
+                        child: LineChart(
+                          sampleData1(),
+                          swapAnimationDuration:
+                              const Duration(milliseconds: 250),
                         ),
                       ),
-                      Expanded(
-                        child: Padding(
-                          padding:
-                              const EdgeInsets.only(right: 16.0, left: 6.0),
-                          child: LineChart(
-                            sampleData1(),
-                            swapAnimationDuration:
-                                const Duration(milliseconds: 250),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                    ],
-                  ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                  ],
                 ),
               ),
             ),

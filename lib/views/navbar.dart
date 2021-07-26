@@ -69,7 +69,7 @@ class _NavBarState extends State<NavBar> {
       DaftarBarang(),
       TambahTransaksi(),
       Analisis(),
-      Profil()
+      Profile()
     ];
   }
   List<PersistentBottomNavBarItem> _navBarsItems() {
