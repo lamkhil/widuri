@@ -35,7 +35,6 @@ class _TambahTransaksiState extends State<TambahTransaksi> {
                       fontWeight: FontWeight.bold,
                       fontFamily: 'RobotoMono',
                       color: Colors.black),
-
                 ),
                 FlatButton(
                   child: Icon(

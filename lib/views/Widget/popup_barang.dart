@@ -16,7 +16,6 @@ class PopUpBarang {
   String idBarang;
   bool edit;
   BuildContext context;
-
   PopUpBarang(
       {this.kategori,
       this.hargaAwal,
@@ -48,6 +47,7 @@ class PopUpBarang {
     }
     showDialog(
         context: context,
+        barrierDismissible: !C_Barang.isLoadingStatic.value,
         builder: (BuildContext context) {
           var w = MediaQuery.of(context).size.width;
           var h = MediaQuery.of(context).size.height;
@@ -417,96 +417,118 @@ class PopUpBarang {
                 }
               }),
               actions: [
-                Padding(
-                  padding: EdgeInsets.all(20.0),
-                  child: Column(
-                    children: [
-                      Builder(builder: (BuildContext context) {
-                        if (edit) {
-                          return Container(
-                            height: h * 0.05,
-                            width: w,
-                            child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(12.0),
-                                      side: BorderSide(color: primaryColor)),
-                                  primary: backgroundColor,
-                                ),
-                                onPressed: () async {
-                                  if (_formKey.currentState!.validate()) {
-                                    _k.text = '';
-                                    _n.text = '';
-                                    _hA.text = '';
-                                    _rH.text = '';
-                                    C_Barang.hapusBarang(context, idBarang);
-                                  }
-                                },
-                                child: Text(
-                                  'Hapus Barang',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontFamily: 'Roboto',
-                                      fontSize: 16.0,
-                                      color: Colors.black),
-                                )),
-                          );
-                        } else {
-                          return Container();
-                        }
-                      }),
-                      SizedBox(height: 10.0),
-                      Obx(() {
-                        if (C_Barang.isLoadingStatic.value) {
-                          return Container();
-                        } else {
-                          return Container(
-                            height: h * 0.05,
-                            width: w,
-                            child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(12.0)),
-                                  primary: primaryColor,
-                                ),
-                                onPressed: () async {
-                                  if (_formKey.currentState!.validate()) {
-                                    var kategori = _k.text;
-                                    var nama = _n.text;
-                                    var hargaAwal = _hA.text;
-                                    var rekomHarga = _rH.text;
-                                    var j = _jmlh.textController.value.text
-                                        .toString();
-                                    _k.text = '';
-                                    _n.text = '';
-                                    _hA.text = '';
-                                    _rH.text = '';
-                                    _jmlh.textController.value.text = '1';
-                                    await C_Barang.tambahBarang(
-                                        context,
-                                        kategori,
-                                        nama,
-                                        int.parse(hargaAwal),
-                                        int.parse(rekomHarga),
-                                        int.parse(j),
-                                        idBarang);
-                                  }
-                                },
-                                child: Text(
-                                  'Simpan Barang',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    fontFamily: 'Roboto',
-                                    fontSize: 16.0,
-                                  ),
-                                )),
-                          );
-                        }
-                      })
-                    ],
-                  ),
-                )
+                Builder(builder: (BuildContext context) {
+                  if (edit) {
+                    return Container(
+                      child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12.0),
+                                side: BorderSide(color: primaryColor)),
+                            primary: backgroundColor,
+                          ),
+                          onPressed: () {
+                            Navigator.pop(context);
+                            showDialog(
+                                context: context,
+                                builder: (context) => AlertDialog(
+                                      title: Text('Hapus Barang'),
+                                      content: Text('Yakin Hapus Barang?'),
+                                      actions: [
+                                        ElevatedButton(
+                                            style: ElevatedButton.styleFrom(
+                                                primary: backgroundColor,
+                                                shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            12.0),
+                                                    side: BorderSide(
+                                                        color: primaryColor))),
+                                            onPressed: () {
+                                              _k.text = '';
+                                              _n.text = '';
+                                              _hA.text = '';
+                                              _rH.text = '';
+                                              Navigator.pop(context);
+                                            },
+                                            child: Text('Tidak',
+                                                style: TextStyle(
+                                                    color: primaryColor))),
+                                        ElevatedButton(
+                                            style: ElevatedButton.styleFrom(
+                                                primary: primaryColor,
+                                                shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            12.0))),
+                                            onPressed: () {
+                                              _k.text = '';
+                                              _n.text = '';
+                                              _hA.text = '';
+                                              _rH.text = '';
+                                              C_Barang.hapusBarang(
+                                                  context, idBarang);
+                                            },
+                                            child: Text('Ya'))
+                                      ],
+                                    ));
+                          },
+                          child: Text(
+                            'Hapus Barang',
+                            style: TextStyle(
+                                color: primaryColor,
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold),
+                          )),
+                    );
+                  } else {
+                    return Container();
+                  }
+                }),
+                Obx(() {
+                  if (C_Barang.isLoadingStatic.value) {
+                    return Container();
+                  } else {
+                    return Container(
+                      child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12.0)),
+                            primary: primaryColor,
+                          ),
+                          onPressed: () async {
+                            if (_formKey.currentState!.validate()) {
+                              var kategori = _k.text;
+                              var nama = _n.text;
+                              var hargaAwal = _hA.text;
+                              var rekomHarga = _rH.text;
+                              var j =
+                                  _jmlh.textController.value.text.toString();
+                              _k.text = '';
+                              _n.text = '';
+                              _hA.text = '';
+                              _rH.text = '';
+                              _jmlh.textController.value.text = '1';
+                              await C_Barang.tambahBarang(
+                                  context,
+                                  kategori,
+                                  nama,
+                                  int.parse(hargaAwal),
+                                  int.parse(rekomHarga),
+                                  int.parse(j),
+                                  idBarang);
+                            }
+                          },
+                          child: Text(
+                            'Simpan Barang',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold),
+                          )),
+                    );
+                  }
+                })
               ]);
         });
   }
