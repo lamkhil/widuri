@@ -9,7 +9,7 @@ class M_Barang {
   static final _translator = GoogleTranslator();
   static FirebaseFirestore firestore = FirebaseFirestore.instance;
   static CollectionReference _barang =
-  FirebaseFirestore.instance.collection('barang');
+      FirebaseFirestore.instance.collection('barang');
   static Future<List<dynamic>> cekBarang() async {
     var list = [];
     var result = await _barang.get();
@@ -95,6 +95,7 @@ class M_Barang {
     }
     var caseSearch = setSearchParam(idBarang);
     caseSearch.addAll(setSearchParam(namaBarang.toLowerCase()));
+    caseSearch.addAll(setSearchParam(("$kategori $namaBarang").toLowerCase()));
     try {
       await _barang.doc(idBarang).set({
         'kategori': kategori.toLowerCase(),
