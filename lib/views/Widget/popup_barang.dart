@@ -47,6 +47,7 @@ class PopUpBarang {
     }
     showDialog(
         context: context,
+        barrierDismissible: !C_Barang.isLoadingStatic.value,
         builder: (BuildContext context) {
           var w = MediaQuery.of(context).size.width;
           var h = MediaQuery.of(context).size.height;
@@ -310,7 +311,8 @@ class PopUpBarang {
                                       borderRadius: BorderRadius.circular(12.0),
                                     ),
                                     child: Padding(
-                                      padding: EdgeInsets.symmetric(horizontal : 12.0),
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 12.0),
                                       child: Column(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
@@ -425,14 +427,51 @@ class PopUpBarang {
                                 side: BorderSide(color: primaryColor)),
                             primary: backgroundColor,
                           ),
-                          onPressed: () async {
-                            if (_formKey.currentState!.validate()) {
-                              _k.text = '';
-                              _n.text = '';
-                              _hA.text = '';
-                              _rH.text = '';
-                              C_Barang.hapusBarang(context, idBarang);
-                            }
+                          onPressed: () {
+                            Navigator.pop(context);
+                            showDialog(
+                                context: context,
+                                builder: (context) => AlertDialog(
+                                      title: Text('Hapus Barang'),
+                                      content: Text('Yakin Hapus Barang?'),
+                                      actions: [
+                                        ElevatedButton(
+                                            style: ElevatedButton.styleFrom(
+                                                primary: backgroundColor,
+                                                shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            12.0),
+                                                    side: BorderSide(
+                                                        color: primaryColor))),
+                                            onPressed: () {
+                                              _k.text = '';
+                                              _n.text = '';
+                                              _hA.text = '';
+                                              _rH.text = '';
+                                              Navigator.pop(context);
+                                            },
+                                            child: Text('Tidak',
+                                                style: TextStyle(
+                                                    color: primaryColor))),
+                                        ElevatedButton(
+                                            style: ElevatedButton.styleFrom(
+                                                primary: primaryColor,
+                                                shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            12.0))),
+                                            onPressed: () {
+                                              _k.text = '';
+                                              _n.text = '';
+                                              _hA.text = '';
+                                              _rH.text = '';
+                                              C_Barang.hapusBarang(
+                                                  context, idBarang);
+                                            },
+                                            child: Text('Ya'))
+                                      ],
+                                    ));
                           },
                           child: Text(
                             'Hapus Barang',
