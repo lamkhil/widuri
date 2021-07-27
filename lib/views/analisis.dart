@@ -2,9 +2,12 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:widuri/controller/c_barang.dart';
+import 'package:widuri/controller/c_transaksi.dart';
 
 import '../colors.dart';
+import 'Widget/category_widget.dart';
 import 'Widget/graphic.dart';
+import 'package:intl/intl.dart';
 
 class Analisis extends StatefulWidget {
   const Analisis({Key? key}) : super(key: key);
@@ -15,6 +18,11 @@ class Analisis extends StatefulWidget {
 
 class _AnalisisState extends State<Analisis> {
   final barangController = Get.put(C_Barang());
+  var _catatanController = TextEditingController();
+  var transaksiController = Get.put(C_Transaksi());
+
+  static const List <String> items = ['Bulan ini', 'Bulan Lalu'];
+  int _activeCategory = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +38,7 @@ class _AnalisisState extends State<Analisis> {
               Text(
                 'Stock Barang',
                 style: TextStyle(
-                    fontSize: 22.0,
+                    fontSize: 24.0,
                     fontWeight: FontWeight.bold,
                     fontFamily: 'RobotoMono',
                     color: Colors.black),
@@ -56,13 +64,13 @@ class _AnalisisState extends State<Analisis> {
         elevation: 0.0,
       ),
       body: Container(
-        padding: EdgeInsets.all(12.0),
+        padding: EdgeInsets.all(10.0),
         child: ListView(
           children: [
             Card(
               elevation: 2.0,
               shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12.0)),
+                  borderRadius: BorderRadius.circular(10.0)),
               child: Padding(
                   padding: EdgeInsets.all(20.0),
                   child: Column(
@@ -72,76 +80,81 @@ class _AnalisisState extends State<Analisis> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Container(
-                              padding: EdgeInsets.all(10.0),
+                              height: h * 0.05,
+                              padding: EdgeInsets.only(left: 10, right: 10),
                               decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(12.0),
+                                  borderRadius: BorderRadius.circular(10),
                                   border: Border.all(
-                                      color: primaryColor, width: 1)),
-                              child: Row(
-                                children: [
-                                  GestureDetector(
-                                    child: Icon(
-                                      Icons.date_range_rounded,
-                                      color: primaryColor,
-                                    ),
-                                    onTap: () {},
+                                    color: primaryColor,
+                                    width: 1.0,
+                                  )),
+                              child: Obx(() {
+                                var date = DateTime.now();
+
+                                if (transaksiController.date.value == '') {
+                                  transaksiController.date.value =
+                                      DateFormat('dd-MM-yyyy').format(date);
+                                }
+                                return ElevatedButton.icon(
+                                  style: ElevatedButton.styleFrom(
+                                      elevation: 0, primary: backgroundColor),
+                                  onPressed: () async {
+                                    DateTime selectedDate = date;
+                                    final DateTime? picked =
+                                    await showDatePicker(
+                                      context: context,
+                                      initialDate: selectedDate,
+                                      firstDate: DateTime(1975),
+                                      lastDate: DateTime(2050),
+                                      // selectableDayPredicate: (DateTime val) =>
+                                      //     val.weekday == 6 || val.weekday == 7 ? true : false,
+                                    );
+                                    if (picked != null) {
+                                      transaksiController.date.value =
+                                          DateFormat('dd-MM-yyyy')
+                                              .format(picked);
+                                    }
+                                  },
+                                  icon: Icon(
+                                    Icons.date_range,
+                                    color: primaryColor,
                                   ),
-                                  SizedBox(
-                                    width: 12.0,
+                                  label: Text(
+                                    transaksiController.date.value,
+                                    style: TextStyle(color: Colors.black),
                                   ),
-                                  Text(
-                                    'Pilih Tanggal',
-                                    style: TextStyle(
-                                      fontFamily: 'Roboto',
-                                      fontWeight: FontWeight.w300,
-                                      fontSize: 14,
-                                    ),
-                                  ),
-                                ],
-                              )),
+                                );
+                              })),
                           SizedBox(
-                            height: h * 0.05,
-                            width: w * 0.2,
-                            child: ElevatedButton(
-                              onPressed: () {},
-                              style: ElevatedButton.styleFrom(
-                                  primary: primaryColor,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(12.0))),
-                              child: Text(
-                                'Bulan ini',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontFamily: 'Roboto',
-                                    fontSize: 14.0),
-                              ),
-                            ),
+                            width: 20.0,
                           ),
-                          SizedBox(
-                            height: h * 0.05,
-                            width: w * 0.2,
-                            child: ElevatedButton(
-                              onPressed: () {},
-                              style: ElevatedButton.styleFrom(
-                                  padding: EdgeInsets.all(12.0),
-                                  primary: primaryColor,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(12.0))),
-                              child: Text(
-                                'Bulan lalu',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontFamily: 'Roboto',
-                                    fontSize: 14.0),
-                              ),
+                          Expanded(
+                            child:Container(
+                              height: h * 0.05,
+                              child: ListView.separated(
+                                  clipBehavior: Clip.none,
+                                  scrollDirection: Axis.horizontal,
+                                  itemBuilder: (context, i) => CategoryWidget(
+                                    name: '${items[i]}',
+                                    isActive: _activeCategory == i,
+                                    onClick: () {
+                                      setState(() {
+                                        _activeCategory = i;
+                                      });
+                                    },
+                                  ),
+                                  separatorBuilder: (context, i) => SizedBox(
+                                    width: 20.0,
+                                  ),
+                                  itemCount: 2),
                             ),
                           )
+
+
                         ],
                       ),
                       SizedBox(
-                        height: 23.0,
+                        height: 20.0,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -150,18 +163,18 @@ class _AnalisisState extends State<Analisis> {
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 fontFamily: 'Roboto',
-                                fontSize: 16.0,
+                                fontSize: 14.0,
                               )),
                           Text('+ Rp 1.900.000',
                               style: TextStyle(
                                   fontWeight: FontWeight.w600,
                                   fontFamily: 'Roboto',
-                                  fontSize: 16.0,
+                                  fontSize: 14.0,
                                   color: greenFontColor)),
                         ],
                       ),
                       SizedBox(
-                        height: 12.0,
+                        height: 10.0,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -170,22 +183,22 @@ class _AnalisisState extends State<Analisis> {
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 fontFamily: 'Roboto',
-                                fontSize: 16.0,
+                                fontSize: 14.0,
                               )),
                           Text('- Rp 900.000',
                               style: TextStyle(
                                   fontWeight: FontWeight.w600,
                                   fontFamily: 'Roboto',
-                                  fontSize: 16.0,
+                                  fontSize: 14.0,
                                   color: greenFontColor)),
                         ],
                       ),
                       SizedBox(
-                        height: 12.0,
+                        height: 10.0,
                       ),
                       Divider(),
                       SizedBox(
-                        height: 12.0,
+                        height: 10.0,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -194,42 +207,43 @@ class _AnalisisState extends State<Analisis> {
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 fontFamily: 'Roboto',
-                                fontSize: 16.0,
+                                fontSize: 14.0,
                               )),
                           Text('+ Rp 900.000',
                               style: TextStyle(
                                   fontWeight: FontWeight.w600,
                                   fontFamily: 'Roboto',
-                                  fontSize: 16.0,
+                                  fontSize: 14.0,
                                   color: greenFontColor)),
                         ],
                       ),
                       SizedBox(
-                        height: 12.0,
+                        height: 10.0,
                       ),
                       Divider(),
                       SizedBox(
-                        height: 12.0,
+                        height: 10.0,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text('Produk Terlaris',
                                   style: TextStyle(
                                     fontWeight: FontWeight.w600,
                                     fontFamily: 'Roboto',
-                                    fontSize: 16.0,
+                                    fontSize: 14.0,
                                   )),
                               SizedBox(
-                                height: 6.0,
+                                height: 5.0,
                               ),
                               Text('Baju Gamis Putih',
                                   style: TextStyle(
                                     fontWeight: FontWeight.normal,
                                     fontFamily: 'Roboto',
-                                    fontSize: 14.0,
+                                    fontSize: 13.0,
                                   )),
                             ],
                           ),
@@ -239,16 +253,16 @@ class _AnalisisState extends State<Analisis> {
                                   style: TextStyle(
                                     fontWeight: FontWeight.w600,
                                     fontFamily: 'Roboto',
-                                    fontSize: 16.0,
+                                    fontSize: 14.0,
                                   )),
                               SizedBox(
-                                height: 6.0,
+                                height: 5.0,
                               ),
                               Text('8',
                                   style: TextStyle(
                                     fontWeight: FontWeight.normal,
                                     fontFamily: 'Roboto',
-                                    fontSize: 14.0,
+                                    fontSize: 13.0,
                                   )),
                             ],
                           ),
@@ -258,25 +272,25 @@ class _AnalisisState extends State<Analisis> {
                   )),
             ),
             SizedBox(
-              height: 23.0,
+              height: 20.0,
             ),
             Text('Grafik Penjualan',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontFamily: 'Roboto',
-                  fontSize: 18.0,
+                  fontSize: 16.0,
                 )),
-            SizedBox(height: 12.0),
+            SizedBox(height: 10.0),
             AspectRatio(
               aspectRatio: 1.5,
               child: Card(
                 elevation: 2.0,
                 shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12.0)),
+                    borderRadius: BorderRadius.circular(10.0)),
                 child: Column(
                   children: <Widget>[
                     const SizedBox(
-                      height: 12,
+                      height: 10,
                     ),
                     SizedBox(
                       width: w * 0.3,
@@ -316,7 +330,7 @@ class _AnalisisState extends State<Analisis> {
               ),
             ),
             SizedBox(
-              height: 23.0,
+              height: 20.0,
             ),
             SizedBox(
                 width: w - 23.0,
@@ -331,10 +345,13 @@ class _AnalisisState extends State<Analisis> {
                     onPressed: () {},
                     child: Text('Catat Transaksi',
                         style: TextStyle(
-                          fontWeight: FontWeight.bold,
+                          fontWeight: FontWeight.w600,
                           fontFamily: 'Roboto',
                           fontSize: 16.0,
                         )))),
+            SizedBox(
+              height: 20.0,
+            )
           ],
         ),
       ),

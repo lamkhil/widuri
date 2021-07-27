@@ -16,6 +16,7 @@ class PopUpBarang {
   String idBarang;
   bool edit;
   BuildContext context;
+
   PopUpBarang(
       {this.kategori,
       this.hargaAwal,
@@ -310,7 +311,8 @@ class PopUpBarang {
                                       borderRadius: BorderRadius.circular(12.0),
                                     ),
                                     child: Padding(
-                                      padding: EdgeInsets.symmetric(horizontal : 12.0),
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 12.0),
                                       child: Column(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
@@ -415,81 +417,96 @@ class PopUpBarang {
                 }
               }),
               actions: [
-                Builder(builder: (BuildContext context) {
-                  if (edit) {
-                    return Container(
-                      child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12.0),
-                                side: BorderSide(color: primaryColor)),
-                            primary: backgroundColor,
-                          ),
-                          onPressed: () async {
-                            if (_formKey.currentState!.validate()) {
-                              _k.text = '';
-                              _n.text = '';
-                              _hA.text = '';
-                              _rH.text = '';
-                              C_Barang.hapusBarang(context, idBarang);
-                            }
-                          },
-                          child: Text(
-                            'Hapus Barang',
-                            style: TextStyle(
-                                color: primaryColor,
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold),
-                          )),
-                    );
-                  } else {
-                    return Container();
-                  }
-                }),
-                Obx(() {
-                  if (C_Barang.isLoadingStatic.value) {
-                    return Container();
-                  } else {
-                    return Container(
-                      child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12.0)),
-                            primary: primaryColor,
-                          ),
-                          onPressed: () async {
-                            if (_formKey.currentState!.validate()) {
-                              var kategori = _k.text;
-                              var nama = _n.text;
-                              var hargaAwal = _hA.text;
-                              var rekomHarga = _rH.text;
-                              var j =
-                                  _jmlh.textController.value.text.toString();
-                              _k.text = '';
-                              _n.text = '';
-                              _hA.text = '';
-                              _rH.text = '';
-                              _jmlh.textController.value.text = '1';
-                              await C_Barang.tambahBarang(
-                                  context,
-                                  kategori,
-                                  nama,
-                                  int.parse(hargaAwal),
-                                  int.parse(rekomHarga),
-                                  int.parse(j),
-                                  idBarang);
-                            }
-                          },
-                          child: Text(
-                            'Simpan Barang',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold),
-                          )),
-                    );
-                  }
-                })
+                Padding(
+                  padding: EdgeInsets.all(20.0),
+                  child: Column(
+                    children: [
+                      Builder(builder: (BuildContext context) {
+                        if (edit) {
+                          return Container(
+                            height: h * 0.05,
+                            width: w,
+                            child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(12.0),
+                                      side: BorderSide(color: primaryColor)),
+                                  primary: backgroundColor,
+                                ),
+                                onPressed: () async {
+                                  if (_formKey.currentState!.validate()) {
+                                    _k.text = '';
+                                    _n.text = '';
+                                    _hA.text = '';
+                                    _rH.text = '';
+                                    C_Barang.hapusBarang(context, idBarang);
+                                  }
+                                },
+                                child: Text(
+                                  'Hapus Barang',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontFamily: 'Roboto',
+                                      fontSize: 16.0,
+                                      color: Colors.black),
+                                )),
+                          );
+                        } else {
+                          return Container();
+                        }
+                      }),
+                      SizedBox(height: 10.0),
+                      Obx(() {
+                        if (C_Barang.isLoadingStatic.value) {
+                          return Container();
+                        } else {
+                          return Container(
+                            height: h * 0.05,
+                            width: w,
+                            child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius:
+                                          BorderRadius.circular(12.0)),
+                                  primary: primaryColor,
+                                ),
+                                onPressed: () async {
+                                  if (_formKey.currentState!.validate()) {
+                                    var kategori = _k.text;
+                                    var nama = _n.text;
+                                    var hargaAwal = _hA.text;
+                                    var rekomHarga = _rH.text;
+                                    var j = _jmlh.textController.value.text
+                                        .toString();
+                                    _k.text = '';
+                                    _n.text = '';
+                                    _hA.text = '';
+                                    _rH.text = '';
+                                    _jmlh.textController.value.text = '1';
+                                    await C_Barang.tambahBarang(
+                                        context,
+                                        kategori,
+                                        nama,
+                                        int.parse(hargaAwal),
+                                        int.parse(rekomHarga),
+                                        int.parse(j),
+                                        idBarang);
+                                  }
+                                },
+                                child: Text(
+                                  'Simpan Barang',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontFamily: 'Roboto',
+                                    fontSize: 16.0,
+                                  ),
+                                )),
+                          );
+                        }
+                      })
+                    ],
+                  ),
+                )
               ]);
         });
   }

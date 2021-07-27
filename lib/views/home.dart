@@ -61,7 +61,7 @@ class _HomeState extends State<Home> {
                 child: Text(
                   'Stock Barang Menipis',
                   style: TextStyle(
-                      fontSize: 18.0,
+                      fontSize: 16.0,
                       fontWeight: FontWeight.bold,
                       fontFamily: 'RobotoMono',
                       color: Colors.black),
@@ -109,7 +109,7 @@ class _HomeState extends State<Home> {
                 child: Text(
                   'Tren Penjualan',
                   style: TextStyle(
-                      fontSize: 18.0,
+                      fontSize: 16.0,
                       fontWeight: FontWeight.bold,
                       fontFamily: 'RobotoMono',
                       color: Colors.black),

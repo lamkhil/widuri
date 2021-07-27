@@ -6,8 +6,6 @@ import 'package:widuri/controller/c_transaksi.dart';
 import 'package:intl/intl.dart';
 import 'package:widuri/views/Widget/tambah_barang_transaksi.dart';
 import '../colors.dart';
-import 'Widget/category_widget.dart';
-import 'daftar_barang.dart';
 
 class TambahTransaksi extends StatefulWidget {
   const TambahTransaksi({Key? key}) : super(key: key);
@@ -17,9 +15,9 @@ class TambahTransaksi extends StatefulWidget {
 }
 
 class _TambahTransaksiState extends State<TambahTransaksi> {
-  int _activeCategory = 0;
+
   var transaksiController = Get.put(C_Transaksi());
-  var _catatanController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     var h = MediaQuery.of(context).size.height;
@@ -33,7 +31,7 @@ class _TambahTransaksiState extends State<TambahTransaksi> {
                 Text(
                   'Tambah Transaksi',
                   style: TextStyle(
-                      fontSize: 22.0,
+                      fontSize: 24.0,
                       fontWeight: FontWeight.bold,
                       fontFamily: 'RobotoMono',
                       color: Colors.black),
@@ -65,7 +63,7 @@ class _TambahTransaksiState extends State<TambahTransaksi> {
                       color: backgroundColor,
                       elevation: 2,
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12.0)),
+                          borderRadius: BorderRadius.circular(10.0)),
                       child: Padding(
                         padding: EdgeInsets.all(20),
                         child: Column(
@@ -75,35 +73,177 @@ class _TambahTransaksiState extends State<TambahTransaksi> {
                             Text(
                               'Harga deal',
                               style: TextStyle(
-                                  fontSize: 20.0,
+                                  fontSize: 16.0,
                                   fontWeight: FontWeight.w600,
                                   fontFamily: 'RobotoMono',
                                   color: Colors.black),
                             ),
                             SizedBox(
-                              height: 6,
+                              height: 20,
                             ),
-                            Container(
-                              height: 40.0,
-                              child: ListView.separated(
-                                  clipBehavior: Clip.none,
-                                  scrollDirection: Axis.horizontal,
-                                  itemBuilder: (context, i) => CategoryWidget(
-                                        name: '+5000',
-                                        isActive: _activeCategory == i,
-                                        onClick: () {
-                                          setState(() {
-                                            _activeCategory = i;
-                                          });
-                                        },
-                                      ),
-                                  separatorBuilder: (context, i) => SizedBox(
-                                        width: 6.0,
-                                      ),
-                                  itemCount: 5),
-                            ),
+                           SingleChildScrollView(
+                             scrollDirection: Axis.horizontal,
+                             child: Row(
+                               children: [
+                                 SizedBox(
+                                   height: h * 0.05,
+                                   width: w * 0.15,
+                                   child: ElevatedButton(
+                                     onPressed: () {},
+                                     style: ElevatedButton.styleFrom(
+                                         primary: primaryColor,
+                                         shape: RoundedRectangleBorder(
+                                             borderRadius:
+                                             BorderRadius.circular(10.0))),
+                                     child: Text(
+                                       '+1000',
+                                       style: TextStyle(
+                                           fontWeight: FontWeight.bold,
+                                           fontFamily: 'Roboto',
+                                           fontSize: 13.0),
+                                     ),
+                                   ),
+                                 ),
+                                 SizedBox(
+                                   width: 5.0,
+                                 ),
+                                 SizedBox(
+                                   height: h * 0.05,
+                                   width: w * 0.15,
+                                   child: ElevatedButton(
+                                     onPressed: () {},
+                                     style: ElevatedButton.styleFrom(
+                                         primary: primaryColor,
+                                         shape: RoundedRectangleBorder(
+                                             borderRadius:
+                                             BorderRadius.circular(10.0))),
+                                     child: Text(
+                                       '+2000',
+                                       style: TextStyle(
+                                           fontWeight: FontWeight.bold,
+                                           fontFamily: 'Roboto',
+                                           fontSize: 13.0),
+                                     ),
+                                   ),
+                                 ),
+                                 SizedBox(
+                                   width: 5.0,
+                                 ),
+                                 SizedBox(
+                                   height: h * 0.05,
+                                   width: w * 0.15,
+                                   child: ElevatedButton(
+                                     onPressed: () {},
+                                     style: ElevatedButton.styleFrom(
+                                         primary: primaryColor,
+                                         shape: RoundedRectangleBorder(
+                                             borderRadius:
+                                             BorderRadius.circular(10.0))),
+                                     child: Text(
+                                       '+5000',
+                                       style: TextStyle(
+                                           fontWeight: FontWeight.bold,
+                                           fontFamily: 'Roboto',
+                                           fontSize: 13.0),
+                                     ),
+                                   ),
+                                 ),
+                                 SizedBox(
+                                   width: 5.0,
+                                 ),
+                                 SizedBox(
+                                   height: h * 0.05,
+                                   width: w * 0.15,
+                                   child: ElevatedButton(
+                                     onPressed: () {},
+                                     style: ElevatedButton.styleFrom(
+                                         primary: primaryColor,
+                                         shape: RoundedRectangleBorder(
+                                             borderRadius:
+                                             BorderRadius.circular(10.0))),
+                                     child: Text(
+                                       '+10.000',
+                                       style: TextStyle(
+                                           fontWeight: FontWeight.bold,
+                                           fontFamily: 'Roboto',
+                                           fontSize: 13.0),
+                                     ),
+                                   ),
+                                 ),
+                                 SizedBox(
+                                   width: 5.0,
+                                 ),
+                                 SizedBox(
+                                   height: h * 0.05,
+                                   width: w * 0.15,
+                                   child: ElevatedButton(
+                                     onPressed: () {},
+                                     style: ElevatedButton.styleFrom(
+                                         primary: primaryColor,
+                                         shape: RoundedRectangleBorder(
+                                             borderRadius:
+                                             BorderRadius.circular(10.0))),
+                                     child: Text(
+                                       '+20.000',
+                                       style: TextStyle(
+                                           fontWeight: FontWeight.bold,
+                                           fontFamily: 'Roboto',
+                                           fontSize: 13.0),
+                                     ),
+                                   ),
+                                 ),
+                                 SizedBox(
+                                   width: 5.0,
+                                 ),
+                                 SizedBox(
+                                   height: h * 0.05,
+                                   width: w * 0.15,
+                                   child: ElevatedButton(
+                                     onPressed: () {},
+                                     style: ElevatedButton.styleFrom(
+                                         primary: primaryColor,
+                                         shape: RoundedRectangleBorder(
+                                             borderRadius:
+                                             BorderRadius.circular(10.0))),
+                                     child: Text(
+                                       '+50.000',
+                                       style: TextStyle(
+                                           fontWeight: FontWeight.bold,
+                                           fontFamily: 'Roboto',
+                                           fontSize: 13.0),
+                                     ),
+                                   ),
+                                 ),
+                                 SizedBox(
+                                   width: 5.0,
+                                 ),
+                                 SizedBox(
+                                   height: h * 0.05,
+                                   width: w * 0.15,
+                                   child: ElevatedButton(
+                                     onPressed: () {},
+                                     style: ElevatedButton.styleFrom(
+                                         primary: primaryColor,
+                                         shape: RoundedRectangleBorder(
+                                             borderRadius:
+                                             BorderRadius.circular(10.0))),
+                                     child: Text(
+                                       '+100.000',
+                                       style: TextStyle(
+                                           fontWeight: FontWeight.bold,
+                                           fontFamily: 'Roboto',
+                                           fontSize: 13.0),
+                                     ),
+                                   ),
+                                 ),
+                                 SizedBox(
+                                   width: 5.0,
+                                 ),
+                               ],
+                             ),
+                           ),
                             SizedBox(
-                              height: 6,
+                              height: 20,
                             ),
                             Container(
                               padding: EdgeInsets.only(left: 10, right: 10),
@@ -120,15 +260,19 @@ class _TambahTransaksiState extends State<TambahTransaksi> {
                                 ],
                                 decoration: InputDecoration(
                                   hintText: "contoh: 100.000",
+                                  hintStyle: TextStyle(fontWeight: FontWeight.w300,
+                                      fontFamily: 'Roboto',
+                                      fontSize: 13.0),
                                   border: InputBorder.none,
                                   suffixText: "Rupiah",
                                 ),
                               ),
                             ),
                             SizedBox(
-                              height: 8,
+                              height: 10,
                             ),
                             Container(
+                              height: h * 0.05,
                                 padding: EdgeInsets.only(left: 10, right: 10),
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10),
@@ -174,22 +318,22 @@ class _TambahTransaksiState extends State<TambahTransaksi> {
                                   );
                                 })),
                             SizedBox(
-                              height: 8,
+                              height: 20,
                             ),
                             Text(
                               'Catatan',
                               style: TextStyle(
-                                  fontSize: 20.0,
+                                  fontSize: 16.0,
                                   fontWeight: FontWeight.w600,
                                   fontFamily: 'RobotoMono',
                                   color: Colors.black),
                             ),
                             SizedBox(
-                              height: 8,
+                              height: 10,
                             ),
                             Container(
                                 padding: EdgeInsets.only(left: 10, right: 10),
-                                height: 72,
+                                height: 80,
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10),
                                     border: Border.all(
@@ -209,6 +353,9 @@ class _TambahTransaksiState extends State<TambahTransaksi> {
                                     counterText: '',
                                     hintText:
                                         "contoh : Ini merupakan transaksi lama dari ibu sumiati yang ngutang dan sekarang baru dibayar.",
+                                    hintStyle: TextStyle(fontWeight: FontWeight.w300,
+                                        fontFamily: 'Roboto',
+                                        fontSize: 13.0),
                                     hintMaxLines: 3,
                                     border: InputBorder.none,
                                   ),
@@ -235,22 +382,22 @@ class _TambahTransaksiState extends State<TambahTransaksi> {
                         ),
                       )),
                   SizedBox(
-                    height: 23,
+                    height: 20,
                   ),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        ' Detail Barang',
+                        'Detail Barang',
                         style: TextStyle(
-                            fontSize: 20.0,
+                            fontSize: 16.0,
                             fontWeight: FontWeight.w600,
                             fontFamily: 'RobotoMono',
                             color: Colors.black),
                       ),
                       SizedBox(
-                        height: 6,
+                        height: 10,
                       ),
                       Card(
                           shape: RoundedRectangleBorder(
@@ -390,7 +537,7 @@ class _TambahTransaksiState extends State<TambahTransaksi> {
                                 ),
                               ))),
                       SizedBox(
-                        height: 23.0,
+                        height: 20.0,
                       ),
                       SizedBox(
                         height: h * 0.05,
@@ -405,18 +552,34 @@ class _TambahTransaksiState extends State<TambahTransaksi> {
                           icon: Icon(
                             Icons.add_circle_rounded,
                           ),
-                          label: Text("Tambah Barang"),
+                          label: Text("Tambah Barang", style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontFamily: 'Roboto',
+                              fontSize: 14.0),),
                         ),
                       ),
 
-                      SizedBox(height: 36)
-                      // child: Row(
-                      //   mainAxisAlignment: MainAxisAlignment.start,
-                      //   children: [
-                      //     Icon(Icons.add_circle_rounded),
-                      //     Text(' Tambah Barang'),
-                      //   ],
-                      // )),
+                      SizedBox(height: 35),
+                      SizedBox(
+                        height: h * 0.05,
+                        width: w,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10)),
+                              primary: primaryColor),
+                          onPressed: () {
+                          },
+                          child: Text("Simpan Barang", style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontFamily: 'Roboto',
+                            fontSize: 16.0,
+                          )),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20.0,
+                      )
                     ],
                   )
                 ],

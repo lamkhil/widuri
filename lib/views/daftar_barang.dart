@@ -49,6 +49,9 @@ class _DaftarBarangState extends State<DaftarBarang>
             bottom: 23.0,
           ),
           child: FloatingActionButton.extended(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.0)
+            ),
             onPressed: () {
               PopUpBarang(edit: false, context: context).popUpTambahBarang();
             },
@@ -65,7 +68,7 @@ class _DaftarBarangState extends State<DaftarBarang>
                 Text(
                   'Stock Barang',
                   style: TextStyle(
-                      fontSize: 22.0,
+                      fontSize: 24.0,
                       fontWeight: FontWeight.bold,
                       fontFamily: 'RobotoMono',
                       color: Colors.black),
@@ -134,9 +137,9 @@ class BodyBarang {
               alignment: Alignment.centerLeft,
               margin: EdgeInsets.all(12),
               child: Text(
-                'Stock Barang',
+                'Daftar Barang',
                 style: TextStyle(
-                    fontSize: 18.0,
+                    fontSize: 16.0,
                     fontWeight: FontWeight.bold,
                     fontFamily: 'RobotoMono',
                     color: Colors.black),
@@ -153,12 +156,19 @@ class BodyBarang {
                 if (barangController.query.value == '') {
                   viewList = barangController.barangList;
                 } else {
-                  if (!(barangController.barangList.value [0] is int) ){
-                    viewList = barangController.barangList
+                  if (!(barangController.barangList.value[0] is int)) {
+                    if (barangController.barangList
                         .where((value) => value['caseSearch']
-                        .contains(barangController.query.value))
-                        .toList();
-                  } else{
+                            .contains(barangController.query.value))
+                        .isEmpty) {
+                      return Text('Barang tidak ditemukan');
+                    } else {
+                      viewList = barangController.barangList
+                          .where((value) => value['caseSearch']
+                              .contains(barangController.query.value))
+                          .toList();
+                    }
+                  } else {
                     return Text('Masih Belum ada barang');
                   }
                 }
