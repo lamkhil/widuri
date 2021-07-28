@@ -23,7 +23,6 @@ class CardBarang extends StatelessWidget {
   int harga;
   int rekomendasi;
   bool transaksi;
-  C_Transaksi transaksiController = Get.find();
   RxInt jumlahTransaksi = 0.obs;
   @override
   Widget build(BuildContext context) {
@@ -159,6 +158,7 @@ class CardBarang extends StatelessWidget {
                           ),
                           Builder(builder: (context) {
                             if (transaksi) {
+                              C_Transaksi transaksiController = Get.find();
                               return Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
@@ -166,7 +166,7 @@ class CardBarang extends StatelessWidget {
                                   IconButton(
                                       padding: EdgeInsets.zero,
                                       onPressed: () {
-                                        if (jumlahTransaksi > 0) {
+                                        if (jumlahTransaksi.value > 0) {
                                           jumlahTransaksi--;
                                           transaksiController
                                                   .barang.value[idBarang]
