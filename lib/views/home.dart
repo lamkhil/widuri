@@ -24,11 +24,13 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     var h = MediaQuery.of(context).size.height;
     var w = MediaQuery.of(context).size.width;
-
+    var name = auth.currentUser!.displayName == null
+        ? ''
+        : auth.currentUser!.displayName;
     return Scaffold(
         appBar: AppBar(
           title: Text(
-            "Hi, ${auth.currentUser!.displayName}!",
+            "Hi, $name!",
             style: TextStyle(
                 fontSize: 24, fontWeight: FontWeight.bold, color: Colors.black),
           ),
@@ -75,32 +77,31 @@ class _HomeState extends State<Home> {
               } else {
                 if (barangController.barangList[0] is int) {
                   return Center(
-                    child :
-                    Text('Belum ada barang'),
+                    child: Text('Belum ada barang'),
                   );
                 } else {
                   var viewList = barangController.barangList
                       .where((value) => value['jumlah'] < 3)
                       .toList();
-                 if (viewList.isEmpty){
-                   return Center(
-                     child: Text("Belum ada barang menipis"),
-                   );
-                 }else{
-                   return ListView.builder(
-                       physics: NeverScrollableScrollPhysics(),
-                       shrinkWrap: true,
-                       itemCount: viewList.length,
-                       itemBuilder: (context, index) {
-                         return CardBarang(
-                             namaBarang: viewList[index]['namaBarang'],
-                             idBarang: viewList[index]['id'],
-                             jumlah: viewList[index]['jumlah'],
-                             harga: viewList[index]['hargaAwal'],
-                             kategori: viewList[index]['kategori'],
-                             rekomendasi: viewList[index]['rekomendasiHarga']);
-                       });
-                 }
+                  if (viewList.isEmpty) {
+                    return Center(
+                      child: Text("Belum ada barang menipis"),
+                    );
+                  } else {
+                    return ListView.builder(
+                        physics: NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: viewList.length,
+                        itemBuilder: (context, index) {
+                          return CardBarang(
+                              namaBarang: viewList[index]['namaBarang'],
+                              idBarang: viewList[index]['id'],
+                              jumlah: viewList[index]['jumlah'],
+                              harga: viewList[index]['hargaAwal'],
+                              kategori: viewList[index]['kategori'],
+                              rekomendasi: viewList[index]['rekomendasiHarga']);
+                        });
+                  }
                 }
               }
             }),

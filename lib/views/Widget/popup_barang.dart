@@ -83,6 +83,7 @@ class PopUpBarang {
                               child: Padding(
                                 padding: EdgeInsets.zero,
                                 child: new TextFormField(
+                                  maxLength: 10,
                                   validator: (value) {
                                     if (value == '') {
                                       return 'Jangan Dikosongi';
@@ -129,6 +130,7 @@ class PopUpBarang {
                               child: Padding(
                                 padding: EdgeInsets.zero,
                                 child: new TextFormField(
+                                  maxLength: 25,
                                   validator: (value) {
                                     if (value == '') {
                                       return 'Jangan Dikosongi';

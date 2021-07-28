@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:widuri/colors.dart';
+import 'package:widuri/controller/c_transaksi.dart';
 import 'package:widuri/views/Widget/popup_barang.dart';
 
 class CardBarang extends StatelessWidget {
@@ -21,7 +23,8 @@ class CardBarang extends StatelessWidget {
   int harga;
   int rekomendasi;
   bool transaksi;
-
+  C_Transaksi transaksiController = Get.find();
+  RxInt jumlahTransaksi = 0.obs;
   @override
   Widget build(BuildContext context) {
     var w = MediaQuery.of(context).size.width;
@@ -162,15 +165,73 @@ class CardBarang extends StatelessWidget {
                                 children: <Widget>[
                                   IconButton(
                                       padding: EdgeInsets.zero,
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        if (jumlahTransaksi > 0) {
+                                          jumlahTransaksi--;
+                                          transaksiController
+                                                  .barang.value[idBarang]
+                                              ['jumlahTransaksi']--;
+                                          transaksiController.barang
+                                                  .value[idBarang]['jumlah'] =
+                                              int.parse(transaksiController
+                                                          .barang
+                                                          .value[idBarang]
+                                                      ['jumlah']) +
+                                                  1;
+                                          if (jumlahTransaksi.value == 0) {
+                                            if (transaksiController.barang.value
+                                                .containsKey(idBarang))
+                                              transaksiController.barang.value
+                                                  .remove(idBarang);
+                                          }
+                                        }
+                                      },
                                       icon: Icon(
                                         Icons.remove_circle_rounded,
                                         color: primaryColor,
                                       )),
-                                  FittedBox(child: Text('10')),
+                                  FittedBox(child: Obx(() {
+                                    jumlahTransaksi.value = transaksiController
+                                            .barang.value
+                                            .containsKey(idBarang)
+                                        ? transaksiController.barang
+                                            .value[idBarang]['jumlahTransaksi']
+                                        : 0;
+                                    return Text(jumlahTransaksi.toString());
+                                  })),
                                   IconButton(
                                       padding: EdgeInsets.zero,
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        if (jumlahTransaksi < jumlah) {
+                                          jumlahTransaksi++;
+                                          if (transaksiController.barang.value
+                                              .containsKey(idBarang)) {
+                                            transaksiController
+                                                    .barang.value[idBarang]
+                                                ['jumlahTransaksi']++;
+                                            transaksiController.barang
+                                                    .value[idBarang]['jumlah'] =
+                                                int.parse(transaksiController
+                                                            .barang
+                                                            .value[idBarang]
+                                                        ['jumlah']) -
+                                                    1;
+                                          } else {
+                                            transaksiController.barang.value
+                                                .addAll({
+                                              idBarang: {
+                                                'jumlahTransaksi': 1,
+                                                'hargaAwal': harga,
+                                                'id': idBarang,
+                                                'kategori': kategori,
+                                                'namaBarang': namaBarang,
+                                                'rekomendasiHarga': rekomendasi,
+                                                'jumlah': jumlah
+                                              }
+                                            });
+                                          }
+                                        }
+                                      },
                                       icon: Icon(
                                         Icons.add_circle_rounded,
                                         color: primaryColor,
