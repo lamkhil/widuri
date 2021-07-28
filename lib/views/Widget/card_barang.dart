@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 import 'package:widuri/colors.dart';
 import 'package:widuri/views/Widget/popup_barang.dart';
 
@@ -45,7 +46,7 @@ class CardBarang extends StatelessWidget {
                           width: 12.0,
                         ),
                         Container(
-                          constraints: BoxConstraints(maxWidth: w * 0.25),
+                          width: w * 0.275,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -69,98 +70,138 @@ class CardBarang extends StatelessWidget {
                         ),
                       ],
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Text(
-                                'Stock',
-                                style: TextStyle(
-                                    fontSize: 12.0, color: primaryColor),
-                              ),
-                              SizedBox(
-                                height: 4.0,
-                              ),
-                              Container(
-                                constraints: BoxConstraints(minWidth: 16.0),
-                                child: Text(
-                                  '$jumlah',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontSize: 12.0,
+                    Container(
+                      width: w * 0.45,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Visibility(
+                            visible: !transaksi,
+                            child: Container(
+                              width: w * 0.074,
+                              child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    FittedBox(
+                                      child: Text(
+                                        'Stock',
+                                        style: TextStyle(color: primaryColor),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 4.0,
+                                    ),
+                                    FittedBox(
+                                      child: Text(
+                                        '$jumlah',
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                  ]),
+                            ),
+                          ),
+                          Visibility(
+                            visible: !transaksi,
+                            child: SizedBox(
+                              width: w * 0.014,
+                            ),
+                          ),
+                          Container(
+                            width: w * 0.14,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                FittedBox(
+                                  child: Text(
+                                    'Harga Awal',
+                                    style: TextStyle(
+                                      color: primaryColor,
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ]),
-                        SizedBox(
-                          width: 12.0,
-                        ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            FittedBox(
-                              fit: BoxFit.contain,
-                              child: Text(
-                                'Harga Awal',
-                                style: TextStyle(
-                                  fontSize: 12.0,
-                                  color: primaryColor,
+                                SizedBox(
+                                  height: 4.0,
                                 ),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 4.0,
-                            ),
-                            Text('Rp. $harga',
-                                style: TextStyle(
-                                  fontSize: 12.0,
-                                )),
-                          ],
-                        ),
-                        SizedBox(
-                          width: 12.0,
-                        ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            FittedBox(
-                              fit: BoxFit.contain,
-                              child: Text(
-                                'Harga Jual',
-                                style: TextStyle(
-                                  fontSize: 12.0,
-                                  color: primaryColor,
+                                FittedBox(
+                                  child: Text('Rp $harga', style: TextStyle()),
                                 ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            width: w * 0.014,
+                          ),
+                          Visibility(
+                            visible: !transaksi,
+                            child: Container(
+                              width: w * 0.14,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  FittedBox(
+                                    child: Text(
+                                      'Harga Jual',
+                                      style: TextStyle(
+                                        color: primaryColor,
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 4.0,
+                                  ),
+                                  FittedBox(child: Text('Rp $rekomendasi')),
+                                ],
                               ),
                             ),
-                            SizedBox(
-                              height: 4.0,
-                            ),
-                            Text('Rp. $rekomendasi',
-                                style: TextStyle(
-                                  fontSize: 12.0,
-                                )),
-                          ],
-                        ),
-                        IconButton(
-                          onPressed: () {
-                            PopUpBarang(
-                                    edit: true,
-                                    context: context,
-                                    kategori: this.kategori,
-                                    hargaAwal: harga,
-                                    rekomendasiHarga: rekomendasi,
-                                    namaBarang: this.namaBarang,
-                                    jumlah: this.jumlah,
-                                    idBarang: this.idBarang)
-                                .popUpTambahBarang();
-                          },
-                          icon: Icon(Icons.arrow_forward_ios_rounded),
-                          iconSize: 16.0,
-                        )
-                      ],
+                          ),
+                          Builder(builder: (context) {
+                            if (transaksi) {
+                              return Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  IconButton(
+                                      padding: EdgeInsets.zero,
+                                      onPressed: () {},
+                                      icon: Icon(
+                                        Icons.remove_circle_rounded,
+                                        color: primaryColor,
+                                      )),
+                                  FittedBox(child: Text('10')),
+                                  IconButton(
+                                      padding: EdgeInsets.zero,
+                                      onPressed: () {},
+                                      icon: Icon(
+                                        Icons.add_circle_rounded,
+                                        color: primaryColor,
+                                      ))
+                                ],
+                              );
+                            } else {
+                              return Container(
+                                width: w * 0.05,
+                                child: FittedBox(
+                                  child: IconButton(
+                                    onPressed: () {
+                                      PopUpBarang(
+                                              edit: true,
+                                              context: context,
+                                              kategori: this.kategori,
+                                              hargaAwal: harga,
+                                              rekomendasiHarga: rekomendasi,
+                                              namaBarang: this.namaBarang,
+                                              jumlah: this.jumlah,
+                                              idBarang: this.idBarang)
+                                          .popUpTambahBarang();
+                                    },
+                                    icon: Icon(Icons.arrow_forward_ios_rounded),
+                                  ),
+                                ),
+                              );
+                            }
+                          })
+                        ],
+                      ),
                     )
                   ],
                 ),
