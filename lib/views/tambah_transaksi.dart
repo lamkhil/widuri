@@ -416,21 +416,26 @@ class _TambahTransaksiState extends State<TambahTransaksi> {
                       ),
                       Obx(
                         () {
-                          var viewList =
-                              transaksiController.barang.values.toList();
                           return ListView.builder(
                               shrinkWrap: true,
                               physics: NeverScrollableScrollPhysics(),
-                              itemCount: viewList.length,
+                              itemCount: transaksiController.barang.values
+                                  .toList()
+                                  .length,
                               itemBuilder: (context, index) {
                                 return CardBarang(
-                                  namaBarang: viewList[index]['namaBarang'],
-                                  idBarang: viewList[index]['id'],
-                                  jumlah: viewList[index]['jumlah'],
-                                  harga: viewList[index]['hargaAwal'],
-                                  kategori: viewList[index]['kategori'],
-                                  rekomendasi: viewList[index]
-                                      ['rekomendasiHarga'],
+                                  namaBarang: transaksiController.barang.values
+                                      .toList()[index]['namaBarang'],
+                                  idBarang: transaksiController.barang.values
+                                      .toList()[index]['id'],
+                                  jumlah: transaksiController.barang.values
+                                      .toList()[index]['jumlah'],
+                                  harga: transaksiController.barang.values
+                                      .toList()[index]['hargaAwal'],
+                                  kategori: transaksiController.barang.values
+                                      .toList()[index]['kategori'],
+                                  rekomendasi: transaksiController.barang.values
+                                      .toList()[index]['rekomendasiHarga'],
                                   transaksi: true,
                                 );
                               });

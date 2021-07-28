@@ -6,6 +6,5 @@ class C_Transaksi extends GetxController {
   var date = ''.obs;
   var controllerCatatan = TextEditingController().obs;
   var catatan = ''.obs;
-  var listBarang = [].obs;
   var barang = {}.obs;
 }

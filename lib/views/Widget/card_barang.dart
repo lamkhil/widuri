@@ -172,18 +172,14 @@ class CardBarang extends StatelessWidget {
                                                   .barang.value[idBarang]
                                               ['jumlahTransaksi']--;
                                           transaksiController.barang
-                                                  .value[idBarang]['jumlah'] =
-                                              int.parse(transaksiController
-                                                          .barang
-                                                          .value[idBarang]
-                                                      ['jumlah']) +
-                                                  1;
-                                          if (jumlahTransaksi.value == 0) {
+                                              .value[idBarang]['jumlah']++;
+                                          if (jumlahTransaksi == 0) {
                                             if (transaksiController.barang.value
                                                 .containsKey(idBarang))
                                               transaksiController.barang.value
                                                   .remove(idBarang);
                                           }
+                                          transaksiController.barang.refresh();
                                         }
                                       },
                                       icon: Icon(
@@ -197,7 +193,8 @@ class CardBarang extends StatelessWidget {
                                         ? transaksiController.barang
                                             .value[idBarang]['jumlahTransaksi']
                                         : 0;
-                                    return Text(jumlahTransaksi.toString());
+                                    return Text(
+                                        jumlahTransaksi.value.toString());
                                   })),
                                   IconButton(
                                       padding: EdgeInsets.zero,
@@ -210,12 +207,7 @@ class CardBarang extends StatelessWidget {
                                                     .barang.value[idBarang]
                                                 ['jumlahTransaksi']++;
                                             transaksiController.barang
-                                                    .value[idBarang]['jumlah'] =
-                                                int.parse(transaksiController
-                                                            .barang
-                                                            .value[idBarang]
-                                                        ['jumlah']) -
-                                                    1;
+                                                .value[idBarang]['jumlah']--;
                                           } else {
                                             transaksiController.barang.value
                                                 .addAll({
@@ -230,6 +222,7 @@ class CardBarang extends StatelessWidget {
                                               }
                                             });
                                           }
+                                          transaksiController.barang.refresh();
                                         }
                                       },
                                       icon: Icon(
