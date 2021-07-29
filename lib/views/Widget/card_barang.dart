@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:widuri/colors.dart';
 import 'package:widuri/controller/c_transaksi.dart';
@@ -173,7 +172,7 @@ class CardBarang extends StatelessWidget {
                                               ['jumlahTransaksi']--;
                                           transaksiController.barang
                                               .value[idBarang]['jumlah']++;
-                                          if (jumlahTransaksi == 0) {
+                                          if (jumlahTransaksi.value == 0) {
                                             if (transaksiController.barang.value
                                                 .containsKey(idBarang))
                                               transaksiController.barang.value
