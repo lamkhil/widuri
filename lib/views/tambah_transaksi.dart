@@ -5,6 +5,8 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:widuri/controller/c_transaksi.dart';
 import 'package:intl/intl.dart';
+import 'package:widuri/model/m_transaksi.dart';
+import 'package:widuri/views/Widget/alert_dialog.dart';
 import 'package:widuri/views/Widget/card_barang.dart';
 import 'package:widuri/views/Widget/loader_dialog.dart';
 import 'package:widuri/views/Widget/tambah_barang_transaksi.dart';
@@ -18,11 +20,12 @@ class TambahTransaksi extends StatefulWidget {
 }
 
 class _TambahTransaksiState extends State<TambahTransaksi> {
-  var transaksiController = Get.put(C_Transaksi());
+  C_Transaksi transaksiController =
+      C_Transaksi().initialized ? Get.find() : Get.put(C_Transaksi());
 
   var listHelperHarga = [500, 1000, 2000, 5000, 10000, 20000, 50000, 100000];
 
-  var dateFormat = 'dd/MM/yyyy';
+  var dateFormat = 'dd-MM-yyyy';
 
   @override
   Widget build(BuildContext context) {
@@ -506,8 +509,52 @@ class _TambahTransaksiState extends State<TambahTransaksi> {
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10)),
                               primary: primaryColor),
-                          onPressed: () async {
-                            await transaksiController.tambahTransaksi(context);
+                          onPressed: () {
+                            if (transaksiController.barang.isNotEmpty) {
+                              if (transaksiController
+                                      .controllerHarga.value.text !=
+                                  '') {
+                                transaksiController.tambahTransaksi(context);
+                              } else {
+                                bool ikutRekom = false;
+                                showDialog(
+                                    context: context,
+                                    builder: (context) => AlertDialog(
+                                          title: Text('Harga belum diatur'),
+                                          content: Text(
+                                              "Ingin memakai harga rekomendasi?\nRp ${transaksiController.jumlahRekomendasiHarga()}"),
+                                          actions: [
+                                            ElevatedButton(
+                                                style: ElevatedButton.styleFrom(
+                                                    primary: backgroundColor,
+                                                    side: BorderSide(
+                                                        color: primaryColor)),
+                                                onPressed: () {
+                                                  Navigator.pop(context);
+                                                },
+                                                child: Text("Tidak",
+                                                    style: TextStyle(
+                                                        color: primaryColor))),
+                                            ElevatedButton(
+                                                style: ElevatedButton.styleFrom(
+                                                    primary: primaryColor),
+                                                onPressed: () {
+                                                  ikutRekom = true;
+                                                  Navigator.pop(context);
+                                                },
+                                                child: Text("Ya"))
+                                          ],
+                                        )).then((value) {
+                                  if (ikutRekom) {
+                                    transaksiController
+                                        .tambahTransaksi(context);
+                                  }
+                                });
+                              }
+                            } else {
+                              customDialog(
+                                  context, "Oops!", "Tidak ada barang");
+                            }
                           },
                           child: Text("Simpan Transaksi",
                               style: TextStyle(

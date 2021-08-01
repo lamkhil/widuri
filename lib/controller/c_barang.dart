@@ -11,7 +11,7 @@ import 'package:widuri/views/Widget/loader_dialog.dart';
 
 // ignore: camel_case_types
 class C_Barang extends GetxController {
-  var _textController = TextEditingController(text: '1').obs;
+  var _textController = TextEditingController(text: '0').obs;
   var query = ''.obs;
   var barangList = <dynamic>[].obs;
   static var isLoadingStatic = false.obs;
@@ -30,7 +30,7 @@ class C_Barang extends GetxController {
 
   tambahJumlahBarang() {
     String j = _textController.value.text;
-    if (j == '') j = '1';
+    if (j == '') j = '0';
     var a = int.parse(j);
     a++;
     _textController.value.text = a.toString();
@@ -38,7 +38,7 @@ class C_Barang extends GetxController {
 
   kurangJumlahBarang() {
     String j = _textController.value.text;
-    if (j == '') j = '1';
+    if (j == '') j = '0';
     var a = int.parse(j);
     if (a > 1) {
       a--;

@@ -217,7 +217,7 @@ class CardBarang extends StatelessWidget {
                                                 'kategori': kategori,
                                                 'namaBarang': namaBarang,
                                                 'rekomendasiHarga': rekomendasi,
-                                                'jumlah': jumlah
+                                                'jumlah': jumlah - 1
                                               }
                                             });
                                           }
