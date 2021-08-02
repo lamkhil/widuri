@@ -27,61 +27,66 @@ class _LupaPasswordState extends State<LupaPassword> {
           decoration: BoxDecoration(color: backgroundColor),
           height: h,
           width: w,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+          child :ListView(
             children: [
-              Text(
-                'WIDURI',
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: primaryColor,
-                    fontSize: 36),
-              ),
-              SizedBox(height: 37),
-              Text(
-                'Lupa Password',
-                style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black),
-              ),
-              Container(
-                margin: EdgeInsets.all(10),
-                child: TextFormField(
-                  controller: _email,
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.all(6),
-                    labelText: 'Email',
-                    prefixIcon: Icon(Icons.email),
-                    labelStyle: TextStyle(
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'WIDURI',
+                    style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                        color: Colors.grey),
-                  ),
-                ),
-              ),
-              SizedBox(height: 36),
-              MaterialButton(
-                  onPressed: () {
-                    C_User.lupaPassword(context, _email.text);
-                  },
-                  child: Container(
-                    alignment: Alignment.center,
-                    padding: EdgeInsets.all(10),
-                    width: w * 0.7,
-                    decoration: BoxDecoration(
                         color: primaryColor,
-                        borderRadius: BorderRadius.all(Radius.circular(20))),
-                    child: Text(
-                      'Kirim Email',
-                      style: TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white),
+                        fontSize: 36),
+                  ),
+                  SizedBox(height: 37),
+                  Text(
+                    'Lupa Password',
+                    style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black),
+                  ),
+                  Container(
+                    margin: EdgeInsets.all(10),
+                    child: TextFormField(
+                      controller: _email,
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.all(6),
+                        labelText: 'Email',
+                        prefixIcon: Icon(Icons.email),
+                        labelStyle: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                            color: Colors.grey),
+                      ),
                     ),
-                  )),
+                  ),
+                  SizedBox(height: 36),
+                  MaterialButton(
+                      onPressed: () {
+                        C_User.lupaPassword(context, _email.text);
+                      },
+                      child: Container(
+                        alignment: Alignment.center,
+                        padding: EdgeInsets.all(10),
+                        width: w * 0.7,
+                        decoration: BoxDecoration(
+                            color: primaryColor,
+                            borderRadius: BorderRadius.all(Radius.circular(20))),
+                        child: Text(
+                          'Kirim Email',
+                          style: TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
+                        ),
+                      )),
+                ],
+              ),
             ],
-          ),
+          )
+
         ));
   }
 }

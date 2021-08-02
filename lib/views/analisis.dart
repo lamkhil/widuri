@@ -38,7 +38,7 @@ class _AnalisisState extends State<Analisis> {
               Text(
                 'Stock Barang',
                 style: TextStyle(
-                    fontSize: 24.0,
+                    fontSize: 22.0,
                     fontWeight: FontWeight.bold,
                     fontFamily: 'RobotoMono',
                     color: Colors.black),
@@ -293,7 +293,7 @@ class _AnalisisState extends State<Analisis> {
                       height: 10,
                     ),
                     SizedBox(
-                      width: w * 0.3,
+                      width: 150,
                       child: Obx(() {
                         return DropdownButtonFormField<String>(
                           value: barangController.valueDropdownHome.value,

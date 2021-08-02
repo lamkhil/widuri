@@ -68,7 +68,7 @@ class _DaftarBarangState extends State<DaftarBarang>
                 Text(
                   'Stock Barang',
                   style: TextStyle(
-                      fontSize: 24.0,
+                      fontSize: 22.0,
                       fontWeight: FontWeight.bold,
                       fontFamily: 'RobotoMono',
                       color: Colors.black),
