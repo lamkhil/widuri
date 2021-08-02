@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:widuri/controller/c_user.dart';
 import '../gambar.dart';
 import './profile_nama.dart' as ProfilNama;
 import './profile_setting.dart' as ProfilSetting;
@@ -37,38 +38,6 @@ class _ProfilState extends State<Profil> with SingleTickerProviderStateMixin {
         ? ''
         : auth.currentUser!.displayName;
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0.0,
-        backgroundColor: primaryColor,
-        title: Container(
-            padding: EdgeInsets.symmetric(horizontal: 10.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Profil',
-                  style: TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white),
-                ),
-                Card(
-                  color: backgroundColor,
-                  shape: RoundedRectangleBorder(
-                    side: BorderSide(width: 40.0),
-                    borderRadius: BorderRadius.circular(12.0),
-                  ),
-                  child: IconButton(
-                    onPressed: () {},
-                    icon: Icon(
-                      Icons.logout_rounded,
-                      color: primaryColor,
-                    ),
-                  ),
-                ),
-              ],
-            )),
-      ),
       body: Container(
         child: Stack(
           alignment: Alignment.center,
@@ -76,14 +45,48 @@ class _ProfilState extends State<Profil> with SingleTickerProviderStateMixin {
             Column(
               children: [
                 Container(
-                  height: h * 0.15,
-                  decoration: BoxDecoration(
-                      color: primaryColor,
-                      borderRadius: BorderRadius.only(
-                        bottomRight: Radius.circular(50.0),
-                        bottomLeft: Radius.circular(50.0),
-                      )),
-                ),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+                    width: double.infinity,
+                    height: h * 0.2,
+                    decoration: const BoxDecoration(
+                        gradient: LinearGradient(
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                            colors: <Color>[primaryColor, Color(0xFFF89572)],
+                            tileMode: TileMode.repeated),
+                        ),
+                    child: Align(
+                      alignment: Alignment.topCenter,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Profil',
+                            style: TextStyle(
+                                fontSize: 22,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white),
+                          ),
+                          Card(
+                            color: backgroundColor,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12.0),
+                            ),
+                            child: IconButton(
+                              onPressed: () {
+                                C_User.logOutUser(context);
+                              },
+                              icon: Icon(
+                                Icons.notifications,
+                                size: 20.0,
+                                color: primaryColor,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    )),
                 Expanded(
                     child: Container(
                         padding: EdgeInsets.fromLTRB(20, 60, 20, 20),
@@ -93,7 +96,7 @@ class _ProfilState extends State<Profil> with SingleTickerProviderStateMixin {
                             Text(
                               '$name',
                               style: TextStyle(
-                                  fontSize: 25.0,
+                                  fontSize: 18.0,
                                   fontWeight: FontWeight.w600,
                                   color: Colors.black),
                             ),
@@ -154,7 +157,7 @@ class _ProfilState extends State<Profil> with SingleTickerProviderStateMixin {
             ),
             Positioned(
                 // (background container size(size container/appbar atas)) - (circle height / 2)
-                top: (h * 0.15) - (100 / 2),
+                top: (h * 0.2) - (100 / 2),
                 child: Container(
                     height: 100.0,
                     width: 100.0,

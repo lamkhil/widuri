@@ -69,6 +69,19 @@ class _ProfileSettingState extends State<ProfileSetting> {
                   color: Colors.black),
             ),
           ),
+          Divider(),
+          ListTile(
+            contentPadding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+            leading: Icon(Icons.logout_rounded),
+            title: Text(
+              'Keluar',
+              style: TextStyle(
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.w600,
+                  fontFamily: 'RobotoMono',
+                  color: Colors.black),
+            ),
+          ),
         ],
       ),
     );
