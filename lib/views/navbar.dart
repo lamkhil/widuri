@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:widuri/colors.dart';
+import 'profile.dart';
 import 'home.dart';
 import 'daftar_barang.dart';
 import 'tambah_transaksi.dart';
@@ -69,7 +70,7 @@ class _NavBarState extends State<NavBar> {
       DaftarBarang(),
       TambahTransaksi(),
       Analisis(),
-      Profile()
+      Profil()
     ];
   }
   List<PersistentBottomNavBarItem> _navBarsItems() {

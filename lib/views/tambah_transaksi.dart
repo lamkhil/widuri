@@ -32,6 +32,7 @@ class _TambahTransaksiState extends State<TambahTransaksi> {
     var h = MediaQuery.of(context).size.height;
     var w = MediaQuery.of(context).size.width;
     return Scaffold(
+        backgroundColor: backgroundColor,
         appBar: AppBar(
           title: Container(
             child: new Row(
@@ -248,7 +249,6 @@ class _TambahTransaksiState extends State<TambahTransaksi> {
                                     )),
                                 child: Obx(() {
                                   var date = DateTime.now();
-
                                   if (transaksiController.date.value == '') {
                                     transaksiController.date.value =
                                         DateFormat(dateFormat).format(date);

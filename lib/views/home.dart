@@ -38,11 +38,12 @@ class _HomeState extends State<Home> {
         ? ''
         : auth.currentUser!.displayName;
     return Scaffold(
+      backgroundColor: backgroundColor,
         appBar: AppBar(
           title: Text(
             "Hi, $name!",
             style: TextStyle(
-                fontSize: 24, fontWeight: FontWeight.bold, color: Colors.black),
+                fontSize: 22, fontWeight: FontWeight.bold, color: Colors.black),
           ),
           backgroundColor: backgroundColor,
           elevation: 0,
@@ -137,7 +138,7 @@ class _HomeState extends State<Home> {
                       height: 12,
                     ),
                     SizedBox(
-                      width: w * 0.3,
+                      width: 150,
                       child: Obx(() {
                         return DropdownButtonFormField<String>(
                           value: barangController.valueDropdownHome.value,
