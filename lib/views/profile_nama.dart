@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:widuri/controller/c_user.dart';
 
 import '../../colors.dart';
 
@@ -118,10 +119,7 @@ class _ProfileNamaState extends State<ProfileNama> {
                           fontFamily: 'Roboto',
                           fontSize: 14.0,
                           fontWeight: FontWeight.w300),
-                      suffixIcon: Icon(
-                        Icons.date_range_rounded,
-                        color: primaryColor,
-                      )),
+                      ),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -142,7 +140,9 @@ class _ProfileNamaState extends State<ProfileNama> {
                       width: 10.0,
                     ),
                     TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          C_User.ubahNama(context, _namaController.text);
+                        },
                         child: Text(
                           'Simpan',
                           style: TextStyle(

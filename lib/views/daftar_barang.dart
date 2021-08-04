@@ -72,19 +72,20 @@ class _DaftarBarangState extends State<DaftarBarang>
                       fontFamily: 'RobotoMono',
                       color: Colors.black),
                 ),
-                FlatButton(
-                  padding: EdgeInsets.all(6.0),
-                  child: Icon(
-                    Icons.notifications,
-                    color: Colors.black38,
-                  ),
-                  color: Colors.white,
-                  height: 40,
-                  minWidth: 40,
+                Card(
+                  color: backgroundColor,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12.0),
                   ),
-                  onPressed: () {},
+                  child: IconButton(
+                    onPressed: () {
+                    },
+                    icon: Icon(
+                      Icons.notifications,
+                      size: 20.0,
+                      color: primaryColor,
+                    ),
+                  ),
                 ),
               ],
             ),

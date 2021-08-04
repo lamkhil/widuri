@@ -7,7 +7,6 @@ import 'home.dart';
 import 'daftar_barang.dart';
 import 'tambah_transaksi.dart';
 import 'analisis.dart';
-import 'profil.dart';
 
 
 class NavBar extends StatefulWidget {

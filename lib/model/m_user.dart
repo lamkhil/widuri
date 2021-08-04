@@ -42,6 +42,16 @@ class M_User {
       return result.toString();
     }
   }
+  static Future <dynamic> ubahNama(String nama) async{
+    try{
+      await _auth.currentUser!.updateDisplayName(nama);
+      return 1;
+    }catch(e){
+      var result = await translator.translate(e.toString().split('] ')[1],
+          from: 'en', to: 'id');
+      return result.toString();
+    }
+  }
 
   static Future<dynamic> logOut() async {
     await _auth.signOut();
