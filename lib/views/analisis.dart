@@ -21,7 +21,7 @@ class _AnalisisState extends State<Analisis> {
   var _catatanController = TextEditingController();
   var transaksiController = Get.put(C_Transaksi());
 
-  static const List <String> items = ['Bulan ini', 'Bulan Lalu'];
+  static const List<String> items = ['Bulan ini', 'Bulan Lalu'];
   int _activeCategory = 0;
 
   @override
@@ -101,7 +101,7 @@ class _AnalisisState extends State<Analisis> {
                                   onPressed: () async {
                                     DateTime selectedDate = date;
                                     final DateTime? picked =
-                                    await showDatePicker(
+                                        await showDatePicker(
                                       context: context,
                                       initialDate: selectedDate,
                                       firstDate: DateTime(1975),
@@ -129,28 +129,26 @@ class _AnalisisState extends State<Analisis> {
                             width: 20.0,
                           ),
                           Expanded(
-                            child:Container(
+                            child: Container(
                               height: h * 0.05,
                               child: ListView.separated(
                                   clipBehavior: Clip.none,
                                   scrollDirection: Axis.horizontal,
                                   itemBuilder: (context, i) => CategoryWidget(
-                                    name: '${items[i]}',
-                                    isActive: _activeCategory == i,
-                                    onClick: () {
-                                      setState(() {
-                                        _activeCategory = i;
-                                      });
-                                    },
-                                  ),
+                                        name: '${items[i]}',
+                                        isActive: _activeCategory == i,
+                                        onClick: () {
+                                          setState(() {
+                                            _activeCategory = i;
+                                          });
+                                        },
+                                      ),
                                   separatorBuilder: (context, i) => SizedBox(
-                                    width: 20.0,
-                                  ),
+                                        width: 20.0,
+                                      ),
                                   itemCount: 2),
                             ),
                           )
-
-
                         ],
                       ),
                       SizedBox(
@@ -315,11 +313,7 @@ class _AnalisisState extends State<Analisis> {
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.only(right: 16.0, left: 6.0),
-                        child: LineChart(
-                          sampleData1(),
-                          swapAnimationDuration:
-                              const Duration(milliseconds: 250),
-                        ),
+                        child: grafik(),
                       ),
                     ),
                     const SizedBox(

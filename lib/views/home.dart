@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:widuri/colors.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:widuri/controller/c_barang.dart';
+import 'package:widuri/controller/c_transaksi.dart';
 import 'Widget/card_barang.dart';
 import 'Widget/graphic.dart';
 
@@ -18,7 +19,16 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   final auth = FirebaseAuth.instance;
-  final barangController = Get.put(C_Barang());
+  C_Barang barangController =
+      C_Barang().initialized ? Get.find() : Get.put(C_Barang());
+  C_Transaksi transaksiController =
+      C_Transaksi().initialized ? Get.find() : Get.put(C_Transaksi());
+
+  @override
+  void initState() {
+    transaksiController.updateDataGrafik();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -137,8 +147,11 @@ class _HomeState extends State<Home> {
                           iconSize: 24,
                           elevation: 16,
                           style: TextStyle(color: Colors.black),
-                          onChanged: (var newValue) => barangController
-                              .valueDropdownHome.value = newValue!,
+                          onChanged: (var newValue) {
+                            barangController.valueDropdownHome.value =
+                                newValue!;
+                            transaksiController.updateDataGrafik();
+                          },
                           items: C_Barang.listDropdownHome
                               .map((String item) => DropdownMenuItem<String>(
                                   child: Text(item), value: item))
@@ -149,11 +162,7 @@ class _HomeState extends State<Home> {
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.only(right: 16.0, left: 6.0),
-                        child: LineChart(
-                          sampleData1(),
-                          swapAnimationDuration:
-                              const Duration(milliseconds: 250),
-                        ),
+                        child: grafik(),
                       ),
                     ),
                     const SizedBox(

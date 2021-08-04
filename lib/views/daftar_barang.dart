@@ -50,8 +50,7 @@ class _DaftarBarangState extends State<DaftarBarang>
           ),
           child: FloatingActionButton.extended(
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10.0)
-            ),
+                borderRadius: BorderRadius.circular(10.0)),
             onPressed: () {
               PopUpBarang(edit: false, context: context).popUpTambahBarang();
             },
@@ -176,16 +175,22 @@ class BodyBarang {
                   return Text('Belum ada barang');
                 } else {
                   return ListView.builder(
-                      itemCount: viewList.length,
+                      itemCount: viewList.length + 1,
                       itemBuilder: (context, index) {
-                        return CardBarang(
-                            namaBarang: viewList[index]['namaBarang'],
-                            idBarang: viewList[index]['id'],
-                            jumlah: viewList[index]['jumlah'],
-                            harga: viewList[index]['hargaAwal'],
-                            kategori: viewList[index]['kategori'],
-                            rekomendasi: viewList[index]['rekomendasiHarga'],
-                            transaksi: transaksi);
+                        if (index < viewList.length) {
+                          return CardBarang(
+                              namaBarang: viewList[index]['namaBarang'],
+                              idBarang: viewList[index]['id'],
+                              jumlah: viewList[index]['jumlah'],
+                              harga: viewList[index]['hargaAwal'],
+                              kategori: viewList[index]['kategori'],
+                              rekomendasi: viewList[index]['rekomendasiHarga'],
+                              transaksi: transaksi);
+                        } else {
+                          return SizedBox(
+                            height: 40,
+                          );
+                        }
                       });
                 }
               }
