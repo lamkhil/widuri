@@ -23,7 +23,6 @@ class _HomeState extends State<Home> {
       C_Barang().initialized ? Get.find() : Get.put(C_Barang());
   C_Transaksi transaksiController =
       C_Transaksi().initialized ? Get.find() : Get.put(C_Transaksi());
-
   @override
   void initState() {
     transaksiController.updateDataGrafik();
@@ -38,7 +37,7 @@ class _HomeState extends State<Home> {
         ? ''
         : auth.currentUser!.displayName;
     return Scaffold(
-      backgroundColor: backgroundColor,
+        backgroundColor: backgroundColor,
         appBar: AppBar(
           title: Text(
             "Hi, $name!",

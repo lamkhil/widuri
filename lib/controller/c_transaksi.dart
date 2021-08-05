@@ -26,6 +26,9 @@ class C_Transaksi extends GetxController {
   void onInit() {
     listTransaksi.bindStream(M_Transaksi.getTransaksiStream());
     updateDataGrafik();
+    listTransaksi.listen((value) {
+      updateDataGrafik();
+    });
     super.onInit();
   }
 
@@ -44,6 +47,21 @@ class C_Transaksi extends GetxController {
     var date = DateTime.now();
     var end = date;
     var start = DateTime(date.year, date.month, date.day);
+    List<String> months = [
+      '',
+      'JAN',
+      'FEB',
+      'MAR',
+      'APR',
+      'MEI',
+      'JUN',
+      'JUL',
+      'AGU',
+      'SEP',
+      'OKT',
+      'NOV',
+      'DES'
+    ];
     switch (barangController.valueDropdownHome.value) {
       case 'Harian':
         end = DateTime(date.year, date.month, date.day - 7);
@@ -52,7 +70,7 @@ class C_Transaksi extends GetxController {
         end = DateTime(date.year, date.month, date.day - 7 * 7);
         break;
       case 'Bulanan':
-        end = DateTime(date.year, date.month - 7, date.day);
+        end = DateTime(date.year, date.month - 6, 0);
         break;
     }
     var listDate = List.generate(
@@ -76,17 +94,23 @@ class C_Transaksi extends GetxController {
               hargaDeal[i] += item.values.first['hargaDeal'];
             }
           }
-          bottomTiles[i] = listDate[i];
+          var bottomTile = listDate[i].split('-');
+          bottomTiles[i] =
+              bottomTile[0] + ' ' + months[int.parse(bottomTile[1])];
         }
 
         break;
       case 'Mingguan':
+        var weekDate = ['', '', '', '', '', '', ''];
         for (var i = 0; i < 7; i++) {
-          bottomTiles[i] = listDate[i * 7 + 1];
-          var jarak = i == 0 ? listDate[0] : bottomTiles[i - 1];
+          var bottomTile = listDate[i * 7 + 1].split('-');
+          bottomTiles[i] =
+              bottomTile[0] + ' ' + months[int.parse(bottomTile[1])];
+          weekDate[i] = listDate[i * 7 + 1];
+          var jarak = i == 0 ? listDate[0] : weekDate[i - 1];
           var count = DateFormat("dd-MM-yyyy")
                   .parse(jarak)
-                  .difference(DateFormat("dd-MM-yyyy").parse(bottomTiles[i]))
+                  .difference(DateFormat("dd-MM-yyyy").parse(weekDate[i]))
                   .inDays +
               (i == 0 ? 1 : 0);
           for (var j = 0; j < count; j++) {
@@ -102,13 +126,35 @@ class C_Transaksi extends GetxController {
             }
           }
         }
+
         break;
       case 'Bulanan':
-        end = DateTime(date.year, date.month - 7, date.day);
+        List<List> monthDate = [];
+        int bulanIni = int.parse(listDate[0].split('-')[1]);
+        for (var i = 0; i < 7; i++) {
+          bottomTiles[i] = months[bulanIni - i];
+          monthDate.add(listDate
+              .where((element) =>
+                  months[int.parse(element.split('-')[1])] ==
+                  months[bulanIni - i])
+              .toList());
+          for (var j = 0; j < monthDate[i].length; j++) {
+            var temp = result
+                .where((element) =>
+                    element.values.first['tanggal'] == monthDate[i][j])
+                .toList();
+            print(temp);
+            if (temp.isNotEmpty) {
+              for (var item in temp) {
+                laba[i] += item.values.first['laba'];
+                hargaDeal[i] += item.values.first['hargaDeal'];
+              }
+            }
+          }
+        }
         break;
     }
-    int i =
-        hargaDeal.reduce((value, element) => value > element ? value : element);
+    int i = laba.reduce((value, element) => value > element ? value : element);
     var z = (i ~/ (4 * pow(10, i.toString().length - 1) as int)) *
             (4 * pow(10, i.toString().length - 1) as int) +
         (4 * pow(10, i.toString().length - 1) as int);
@@ -116,9 +162,9 @@ class C_Transaksi extends GetxController {
 
     dataGrafik.value = {
       'leftTiles': leftTiles,
-      'bottomTiles': bottomTiles,
-      'laba': laba,
-      'hargaDeal': hargaDeal
+      'bottomTiles': bottomTiles.reversed.toList(),
+      'laba': laba.reversed.toList(),
+      'hargaDeal': hargaDeal.reversed.toList(),
     };
   }
 

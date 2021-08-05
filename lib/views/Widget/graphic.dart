@@ -64,21 +64,10 @@ Widget grafik() {
               rotateAngle: 45,
               margin: 10,
               getTitles: (value) {
-                switch (value.toInt()) {
-                  case 1:
-                    return '22 Jan';
-                  case 2:
-                    return '22 JAN';
-                  case 3:
-                    return '23 JAN';
-                  case 4:
-                    return '24 JAN';
-                  case 5:
-                    return '25 JAN';
-                  case 6:
-                    return '26 JAN';
-                  case 7:
-                    return '27 JAN';
+                for (var i = 1; i <= 7; i++) {
+                  if (value == i) {
+                    return data['bottomTiles'][i - 1];
+                  }
                 }
                 return '';
               },
@@ -135,7 +124,8 @@ Widget grafik() {
                   7, (i) => FlSpot(i.toDouble() + 1, data['laba'][i])),
               isCurved: false,
               colors: [
-                const Color(0xffEE6B61),
+                orange,
+                primaryColor,
               ],
               barWidth: 4,
               isStrokeCapRound: true,
@@ -143,9 +133,9 @@ Widget grafik() {
                 show: true,
               ),
               belowBarData: BarAreaData(
-                show: false,
+                show: true,
               ),
-            )
+            ),
           ],
         ),
         swapAnimationDuration: const Duration(milliseconds: 250),

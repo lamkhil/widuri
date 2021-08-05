@@ -20,24 +20,29 @@ class _LoginState extends State<Login> {
     var h = MediaQuery.of(context).size.height;
     var w = MediaQuery.of(context).size.width;
     return Scaffold(
-        body: Container(
-      height: h,
-      width: w,
-      child: ListView(
-        children: [
-          Column(
+        body: SingleChildScrollView(
+      child: Container(
+          height: h,
+          width: w,
+          padding: EdgeInsets.all(16),
+          child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
                 'WIDURI',
                 style: TextStyle(
-                    fontWeight: FontWeight.bold, color: primaryColor, fontSize: 36),
+                    fontWeight: FontWeight.bold,
+                    color: primaryColor,
+                    fontSize: 36),
               ),
               SizedBox(height: 37),
               Text(
                 'Login',
                 style: TextStyle(
-                    fontSize: 24, fontWeight: FontWeight.bold, color: Colors.black),
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black),
               ),
               Container(
                 margin: EdgeInsets.all(10),
@@ -65,8 +70,9 @@ class _LoginState extends State<Login> {
                       prefixIcon: Icon(Icons.password_rounded),
                       suffix: InkWell(
                         onTap: _togglePasswordView,
-                        child: Icon(
-                            _isHidden ? Icons.visibility : Icons.visibility_off),
+                        child: Icon(_isHidden
+                            ? Icons.visibility
+                            : Icons.visibility_off),
                       ),
                       labelStyle: TextStyle(
                           fontWeight: FontWeight.bold,
@@ -113,10 +119,7 @@ class _LoginState extends State<Login> {
                 ],
               )
             ],
-          ),
-        ],
-      )
-
+          )),
     ));
   }
 
