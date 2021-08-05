@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:widuri/controller/c_user.dart';
 
 import '../colors.dart';
 
@@ -71,6 +72,9 @@ class _ProfileSettingState extends State<ProfileSetting> {
           ),
           Divider(),
           ListTile(
+            onTap: (){
+              C_User.logOutUser(context);
+            },
             contentPadding: EdgeInsets.fromLTRB(20, 0, 20, 0),
             leading: Icon(Icons.logout_rounded),
             title: Text(

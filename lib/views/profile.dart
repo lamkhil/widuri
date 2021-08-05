@@ -75,7 +75,6 @@ class _ProfilState extends State<Profil> with SingleTickerProviderStateMixin {
                             ),
                             child: IconButton(
                               onPressed: () {
-                                C_User.logOutUser(context);
                               },
                               icon: Icon(
                                 Icons.notifications,

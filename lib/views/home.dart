@@ -39,16 +39,38 @@ class _HomeState extends State<Home> {
     return Scaffold(
         backgroundColor: backgroundColor,
         appBar: AppBar(
-          title: Text(
-            "Hi, $name!",
-            style: TextStyle(
-                fontSize: 22, fontWeight: FontWeight.bold, color: Colors.black),
+          title: Container(
+            child: new Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text(
+                  'Hi $name',
+                  style: TextStyle(
+                      fontSize: 22.0,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'RobotoMono',
+                      color: Colors.black),
+                ),
+                Card(
+                  color: backgroundColor,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12.0),
+                  ),
+                  child: IconButton(
+                    onPressed: () {
+                    },
+                    icon: Icon(
+                      Icons.notifications,
+                      size: 20.0,
+                      color: primaryColor,
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
-          backgroundColor: backgroundColor,
-          elevation: 0,
-          actions: [
-            IconButton(onPressed: null, icon: Icon(Icons.notifications))
-          ],
+          backgroundColor: Colors.transparent,
+          elevation: 0.0,
         ),
         body: ListView(
           children: <Widget>[

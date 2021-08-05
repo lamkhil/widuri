@@ -46,16 +46,20 @@ class _TambahTransaksiState extends State<TambahTransaksi> {
                       fontFamily: 'RobotoMono',
                       color: Colors.black),
                 ),
-                FlatButton(
-                  child: Icon(
-                    Icons.notifications,
-                    color: Colors.black38,
+                Card(
+                  color: backgroundColor,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12.0),
                   ),
-                  color: Colors.white,
-                  height: 40,
-                  minWidth: 40,
-                  shape: CircleBorder(),
-                  onPressed: () {},
+                  child: IconButton(
+                    onPressed: () {
+                    },
+                    icon: Icon(
+                      Icons.notifications,
+                      size: 20.0,
+                      color: primaryColor,
+                    ),
+                  ),
                 ),
               ],
             ),

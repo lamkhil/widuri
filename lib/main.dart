@@ -5,6 +5,7 @@ import 'package:widuri/colors.dart';
 import 'package:widuri/views/login.dart';
 import 'package:widuri/views/lupa.dart';
 import 'package:widuri/views/navbar.dart';
+import 'package:widuri/views/profile.dart';
 import 'package:widuri/views/register.dart';
 import 'package:widuri/views/splashscreen.dart';
 import 'package:widuri/views/verifikasi_email.dart';
@@ -34,6 +35,7 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/register', page: () => Register()),
         GetPage(name: '/main', page: () => NavBar()),
         GetPage(name: '/verif', page: () => VerifikasiEmail()),
+        GetPage(name: '/profil', page: () => Profil()),
       ],
     );
   }
