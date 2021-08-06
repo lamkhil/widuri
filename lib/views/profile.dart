@@ -37,6 +37,9 @@ class _ProfilState extends State<Profil> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     var h = MediaQuery.of(context).size.height;
     var w = MediaQuery.of(context).size.width;
+    var name = auth.currentUser!.displayName == null
+        ? ''
+        : auth.currentUser!.displayName;
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -52,7 +55,7 @@ class _ProfilState extends State<Profil> with SingleTickerProviderStateMixin {
               children: [
                 Container(
                     padding:
-                        EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+                    EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
                     width: double.infinity,
                     height: h * 0.2,
                     decoration: const BoxDecoration(
@@ -100,7 +103,7 @@ class _ProfilState extends State<Profil> with SingleTickerProviderStateMixin {
                         child: Column(
                           children: [
                             Obx(
-                              () => Text(
+                                  () => Text(
                                 C_User.name.value,
                                 style: TextStyle(
                                     fontSize: 18.0,
@@ -127,7 +130,6 @@ class _ProfilState extends State<Profil> with SingleTickerProviderStateMixin {
                                 ),
                               ),
                               child: TabBar(
-
                                 controller: _tabController,
                                 // give the indicator a decoration (color and border radius)
                                 indicator: BoxDecoration(
@@ -151,22 +153,21 @@ class _ProfilState extends State<Profil> with SingleTickerProviderStateMixin {
                               ),
                             ),
                             Expanded(
-                                  child: TabBarView(
-                                    controller: _tabController,
-                                    children: [
-                                      //tabview pertama
-                                      new ProfilNama.ProfileNama(),
-                                      // second tab bar view widget
-                                      new ProfilSetting.ProfileSetting(),
-                                    ],
-                                  )
-                               )
+                                child: TabBarView(
+                                  controller: _tabController,
+                                  children: [
+                                    //tabview pertama
+                                    new ProfilNama.ProfileNama(),
+                                    // second tab bar view widget
+                                    new ProfilSetting.ProfileSetting(),
+                                  ],
+                                ))
                           ],
                         ))),
               ],
             ),
             Positioned(
-                // (background container size(size container/appbar atas)) - (circle height / 2)
+              // (background container size(size container/appbar atas)) - (circle height / 2)
                 top: (h * 0.2) - (100 / 2),
                 child: Container(
                     height: 100.0,
