@@ -1,14 +1,16 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:widuri/colors.dart';
-import 'package:fl_chart/fl_chart.dart';
 import 'package:widuri/controller/c_barang.dart';
 import 'package:widuri/controller/c_transaksi.dart';
+import 'package:widuri/controller/c_user.dart';
+
 import 'Widget/card_barang.dart';
 import 'Widget/graphic.dart';
+import 'Widget/notif_popup.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -43,14 +45,14 @@ class _HomeState extends State<Home> {
             child: new Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Text(
-                  'Hi $name',
+                Obx(()=>Text(
+                  'Hi ${C_User.name.value}',
                   style: TextStyle(
                       fontSize: 22.0,
                       fontWeight: FontWeight.bold,
                       fontFamily: 'RobotoMono',
                       color: Colors.black),
-                ),
+                ),),
                 Card(
                   color: backgroundColor,
                   shape: RoundedRectangleBorder(
@@ -58,6 +60,7 @@ class _HomeState extends State<Home> {
                   ),
                   child: IconButton(
                     onPressed: () {
+                      NotifBuildShowDialog(context);
                     },
                     icon: Icon(
                       Icons.notifications,

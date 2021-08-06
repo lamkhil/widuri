@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:translator/translator.dart';
-import 'package:widuri/views/tambah_transaksi.dart';
 
 class M_Transaksi {
   static final auth = FirebaseAuth.instance;

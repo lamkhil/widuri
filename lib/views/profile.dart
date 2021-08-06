@@ -1,10 +1,13 @@
-import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:widuri/controller/c_user.dart';
-import '../gambar.dart';
+
 import './profile_nama.dart' as ProfilNama;
 import './profile_setting.dart' as ProfilSetting;
 import '../colors.dart';
+import '../gambar.dart';
+import 'Widget/notif_popup.dart';
 
 class Profil extends StatefulWidget {
   const Profil({Key? key}) : super(key: key);
@@ -50,12 +53,12 @@ class _ProfilState extends State<Profil> with SingleTickerProviderStateMixin {
                     width: double.infinity,
                     height: h * 0.2,
                     decoration: const BoxDecoration(
-                        gradient: LinearGradient(
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
-                            colors: <Color>[primaryColor, Color(0xFFF89572)],
-                            tileMode: TileMode.repeated),
-                        ),
+                      gradient: LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: <Color>[primaryColor, orange],
+                          tileMode: TileMode.repeated),
+                    ),
                     child: Align(
                       alignment: Alignment.topCenter,
                       child: Row(
@@ -75,6 +78,7 @@ class _ProfilState extends State<Profil> with SingleTickerProviderStateMixin {
                             ),
                             child: IconButton(
                               onPressed: () {
+                                NotifBuildShowDialog(context);
                               },
                               icon: Icon(
                                 Icons.notifications,
@@ -92,12 +96,14 @@ class _ProfilState extends State<Profil> with SingleTickerProviderStateMixin {
                         color: backgroundColor,
                         child: Column(
                           children: [
-                            Text(
-                              '$name',
-                              style: TextStyle(
-                                  fontSize: 18.0,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.black),
+                            Obx(
+                              () => Text(
+                                C_User.name.value,
+                                style: TextStyle(
+                                    fontSize: 18.0,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.black),
+                              ),
                             ),
                             Text(
                               'id : ${auth.currentUser!.uid}',

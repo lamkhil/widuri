@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:widuri/colors.dart';
 import 'package:widuri/controller/c_user.dart';
-
-import 'Widget/loader_dialog.dart';
-import 'login.dart';
 
 class Register extends StatefulWidget {
   const Register({Key? key}) : super(key: key);

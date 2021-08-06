@@ -1,15 +1,15 @@
 import 'dart:ui';
 
-import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:get/get.dart';
 import 'package:widuri/colors.dart';
 import 'package:widuri/controller/c_barang.dart';
 import 'package:widuri/views/Widget/popup_barang.dart';
-import 'Widget/alert_dialog.dart';
+
 import 'Widget/card_barang.dart';
-import 'package:get/get.dart';
+import 'Widget/notif_popup.dart';
 
 class DaftarBarang extends StatefulWidget {
   const DaftarBarang({Key? key}) : super(key: key);
@@ -79,6 +79,7 @@ class _DaftarBarangState extends State<DaftarBarang>
                   ),
                   child: IconButton(
                     onPressed: () {
+                      NotifBuildShowDialog(context);
                     },
                     icon: Icon(
                       Icons.notifications,
