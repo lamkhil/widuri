@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:excel/excel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
@@ -43,7 +44,7 @@ class C_Transaksi extends GetxController {
 
   updateDataGrafik() async {
     C_Barang barangController =
-    C_Barang().initialized ? Get.find() : Get.put(C_Barang());
+        C_Barang().initialized ? Get.find() : Get.put(C_Barang());
     var date = DateTime.now();
     var end = date;
     var start = DateTime(date.year, date.month, date.day);
@@ -75,7 +76,7 @@ class C_Transaksi extends GetxController {
     }
     var listDate = List.generate(
         start.difference(end).inDays,
-            (i) => DateFormat("dd-MM-yyyy")
+        (i) => DateFormat("dd-MM-yyyy")
             .format(DateTime(start.year, start.month, start.day - (i))));
     var result = await M_Transaksi.getTransaksi(listDate) as List;
     List laba = [0, 0, 0, 0, 0, 0, 0];
@@ -109,14 +110,14 @@ class C_Transaksi extends GetxController {
           weekDate[i] = listDate[i * 7 + 1];
           var jarak = i == 0 ? listDate[0] : weekDate[i - 1];
           var count = DateFormat("dd-MM-yyyy")
-              .parse(jarak)
-              .difference(DateFormat("dd-MM-yyyy").parse(weekDate[i]))
-              .inDays +
+                  .parse(jarak)
+                  .difference(DateFormat("dd-MM-yyyy").parse(weekDate[i]))
+                  .inDays +
               (i == 0 ? 1 : 0);
           for (var j = 0; j < count; j++) {
             var temp = result
                 .where((element) =>
-            element.values.first['tanggal'] == listDate[i * 7 + 1 - j])
+                    element.values.first['tanggal'] == listDate[i * 7 + 1 - j])
                 .toList();
             if (temp.isNotEmpty) {
               for (var item in temp) {
@@ -135,13 +136,13 @@ class C_Transaksi extends GetxController {
           bottomTiles[i] = months[bulanIni - i];
           monthDate.add(listDate
               .where((element) =>
-          months[int.parse(element.split('-')[1])] ==
-              months[bulanIni - i])
+                  months[int.parse(element.split('-')[1])] ==
+                  months[bulanIni - i])
               .toList());
           for (var j = 0; j < monthDate[i].length; j++) {
             var temp = result
                 .where((element) =>
-            element.values.first['tanggal'] == monthDate[i][j])
+                    element.values.first['tanggal'] == monthDate[i][j])
                 .toList();
             print(temp);
             if (temp.isNotEmpty) {
@@ -156,7 +157,7 @@ class C_Transaksi extends GetxController {
     }
     int i = laba.reduce((value, element) => value > element ? value : element);
     var z = (i ~/ (4 * pow(10, i.toString().length - 1) as int)) *
-        (4 * pow(10, i.toString().length - 1) as int) +
+            (4 * pow(10, i.toString().length - 1) as int) +
         (4 * pow(10, i.toString().length - 1) as int);
     var leftTiles = [z, z * 0.75, z * 0.5, z * 0.25];
 
@@ -189,6 +190,16 @@ class C_Transaksi extends GetxController {
       customDialog(context, "Oops!", result.toString());
     }
     reset();
+  }
+
+  catatTransaksi() {
+    var excel =
+        Excel.createExcel(); // automatically creates 1 empty sheet: Sheet1
+    Sheet h1 = excel['Sheet1'];
+    h1.merge(CellIndex.indexByString("A2"), CellIndex.indexByString("E2"),
+        customValue: "Catatan Transaksi Widuri");
+    h1.merge(CellIndex.indexByString("A3"), CellIndex.indexByString("E3"),
+        customValue: "Tanggal");
   }
 
   int jumlahRekomendasiHarga() {

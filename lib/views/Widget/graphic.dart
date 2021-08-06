@@ -83,10 +83,15 @@ Widget grafik() {
                 for (var i = 0; i < 4; i++) {
                   if (value == data['leftTiles'][i]) {
                     var left = data['leftTiles'][i];
-                    var pembilang = left.toString().length > 5 ? 1000000 : 1000;
+                    var pembilang = left.toString().length > 6 ? 1000000 : 1000;
                     var penyebut =
                         pembilang.toString() == 1000.toString() ? "K" : "Jt";
-                    return (left / pembilang).toString() + penyebut;
+                    var sederhana = left / pembilang;
+                    var split = sederhana.toString().split('.');
+                    var result = split.length > 1
+                        ? (split[1] == '0' ? split[0] : sederhana.toString())
+                        : sederhana.toString();
+                    return result + penyebut;
                   }
                 }
                 return '';
@@ -116,12 +121,12 @@ Widget grafik() {
           ),
           minX: 0,
           maxX: 8,
-          maxY: data['leftTiles'][0],
+          maxY: data['leftTiles'][0].toDouble(),
           minY: 0,
           lineBarsData: [
             LineChartBarData(
-              spots: List.generate(
-                  7, (i) => FlSpot(i.toDouble() + 1, data['laba'][i])),
+              spots: List.generate(7,
+                  (i) => FlSpot(i.toDouble() + 1, data['laba'][i].toDouble())),
               isCurved: false,
               colors: [
                 orange,
