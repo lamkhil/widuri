@@ -1,12 +1,15 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:widuri/colors.dart';
-import 'profile.dart';
-import 'home.dart';
-import 'daftar_barang.dart';
-import 'tambah_transaksi.dart';
+import 'package:widuri/controller/c_user.dart';
+
 import 'analisis.dart';
+import 'daftar_barang.dart';
+import 'home.dart';
+import 'profile.dart';
+import 'tambah_transaksi.dart';
 
 class NavBar extends StatefulWidget {
   const NavBar({Key? key}) : super(key: key);
@@ -16,6 +19,7 @@ class NavBar extends StatefulWidget {
 }
 
 class _NavBarState extends State<NavBar> {
+  final auth = FirebaseAuth.instance;
   late PersistentTabController _controller;
   late bool _hideNavBar;
 
@@ -23,6 +27,7 @@ class _NavBarState extends State<NavBar> {
   void initState() {
     _controller = PersistentTabController(initialIndex: 0);
     _hideNavBar = false;
+    C_User.name.value = auth.currentUser!.displayName!;
     super.initState();
   }
 

@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:widuri/controller/c_barang.dart';
-import 'package:widuri/model/m_barang.dart';
 
 import '../../colors.dart';
 

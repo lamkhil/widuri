@@ -1,13 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
-import 'package:widuri/colors.dart';
 import 'package:widuri/model/m_barang.dart';
-import 'package:widuri/model/m_user.dart';
 import 'package:widuri/views/Widget/alert_dialog.dart';
-import 'package:widuri/views/Widget/loader_dialog.dart';
 
 // ignore: camel_case_types
 class C_Barang extends GetxController {

@@ -1,9 +1,6 @@
-import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:translator/translator.dart';
-import 'package:widuri/colors.dart';
 
 class M_Barang {
   static final _translator = GoogleTranslator();

@@ -1,15 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
-import 'package:widuri/controller/c_transaksi.dart';
 import 'package:intl/intl.dart';
-import 'package:widuri/model/m_transaksi.dart';
+import 'package:widuri/controller/c_transaksi.dart';
 import 'package:widuri/views/Widget/alert_dialog.dart';
 import 'package:widuri/views/Widget/card_barang.dart';
-import 'package:widuri/views/Widget/loader_dialog.dart';
 import 'package:widuri/views/Widget/tambah_barang_transaksi.dart';
+
 import '../colors.dart';
 
 class TambahTransaksi extends StatefulWidget {

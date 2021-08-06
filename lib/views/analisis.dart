@@ -1,13 +1,13 @@
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:widuri/controller/c_barang.dart';
 import 'package:widuri/controller/c_transaksi.dart';
 
 import '../colors.dart';
 import 'Widget/category_widget.dart';
 import 'Widget/graphic.dart';
-import 'package:intl/intl.dart';
+import 'Widget/notif_popup.dart';
 
 class Analisis extends StatefulWidget {
   const Analisis({Key? key}) : super(key: key);
@@ -50,6 +50,7 @@ class _AnalisisState extends State<Analisis> {
                 ),
                 child: IconButton(
                   onPressed: () {
+                    NotifBuildShowDialog(context);
                   },
                   icon: Icon(
                     Icons.notifications,

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
@@ -7,8 +8,11 @@ import 'package:widuri/model/m_user.dart';
 import 'package:widuri/views/Widget/alert_dialog.dart';
 import 'package:widuri/views/Widget/loader_dialog.dart';
 
-class C_User {
+class C_User extends GetxController {
+  static var name = ''.obs;
   static final storage = GetStorage();
+  static final auth = FirebaseAuth.instance;
+
   static Future<void> registerUser(
       BuildContext context, String email, String password, String nama) async {
     bool emailValid = RegExp(
@@ -69,12 +73,13 @@ class C_User {
     }
   }
 
-  static Future<void> ubahNama(BuildContext context, String nama) async {
+  static Future <void> ubahNama(BuildContext context, String nama) async{
     var result = await M_User.ubahNama(nama);
     Navigator.of(context).pop();
     if (!(result is String)) {
       Get.offNamed('/main', arguments: nama);
-    } else {
+      name.value = auth.currentUser!.displayName!.toString();
+    }else{
       customDialog(context, 'Oppss!', result);
     }
   }

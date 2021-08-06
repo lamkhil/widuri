@@ -56,7 +56,7 @@ class _ProfileNamaState extends State<ProfileNama> {
             ),
             subtitle: Obx(
               () => Text(
-                nama.toString(),
+                C_User.name.value,
                 style: TextStyle(
                     fontSize: 16.0,
                     fontWeight: FontWeight.w600,
@@ -93,10 +93,7 @@ class _ProfileNamaState extends State<ProfileNama> {
       builder: (context) => Container(
         child: Padding(
             padding: EdgeInsets.only(
-                top: 20.0,
-                right: 20.0,
-                left: 20.0,
-                bottom: MediaQuery.of(context).viewInsets.bottom),
+                top: 20.0, right: 20.0, left: 20.0, bottom: 40.0),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -112,48 +109,44 @@ class _ProfileNamaState extends State<ProfileNama> {
                 SizedBox(
                   height: 20.0,
                 ),
-                TextFormField(
-                  autofocus: _focus,
-                  controller: _namaController,
-                  decoration: InputDecoration(
-                    hintText: '${auth.currentUser!.displayName}',
-                    hintStyle: TextStyle(
-                        fontFamily: 'Roboto',
-                        fontSize: 14.0,
-                        fontWeight: FontWeight.w300),
-                  ),
-                ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    TextButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: Text(
-                          'Batal',
-                          style: TextStyle(
+                    Expanded(
+                      child: TextFormField(
+                        autofocus: _focus,
+                        controller: _namaController,
+                        decoration: InputDecoration(
+                          hintText: '${auth.currentUser!.displayName}',
+                          hintStyle: TextStyle(
                               fontFamily: 'Roboto',
-                              fontWeight: FontWeight.w600,
-                              fontSize: 14,
-                              color: primaryColor),
-                        )),
+                              fontSize: 14.0,
+                              fontWeight: FontWeight.w300),
+                        ),
+                      ),
+                    ),
                     SizedBox(
                       width: 10.0,
                     ),
-                    TextButton(
-                        onPressed: () async {
-                          await C_User.ubahNama(context, _namaController.text);
-                          nama.value = auth.currentUser!.displayName!;
-                        },
-                        child: Text(
-                          'Simpan',
-                          style: TextStyle(
-                              fontFamily: 'Roboto',
-                              fontWeight: FontWeight.w600,
-                              fontSize: 14,
-                              color: primaryColor),
-                        ))
+                    SizedBox(
+                      height: 40.0,
+                      child: ElevatedButton(
+                          onPressed: () async {
+                            await C_User.ubahNama(
+                                context, _namaController.text);
+                            _namaController.text = '';
+                          },
+                          style: ElevatedButton.styleFrom(
+                            primary: primaryColor,
+                          ),
+                          child: Text(
+                            'Simpan',
+                            style: TextStyle(
+                                fontFamily: 'Roboto',
+                                fontWeight: FontWeight.w600,
+                                fontSize: 14,
+                                color: Colors.white),
+                          )),
+                    ),
                   ],
                 )
               ],
