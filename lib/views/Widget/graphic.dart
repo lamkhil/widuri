@@ -8,7 +8,7 @@ import '../../colors.dart';
 
 Widget grafik() {
   C_Transaksi transaksiController =
-      C_Transaksi().initialized ? Get.find() : Get.put(C_Transaksi());
+  C_Transaksi().initialized ? Get.find() : Get.put(C_Transaksi());
   return Obx(() {
     var data = transaksiController.dataGrafik.value;
     print(data);
@@ -82,16 +82,11 @@ Widget grafik() {
               getTitles: (value) {
                 for (var i = 0; i < 4; i++) {
                   if (value == data['leftTiles'][i]) {
-                    var left = data['leftTiles'][i].toInt();
-                    var pembilang = left.toString().length > 6 ? 1000000 : 1000;
+                    var left = data['leftTiles'][i];
+                    var pembilang = left.toString().length > 5 ? 1000000 : 1000;
                     var penyebut =
-                        pembilang.toString() == 1000.toString() ? "K" : "Jt";
-                    var result = left / pembilang;
-                    return (result.toString().split('.')[1] == '0'
-                                ? result.toInt()
-                                : result)
-                            .toString() +
-                        penyebut;
+                    pembilang.toString() == 1000.toString() ? "K" : "Jt";
+                    return (left / pembilang).toString() + penyebut;
                   }
                 }
                 return '';
@@ -121,12 +116,12 @@ Widget grafik() {
           ),
           minX: 0,
           maxX: 8,
-          maxY: data['leftTiles'][0].toDouble(),
+          maxY: data['leftTiles'][0],
           minY: 0,
           lineBarsData: [
             LineChartBarData(
-              spots: List.generate(7,
-                  (i) => FlSpot(i.toDouble() + 1, data['laba'][i].toDouble())),
+              spots: List.generate(
+                  7, (i) => FlSpot(i.toDouble() + 1, data['laba'][i])),
               isCurved: false,
               colors: [
                 orange,
@@ -138,7 +133,7 @@ Widget grafik() {
                 show: true,
               ),
               belowBarData: BarAreaData(
-                show: false,
+                show: true,
               ),
             ),
           ],

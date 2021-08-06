@@ -74,6 +74,7 @@ class _HomeState extends State<Home> {
           elevation: 0.0,
         ),
         body: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
           child: Stack(
             children: [
               Container(
