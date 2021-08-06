@@ -6,8 +6,6 @@ import 'package:get/get.dart';
 import 'package:widuri/colors.dart';
 import 'package:widuri/controller/c_barang.dart';
 import 'package:widuri/controller/c_transaksi.dart';
-import 'package:widuri/views/riwayat_transaksi.dart';
-
 import '../gambar.dart';
 import 'Widget/card_barang.dart';
 import 'Widget/graphic.dart';
