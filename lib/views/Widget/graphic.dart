@@ -81,7 +81,7 @@ Widget grafik() {
               ),
               getTitles: (value) {
                 for (var i = 0; i < 4; i++) {
-                  if (value == data['leftTiles'][i]) {
+                  if (value.toInt() == data['leftTiles'][i]) {
                     var left = data['leftTiles'][i];
                     var pembilang = left.toString().length > 6 ? 1000000 : 1000;
                     var penyebut =
@@ -138,7 +138,7 @@ Widget grafik() {
                 show: true,
               ),
               belowBarData: BarAreaData(
-                show: false,
+                show: true,
               ),
             ),
           ],

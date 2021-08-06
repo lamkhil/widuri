@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:widuri/colors.dart';
 import 'package:widuri/controller/c_barang.dart';
 import 'package:widuri/controller/c_transaksi.dart';
+import 'package:widuri/views/riwayat_transaksi.dart';
 
 import '../gambar.dart';
 import 'Widget/card_barang.dart';
@@ -130,7 +131,7 @@ class _HomeState extends State<Home> {
                                   height: 10.0,
                                 ),
                                 SizedBox(
-                                  width: w * 0.55,
+                                  width: w * 0.5,
                                   child: IntrinsicHeight(
                                       child: Row(
                                     mainAxisAlignment:
@@ -143,6 +144,9 @@ class _HomeState extends State<Home> {
                                           InkWell(
                                             child: Icon(Icons.history_rounded,
                                                 size: 25),
+                                            onTap: (){
+                                              Get.to(RiwayatTransaksi());
+                                            },
                                           ),
                                           Text('Transaksi')
                                         ],
