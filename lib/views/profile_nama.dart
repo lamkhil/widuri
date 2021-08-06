@@ -17,68 +17,72 @@ class _ProfileNamaState extends State<ProfileNama> {
   final TextEditingController _namaController = TextEditingController();
   bool _focus = true;
   var nama = ''.obs;
+
   @override
   Widget build(BuildContext context) {
     nama.value = auth.currentUser!.displayName!;
     return Container(
         padding: EdgeInsets.only(top: 20.0),
         color: backgroundColor,
-        child: ListView(shrinkWrap: true, children: [
-          ListTile(
-            contentPadding: EdgeInsets.fromLTRB(20, 0, 20, 0),
-            title: Text(
-              'E-mail',
-              style: TextStyle(
-                  fontSize: 14.0,
-                  fontWeight: FontWeight.normal,
-                  fontFamily: 'RobotoMono',
-                  color: Colors.black),
-            ),
-            subtitle: Text(
-              '${auth.currentUser!.email}',
-              style: TextStyle(
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.w600,
-                  fontFamily: 'RobotoMono',
-                  color: Colors.black),
-            ),
-          ),
-          Divider(),
-          ListTile(
-            contentPadding: EdgeInsets.fromLTRB(20, 0, 20, 0),
-            title: Text(
-              'Tampilan Nama',
-              style: TextStyle(
-                  fontSize: 14.0,
-                  fontWeight: FontWeight.normal,
-                  fontFamily: 'RobotoMono',
-                  color: Colors.black),
-            ),
-            subtitle: Obx(
-              () => Text(
-                C_User.name.value,
-                style: TextStyle(
-                    fontSize: 16.0,
-                    fontWeight: FontWeight.w600,
-                    fontFamily: 'RobotoMono',
-                    color: Colors.black),
+        child: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child:
+                Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+              ListTile(
+                contentPadding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                title: Text(
+                  'E-mail',
+                  style: TextStyle(
+                      fontSize: 14.0,
+                      fontWeight: FontWeight.normal,
+                      fontFamily: 'RobotoMono',
+                      color: Colors.black),
+                ),
+                subtitle: Text(
+                  '${auth.currentUser!.email}',
+                  style: TextStyle(
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.w600,
+                      fontFamily: 'RobotoMono',
+                      color: Colors.black),
+                ),
               ),
-            ),
-            trailing: GestureDetector(
-              onTap: () {
-                _onPressChangeName();
-              },
-              child: Text(
-                'Ubah',
-                style: TextStyle(
-                    fontSize: 14.0,
-                    fontWeight: FontWeight.normal,
-                    fontFamily: 'RobotoMono',
-                    color: Colors.blue),
-              ),
-            ),
-          )
-        ]));
+              Divider(),
+              ListTile(
+                contentPadding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                title: Text(
+                  'Tampilan Nama',
+                  style: TextStyle(
+                      fontSize: 14.0,
+                      fontWeight: FontWeight.normal,
+                      fontFamily: 'RobotoMono',
+                      color: Colors.black),
+                ),
+                subtitle: Obx(
+                  () => Text(
+                    C_User.name.value,
+                    style: TextStyle(
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.w600,
+                        fontFamily: 'RobotoMono',
+                        color: Colors.black),
+                  ),
+                ),
+                trailing: GestureDetector(
+                  onTap: () {
+                    _onPressChangeName();
+                  },
+                  child: Text(
+                    'Ubah',
+                    style: TextStyle(
+                        fontSize: 14.0,
+                        fontWeight: FontWeight.normal,
+                        fontFamily: 'RobotoMono',
+                        color: Colors.blue),
+                  ),
+                ),
+              )
+            ])));
   }
 
   void _onPressChangeName() {

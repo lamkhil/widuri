@@ -6,8 +6,8 @@ import 'package:get/get.dart';
 import 'package:widuri/colors.dart';
 import 'package:widuri/controller/c_barang.dart';
 import 'package:widuri/controller/c_transaksi.dart';
-import 'package:widuri/controller/c_user.dart';
 
+import '../gambar.dart';
 import 'Widget/card_barang.dart';
 import 'Widget/graphic.dart';
 import 'Widget/notif_popup.dart';
@@ -25,6 +25,7 @@ class _HomeState extends State<Home> {
       C_Barang().initialized ? Get.find() : Get.put(C_Barang());
   C_Transaksi transaksiController =
       C_Transaksi().initialized ? Get.find() : Get.put(C_Transaksi());
+
   @override
   void initState() {
     transaksiController.updateDataGrafik();
@@ -33,7 +34,6 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    var h = MediaQuery.of(context).size.height;
     var w = MediaQuery.of(context).size.width;
     var name = auth.currentUser!.displayName.obs;
     return Scaffold(
@@ -94,65 +94,82 @@ class _HomeState extends State<Home> {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12.0)),
                     child: Container(
-                      width: w * 0.75,
-                      decoration: BoxDecoration(),
-                      margin: EdgeInsets.all(12),
-                      child: ListTile(
-                        contentPadding: EdgeInsets.zero,
-                        minVerticalPadding: 12,
-                        leading: Icon(
-                          Icons.circle,
-                          color: orange,
-                          size: 75,
-                        ),
-                        title: Row(
-                          children: [
-                            Text('Hai '),
-                            Obx(() => Text(
-                                  '$name',
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                )),
-                            Text(
-                              ', Semangat yukk!!',
-                              overflow: TextOverflow.clip,
+                        width: w * 0.75,
+                        decoration: BoxDecoration(),
+                        margin: EdgeInsets.all(10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            CircleAvatar(
+                              backgroundImage: AssetImage(me),
+                              maxRadius: 30.0,
+                            ),
+                            SizedBox(
+                              width: 20.0,
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Row(
+                                  children: [
+                                    Text('Hai '),
+                                    Obx(() => Text(
+                                          '$name',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold),
+                                        )),
+                                    Text(
+                                      ', Semangat yukk!!',
+                                      overflow: TextOverflow.clip,
+                                    )
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 10.0,
+                                ),
+                                SizedBox(
+                                  width: w * 0.55,
+                                  child: IntrinsicHeight(
+                                      child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: <Widget>[
+                                      Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          InkWell(
+                                            child: Icon(Icons.history_rounded,
+                                                size: 25),
+                                          ),
+                                          Text('Transaksi')
+                                        ],
+                                      ),
+                                      VerticalDivider(
+                                        width: 3.0,
+                                        color: Colors.black,
+                                      ),
+                                      Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text('Hasil kamu hari ini'),
+                                          Row(
+                                            children: [
+                                              Text('Rp '),
+                                              Text('20000')
+                                            ],
+                                          )
+                                        ],
+                                      ),
+                                    ],
+                                  )),
+                                )
+                              ],
                             )
                           ],
-                        ),
-                        subtitle: Container(
-                          margin: EdgeInsets.only(top: 12),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Column(
-                                children: [
-                                  InkWell(
-                                    child:
-                                        Icon(Icons.history_rounded, size: 35),
-                                  ),
-                                  Text('Transaksi')
-                                ],
-                              ),
-                              Container(
-                                height: 50,
-                                width: 1,
-                                color: Colors.grey,
-                              ),
-                              Column(
-                                children: [
-                                  Text('Hasil kamu hari ini'),
-                                  SizedBox(
-                                    height: 12,
-                                  ),
-                                  Row(
-                                    children: [Text('Rp '), Text('20000')],
-                                  )
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
+                        )),
                   ),
                   Container(
                       margin: EdgeInsets.all(12),

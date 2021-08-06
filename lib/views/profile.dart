@@ -37,9 +37,6 @@ class _ProfilState extends State<Profil> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     var h = MediaQuery.of(context).size.height;
     var w = MediaQuery.of(context).size.width;
-    var name = auth.currentUser!.displayName == null
-        ? ''
-        : auth.currentUser!.displayName;
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -130,6 +127,7 @@ class _ProfilState extends State<Profil> with SingleTickerProviderStateMixin {
                                 ),
                               ),
                               child: TabBar(
+
                                 controller: _tabController,
                                 // give the indicator a decoration (color and border radius)
                                 indicator: BoxDecoration(
@@ -153,15 +151,16 @@ class _ProfilState extends State<Profil> with SingleTickerProviderStateMixin {
                               ),
                             ),
                             Expanded(
-                                child: TabBarView(
-                              controller: _tabController,
-                              children: [
-                                //tabview pertama
-                                new ProfilNama.ProfileNama(),
-                                // second tab bar view widget
-                                new ProfilSetting.ProfileSetting(),
-                              ],
-                            ))
+                                  child: TabBarView(
+                                    controller: _tabController,
+                                    children: [
+                                      //tabview pertama
+                                      new ProfilNama.ProfileNama(),
+                                      // second tab bar view widget
+                                      new ProfilSetting.ProfileSetting(),
+                                    ],
+                                  )
+                               )
                           ],
                         ))),
               ],
