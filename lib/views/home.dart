@@ -33,9 +33,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     var h = MediaQuery.of(context).size.height;
     var w = MediaQuery.of(context).size.width;
-    var name = auth.currentUser!.displayName == null
-        ? ''
-        : auth.currentUser!.displayName;
+    var name = auth.currentUser!.displayName.obs;
     return Scaffold(
         backgroundColor: backgroundColor,
         appBar: AppBar(
@@ -44,12 +42,12 @@ class _HomeState extends State<Home> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Text(
-                  'Hi $name',
+                  'Widuri',
                   style: TextStyle(
                       fontSize: 22.0,
                       fontWeight: FontWeight.bold,
                       fontFamily: 'RobotoMono',
-                      color: Colors.black),
+                      color: backgroundColor),
                 ),
                 Card(
                   color: backgroundColor,
@@ -57,8 +55,7 @@ class _HomeState extends State<Home> {
                     borderRadius: BorderRadius.circular(12.0),
                   ),
                   child: IconButton(
-                    onPressed: () {
-                    },
+                    onPressed: () {},
                     icon: Icon(
                       Icons.notifications,
                       size: 20.0,
@@ -69,135 +66,206 @@ class _HomeState extends State<Home> {
               ],
             ),
           ),
-          backgroundColor: Colors.transparent,
+          backgroundColor: primaryColor,
           elevation: 0.0,
         ),
-        body: ListView(
-          children: <Widget>[
-            Card(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12.0)),
-              child: new ListTile(
-                leading: new Icon(Icons.search),
-                title: new TextField(
-                  decoration: new InputDecoration(
-                      hintText: 'Search', border: InputBorder.none),
-                  // onChanged: onSearchTextChanged,
-                ),
-                trailing: new IconButton(
-                  icon: new Icon(Icons.filter_list_rounded),
-                  onPressed: () {},
-                ),
+        body: SingleChildScrollView(
+          child: Stack(
+            children: [
+              Container(
+                height: 100,
+                decoration: BoxDecoration(
+                    color: primaryColor,
+                    borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(12),
+                        bottomRight: Radius.circular(12))),
               ),
-            ),
-            Container(
-                margin: EdgeInsets.all(12),
-                child: Text(
-                  'Stock Barang Menipis',
-                  style: TextStyle(
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'RobotoMono',
-                      color: Colors.black),
-                )),
-            Obx(() {
-              if (barangController.barangList.isEmpty) {
-                return Center(
-                    child: SpinKitFadingCube(
-                  color: primaryColor,
-                ));
-              } else {
-                if (barangController.barangList[0] is int) {
-                  return Center(
-                    child: Text('Belum ada barang'),
-                  );
-                } else {
-                  var viewList = barangController.barangList
-                      .where((value) => value['jumlah'] < 3)
-                      .toList();
-                  if (viewList.isEmpty) {
-                    return Center(
-                      child: Text("Belum ada barang menipis"),
-                    );
-                  } else {
-                    return ListView.builder(
-                        physics: NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: viewList.length,
-                        itemBuilder: (context, index) {
-                          return CardBarang(
-                              namaBarang: viewList[index]['namaBarang'],
-                              idBarang: viewList[index]['id'],
-                              jumlah: viewList[index]['jumlah'],
-                              harga: viewList[index]['hargaAwal'],
-                              kategori: viewList[index]['kategori'],
-                              rekomendasi: viewList[index]['rekomendasiHarga']);
-                        });
-                  }
-                }
-              }
-            }),
-            Container(
-                margin: EdgeInsets.all(12),
-                child: Text(
-                  'Tren Penjualan',
-                  style: TextStyle(
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'RobotoMono',
-                      color: Colors.black),
-                )),
-            AspectRatio(
-              aspectRatio: 1.5,
-              child: Card(
-                elevation: 2.0,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12.0)),
-                child: Column(
-                  children: <Widget>[
-                    const SizedBox(
-                      height: 12,
-                    ),
-                    SizedBox(
-                      width: 150,
-                      child: Obx(() {
-                        return DropdownButtonFormField<String>(
-                          value: barangController.valueDropdownHome.value,
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(),
+              Column(
+                children: <Widget>[
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Card(
+                    color: backgroundColor,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12.0)),
+                    child: Container(
+                      width: w * 0.75,
+                      decoration: BoxDecoration(),
+                      margin: EdgeInsets.all(12),
+                      child: ListTile(
+                        contentPadding: EdgeInsets.zero,
+                        minVerticalPadding: 12,
+                        leading: Icon(
+                          Icons.circle,
+                          color: orange,
+                          size: 75,
+                        ),
+                        title: Row(
+                          children: [
+                            Text('Hai '),
+                            Obx(() => Text(
+                                  '$name',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                )),
+                            Text(
+                              ', Semangat yukk!!',
+                              overflow: TextOverflow.clip,
+                            )
+                          ],
+                        ),
+                        subtitle: Container(
+                          margin: EdgeInsets.only(top: 12),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Column(
+                                children: [
+                                  InkWell(
+                                    child:
+                                        Icon(Icons.history_rounded, size: 35),
+                                  ),
+                                  Text('Transaksi')
+                                ],
+                              ),
+                              Container(
+                                height: 50,
+                                width: 1,
+                                color: Colors.grey,
+                              ),
+                              Column(
+                                children: [
+                                  Text('Hasil kamu hari ini'),
+                                  SizedBox(
+                                    height: 12,
+                                  ),
+                                  Row(
+                                    children: [Text('Rp '), Text('20000')],
+                                  )
+                                ],
+                              ),
+                            ],
                           ),
-                          iconSize: 24,
-                          elevation: 16,
-                          style: TextStyle(color: Colors.black),
-                          onChanged: (var newValue) {
-                            barangController.valueDropdownHome.value =
-                                newValue!;
-                            transaksiController.updateDataGrafik();
-                          },
-                          items: C_Barang.listDropdownHome
-                              .map((String item) => DropdownMenuItem<String>(
-                                  child: Text(item), value: item))
-                              .toList(),
-                        );
-                      }),
-                    ),
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.only(right: 16.0, left: 6.0),
-                        child: grafik(),
+                        ),
                       ),
                     ),
-                    const SizedBox(
-                      height: 10,
+                  ),
+                  Container(
+                      margin: EdgeInsets.all(12),
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Stock Barang Menipis',
+                        style: TextStyle(
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'RobotoMono',
+                            color: Colors.black),
+                      )),
+                  Obx(() {
+                    if (barangController.barangList.isEmpty) {
+                      return Center(
+                          child: SpinKitFadingCube(
+                        color: primaryColor,
+                      ));
+                    } else {
+                      if (barangController.barangList[0] is int) {
+                        return Center(
+                          child: Text('Belum ada barang'),
+                        );
+                      } else {
+                        var viewList = barangController.barangList
+                            .where((value) => value['jumlah'] < 3)
+                            .toList();
+                        if (viewList.isEmpty) {
+                          return Center(
+                            child: Text("Belum ada barang menipis"),
+                          );
+                        } else {
+                          return ListView.builder(
+                              physics: NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              itemCount: viewList.length,
+                              itemBuilder: (context, index) {
+                                return CardBarang(
+                                    namaBarang: viewList[index]['namaBarang'],
+                                    idBarang: viewList[index]['id'],
+                                    jumlah: viewList[index]['jumlah'],
+                                    harga: viewList[index]['hargaAwal'],
+                                    kategori: viewList[index]['kategori'],
+                                    rekomendasi: viewList[index]
+                                        ['rekomendasiHarga']);
+                              });
+                        }
+                      }
+                    }
+                  }),
+                  Container(
+                      margin: EdgeInsets.all(12),
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Tren Penjualan',
+                        style: TextStyle(
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'RobotoMono',
+                            color: Colors.black),
+                      )),
+                  AspectRatio(
+                    aspectRatio: 1.5,
+                    child: Card(
+                      elevation: 2.0,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12.0)),
+                      child: Column(
+                        children: <Widget>[
+                          const SizedBox(
+                            height: 12,
+                          ),
+                          SizedBox(
+                            width: 150,
+                            child: Obx(() {
+                              return DropdownButtonFormField<String>(
+                                value: barangController.valueDropdownHome.value,
+                                decoration: InputDecoration(
+                                  border: OutlineInputBorder(),
+                                ),
+                                iconSize: 24,
+                                elevation: 16,
+                                style: TextStyle(color: Colors.black),
+                                onChanged: (var newValue) {
+                                  barangController.valueDropdownHome.value =
+                                      newValue!;
+                                  transaksiController.updateDataGrafik();
+                                },
+                                items: C_Barang.listDropdownHome
+                                    .map((String item) =>
+                                        DropdownMenuItem<String>(
+                                            child: Text(item), value: item))
+                                    .toList(),
+                              );
+                            }),
+                          ),
+                          Expanded(
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.only(right: 16.0, left: 6.0),
+                              child: grafik(),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                        ],
+                      ),
                     ),
-                  ],
-                ),
+                  ),
+                  const SizedBox(
+                    height: 24,
+                  )
+                ],
               ),
-            ),
-            const SizedBox(
-              height: 24,
-            )
-          ],
+            ],
+          ),
         ));
   }
 }

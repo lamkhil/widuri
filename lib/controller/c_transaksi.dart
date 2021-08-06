@@ -33,7 +33,8 @@ class C_Transaksi extends GetxController {
   }
 
   void reset() {
-    date.value = '';
+    var now = DateTime.now();
+    date.value = DateFormat("dd-MM-yyyy").format(now);
     controllerCatatan.value.text = '';
     controllerHarga.value.text = '';
     catatan.value = '';
@@ -143,7 +144,6 @@ class C_Transaksi extends GetxController {
                 .where((element) =>
                     element.values.first['tanggal'] == monthDate[i][j])
                 .toList();
-            print(temp);
             if (temp.isNotEmpty) {
               for (var item in temp) {
                 laba[i] += item.values.first['laba'];

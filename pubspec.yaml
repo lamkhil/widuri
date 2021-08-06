@@ -40,6 +40,7 @@ dependencies:
   flutter_spinkit: ^5.0.0
   flutter_svg: ^0.22.0
   translator: ^0.1.7
+  excel: any
 
 dev_dependencies:
   change_app_package_name: ^1.0.0

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/services.dart';
 import 'package:widuri/controller/c_user.dart';
 import '../gambar.dart';
 import './profile_nama.dart' as ProfilNama;
@@ -38,7 +39,13 @@ class _ProfilState extends State<Profil> with SingleTickerProviderStateMixin {
         ? ''
         : auth.currentUser!.displayName;
     return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+      ),
       body: Container(
+        padding: EdgeInsets.only(top: 20),
         child: Stack(
           alignment: Alignment.center,
           children: <Widget>[
@@ -50,12 +57,12 @@ class _ProfilState extends State<Profil> with SingleTickerProviderStateMixin {
                     width: double.infinity,
                     height: h * 0.2,
                     decoration: const BoxDecoration(
-                        gradient: LinearGradient(
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
-                            colors: <Color>[primaryColor, Color(0xFFF89572)],
-                            tileMode: TileMode.repeated),
-                        ),
+                      gradient: LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: <Color>[primaryColor, orange],
+                          tileMode: TileMode.repeated),
+                    ),
                     child: Align(
                       alignment: Alignment.topCenter,
                       child: Row(
@@ -75,6 +82,7 @@ class _ProfilState extends State<Profil> with SingleTickerProviderStateMixin {
                             ),
                             child: IconButton(
                               onPressed: () {
+                                C_User.logOutUser(context);
                               },
                               icon: Icon(
                                 Icons.notifications,

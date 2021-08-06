@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:widuri/controller/c_user.dart';
 
 import '../../colors.dart';
@@ -15,76 +16,78 @@ class _ProfileNamaState extends State<ProfileNama> {
   final auth = FirebaseAuth.instance;
   final TextEditingController _namaController = TextEditingController();
   bool _focus = true;
-
+  var nama = ''.obs;
   @override
   Widget build(BuildContext context) {
+    nama.value = auth.currentUser!.displayName!;
     return Container(
         padding: EdgeInsets.only(top: 20.0),
         color: backgroundColor,
-        child: ListView(
-          shrinkWrap: true,
-            children: [
-              ListTile(
-                contentPadding: EdgeInsets.fromLTRB(20, 0, 20, 0),
-                title: Text(
-                  'E-mail',
-                  style: TextStyle(
-                      fontSize: 14.0,
-                      fontWeight: FontWeight.normal,
-                      fontFamily: 'RobotoMono',
-                      color: Colors.black),
-                ),
-                subtitle: Text(
-                  '${auth.currentUser!.email}',
-                  style: TextStyle(
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.w600,
-                      fontFamily: 'RobotoMono',
-                      color: Colors.black),
-                ),
+        child: ListView(shrinkWrap: true, children: [
+          ListTile(
+            contentPadding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+            title: Text(
+              'E-mail',
+              style: TextStyle(
+                  fontSize: 14.0,
+                  fontWeight: FontWeight.normal,
+                  fontFamily: 'RobotoMono',
+                  color: Colors.black),
+            ),
+            subtitle: Text(
+              '${auth.currentUser!.email}',
+              style: TextStyle(
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.w600,
+                  fontFamily: 'RobotoMono',
+                  color: Colors.black),
+            ),
+          ),
+          Divider(),
+          ListTile(
+            contentPadding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+            title: Text(
+              'Tampilan Nama',
+              style: TextStyle(
+                  fontSize: 14.0,
+                  fontWeight: FontWeight.normal,
+                  fontFamily: 'RobotoMono',
+                  color: Colors.black),
+            ),
+            subtitle: Obx(
+              () => Text(
+                nama.toString(),
+                style: TextStyle(
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.w600,
+                    fontFamily: 'RobotoMono',
+                    color: Colors.black),
               ),
-              Divider(),
-              ListTile(
-                contentPadding: EdgeInsets.fromLTRB(20, 0, 20, 0),
-                title: Text(
-                  'Tampilan Nama',
-                  style: TextStyle(
-                      fontSize: 14.0,
-                      fontWeight: FontWeight.normal,
-                      fontFamily: 'RobotoMono',
-                      color: Colors.black),
-                ),
-                subtitle: Text(
-                  '${auth.currentUser!.displayName}',
-                  style: TextStyle(
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.w600,
-                      fontFamily: 'RobotoMono',
-                      color: Colors.black),
-                ),
-                trailing: GestureDetector(
-                  onTap: () {
-                    _onPressChangeName();
-                  },
-                  child: Text(
-                    'Ubah',
-                    style: TextStyle(
-                        fontSize: 14.0,
-                        fontWeight: FontWeight.normal,
-                        fontFamily: 'RobotoMono',
-                        color: Colors.blue),
-                  ),
-                ),
-              )]));
+            ),
+            trailing: GestureDetector(
+              onTap: () {
+                _onPressChangeName();
+              },
+              child: Text(
+                'Ubah',
+                style: TextStyle(
+                    fontSize: 14.0,
+                    fontWeight: FontWeight.normal,
+                    fontFamily: 'RobotoMono',
+                    color: Colors.blue),
+              ),
+            ),
+          )
+        ]));
   }
 
   void _onPressChangeName() {
     showModalBottomSheet<dynamic>(
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(10.0),
-            topRight: Radius.circular(10.0),
-          )),
+        topLeft: Radius.circular(10.0),
+        topRight: Radius.circular(10.0),
+      )),
       context: context,
       isScrollControlled: true,
       builder: (context) => Container(
@@ -93,9 +96,8 @@ class _ProfileNamaState extends State<ProfileNama> {
                 top: 20.0,
                 right: 20.0,
                 left: 20.0,
-                bottom : MediaQuery.of(context).viewInsets.bottom
-            ),
-            child : Column(
+                bottom: MediaQuery.of(context).viewInsets.bottom),
+            child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -114,12 +116,12 @@ class _ProfileNamaState extends State<ProfileNama> {
                   autofocus: _focus,
                   controller: _namaController,
                   decoration: InputDecoration(
-                      hintText: '${auth.currentUser!.displayName}',
-                      hintStyle: TextStyle(
-                          fontFamily: 'Roboto',
-                          fontSize: 14.0,
-                          fontWeight: FontWeight.w300),
-                      ),
+                    hintText: '${auth.currentUser!.displayName}',
+                    hintStyle: TextStyle(
+                        fontFamily: 'Roboto',
+                        fontSize: 14.0,
+                        fontWeight: FontWeight.w300),
+                  ),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -140,8 +142,9 @@ class _ProfileNamaState extends State<ProfileNama> {
                       width: 10.0,
                     ),
                     TextButton(
-                        onPressed: () {
-                          C_User.ubahNama(context, _namaController.text);
+                        onPressed: () async {
+                          await C_User.ubahNama(context, _namaController.text);
+                          nama.value = auth.currentUser!.displayName!;
                         },
                         child: Text(
                           'Simpan',
@@ -154,8 +157,7 @@ class _ProfileNamaState extends State<ProfileNama> {
                   ],
                 )
               ],
-            )
-        ),
+            )),
       ),
     );
   }

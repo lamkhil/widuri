@@ -52,8 +52,7 @@ class _TambahTransaksiState extends State<TambahTransaksi> {
                     borderRadius: BorderRadius.circular(12.0),
                   ),
                   child: IconButton(
-                    onPressed: () {
-                    },
+                    onPressed: () {},
                     icon: Icon(
                       Icons.notifications,
                       size: 20.0,

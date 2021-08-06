@@ -69,17 +69,17 @@ class C_User {
     }
   }
 
-  static Future <void> ubahNama(BuildContext context, String nama)async{
+  static Future<void> ubahNama(BuildContext context, String nama) async {
     var result = await M_User.ubahNama(nama);
     Navigator.of(context).pop();
-    if(!(result is String)){
+    if (!(result is String)) {
       Get.offNamed('/main', arguments: nama);
-    }else{
+    } else {
       customDialog(context, 'Oppss!', result);
     }
   }
 
-  static Future <void> logOutUser(BuildContext context)async{
+  static Future<void> logOutUser(BuildContext context) async {
     var result = await M_User.logOut();
     if (!(result is String)) {
       storage.remove('user');
