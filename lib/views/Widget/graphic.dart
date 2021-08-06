@@ -8,7 +8,7 @@ import '../../colors.dart';
 
 Widget grafik() {
   C_Transaksi transaksiController =
-  C_Transaksi().initialized ? Get.find() : Get.put(C_Transaksi());
+      C_Transaksi().initialized ? Get.find() : Get.put(C_Transaksi());
   return Obx(() {
     var data = transaksiController.dataGrafik.value;
     print(data);
@@ -85,7 +85,7 @@ Widget grafik() {
                     var left = data['leftTiles'][i];
                     var pembilang = left.toString().length > 5 ? 1000000 : 1000;
                     var penyebut =
-                    pembilang.toString() == 1000.toString() ? "K" : "Jt";
+                        pembilang.toString() == 1000.toString() ? "K" : "Jt";
                     return (left / pembilang).toString() + penyebut;
                   }
                 }
@@ -133,7 +133,7 @@ Widget grafik() {
                 show: true,
               ),
               belowBarData: BarAreaData(
-                show: true,
+                show: false,
               ),
             ),
           ],
