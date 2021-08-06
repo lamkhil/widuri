@@ -144,9 +144,7 @@ class _HomeState extends State<Home> {
                                           InkWell(
                                             child: Icon(Icons.history_rounded,
                                                 size: 25),
-                                            onTap: (){
-                                              Get.to(RiwayatTransaksi());
-                                            },
+                                            onTap: () {},
                                           ),
                                           Text('Transaksi')
                                         ],
