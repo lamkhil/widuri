@@ -5,6 +5,7 @@ import 'package:widuri/views/Widget/alert_dialog.dart';
 
 // ignore: camel_case_types
 class C_Barang extends GetxController {
+
   var _textController = TextEditingController(text: '0').obs;
   var query = ''.obs;
   var barangList = <dynamic>[].obs;
