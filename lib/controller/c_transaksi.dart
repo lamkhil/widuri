@@ -1,12 +1,15 @@
+import 'dart:io';
 import 'dart:math';
-import 'dart:convert';
-import 'dart:html' as html;
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:path/path.dart';
 import 'package:excel/excel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:widuri/colors.dart';
 import 'package:widuri/controller/c_barang.dart';
 import 'package:widuri/model/m_barang.dart';
@@ -14,9 +17,13 @@ import 'package:widuri/model/m_transaksi.dart';
 import 'package:widuri/views/Widget/alert_dialog.dart';
 import 'package:widuri/views/Widget/loader_dialog.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
+import "package:universal_html/html.dart" as html;
+
+import 'c_user.dart';
 
 // ignore: camel_case_types
 class C_Transaksi extends GetxController {
+  final auth = FirebaseAuth.instance;
   var date = ''.obs;
   var controllerCatatan = TextEditingController().obs;
   var controllerHarga = TextEditingController().obs;
@@ -30,6 +37,7 @@ class C_Transaksi extends GetxController {
   var activeCategory = 0.obs;
   var analisis = {}.obs;
   var listDateAnlisis = [].obs;
+  var keuntunganUser = 0.obs;
 
   @override
   void onInit() {
@@ -42,16 +50,26 @@ class C_Transaksi extends GetxController {
     listTransaksi.bindStream(M_Transaksi.getTransaksiStream());
     updateDataGrafik();
     listTransaksi.listen((value) {
+      getPendapatanUser();
       updateDataGrafik();
     });
     dateAnalisis.listen((value) {
       updateDataAnalisis();
     });
-
     super.onInit();
   }
 
   DateTime getDate(DateTime d) => DateTime(d.year, d.month, d.day);
+
+  getPendapatanUser() async {
+    var result = await M_Transaksi.getTransaksi(
+        [DateFormat("dd-MM-yyyy").format(DateTime.now())]) as List;
+    result.forEach((element) {
+      if (element.values.first['penjual'] == auth.currentUser!.displayName) {
+        keuntunganUser.value += element.values.first['laba'] as int;
+      }
+    });
+  }
 
   void reset() {
     date.value = '';
@@ -261,11 +279,12 @@ class C_Transaksi extends GetxController {
     reset();
   }
 
-  catatTransaksi() async {
+  catatTransaksi(BuildContext context) async {
     var column = ['A', 'B', 'C', 'D', 'E'];
     var date = dateAnalisis.value;
     var start = DateFormat('dd/MM/yyyy').format(date.start);
     var end = DateFormat('dd/MM/yyyy').format(date.end);
+    var directory = Directory('');
     String label = "$start - $end";
     var excel =
         Excel.createExcel(); // automatically creates 1 empty sheet: Sheet1
@@ -336,7 +355,6 @@ class C_Transaksi extends GetxController {
     });
     //export
     if (kIsWeb) {
-      // prepare
       final bytes = excel.encode();
       final blob = html.Blob([bytes]);
       final url = html.Url.createObjectUrlFromBlob(blob);
@@ -352,6 +370,68 @@ class C_Transaksi extends GetxController {
 // cleanup
       html.document.body!.children.remove(anchor);
       html.Url.revokeObjectUrl(url);
+    } else {
+      if (Platform.isAndroid) {
+        //for phone
+        try {
+          if (await _requestPermission(Permission.storage)) {
+            Directory? tempPath = await getExternalStorageDirectory();
+            print(tempPath!.path);
+            String nwDirectory =
+                tempPath.path.split('Android')[0] + "Widuri Apps";
+            directory = Directory(nwDirectory);
+          } else {
+            customDialog(context, "Gagal!", "Izin penyimpanan ditolak");
+          }
+        } catch (e) {
+          print(e);
+        }
+      }
+      try {
+        if (await _requestPermission(Permission.manageExternalStorage)) {
+          loaderDialog(
+              context,
+              SpinKitFadingCube(
+                color: primaryColor,
+              ),
+              "Tunggu Sebentar!");
+          var specialName = label.replaceAll('/', '');
+          String path = "${directory.path}/widuri ($specialName).xlsx";
+          if (await directory.exists()) {
+            File(join(path))
+              ..createSync(recursive: true)
+              ..writeAsBytesSync(excel.encode()!);
+            Navigator.pop(Get.overlayContext!);
+            customDialog(context, "Alhamdulillah!",
+                "Berhasil simpan catatan transaksi\n$path");
+          } else {
+            await directory.create(recursive: true);
+            File(join(path))
+              ..createSync(recursive: true)
+              ..writeAsBytesSync(excel.encode()!);
+            Navigator.pop(Get.overlayContext!);
+            customDialog(context, "Alhamdulillah!",
+                "Berhasil simpan catatan transaksi\n$path");
+          }
+        } else {
+          customDialog(context, "Gagal!", "Izin penyimpanan ditolak");
+        }
+      } catch (e) {
+        print(e);
+      }
+    }
+  }
+
+  Future<bool> _requestPermission(Permission p) async {
+    if (await p.isGranted) {
+      return true;
+    } else {
+      var result = await p.request();
+      if (result.isGranted) {
+        return true;
+      } else {
+        return false;
+      }
     }
   }
 

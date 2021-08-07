@@ -1,11 +1,13 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:widuri/controller/c_barang.dart';
 import 'package:widuri/controller/c_transaksi.dart';
+import 'package:widuri/views/Widget/loader_dialog.dart';
 
 import '../colors.dart';
 import 'Widget/category_widget.dart';
@@ -431,7 +433,7 @@ class _AnalisisState extends State<Analisis> {
                           borderRadius: BorderRadius.circular(12.0),
                         )),
                     onPressed: () async {
-                      await transaksiController.catatTransaksi();
+                      await transaksiController.catatTransaksi(context);
                     },
                     child: Text('Catat Transaksi',
                         style: TextStyle(
