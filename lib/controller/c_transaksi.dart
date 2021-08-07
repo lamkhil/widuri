@@ -261,7 +261,7 @@ class C_Transaksi extends GetxController {
     reset();
   }
 
-  catatTransaksi() {
+  catatTransaksi() async {
     var column = ['A', 'B', 'C', 'D', 'E'];
     var date = dateAnalisis.value;
     var start = DateFormat('dd/MM/yyyy').format(date.start);
@@ -290,10 +290,22 @@ class C_Transaksi extends GetxController {
     r.cell(CellIndex.indexByString("E5")).value = 'CATATAN';
     for (var i = 0; i < column.length; i++) {
       r.cell(CellIndex.indexByString("${column[i]}5")).cellStyle = CellStyle(
+          bold: true,
           horizontalAlign: HorizontalAlign.Center,
           verticalAlign: VerticalAlign.Center,
           backgroundColorHex: '#FFFF00');
     }
+    //isi
+    var row = 6;
+    listDateAnlisis.value = List.generate(
+        dateAnalisis.value.end.difference(dateAnalisis.value.start).inDays,
+        (i) => DateFormat("dd-MM-yyyy").format(DateTime(
+            dateAnalisis.value.end.year,
+            dateAnalisis.value.end.month,
+            dateAnalisis.value.end.day - (i))));
+    var result = await M_Transaksi.getTransaksi(listDateAnlisis) as List;
+    result.forEach((element) {});
+    //export
     if (kIsWeb) {
       // prepare
       final bytes = excel.encode();
