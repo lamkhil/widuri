@@ -1,7 +1,9 @@
 import 'dart:math';
-
+import 'dart:convert';
+import 'dart:html' as html;
 import 'package:excel/excel.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -11,6 +13,7 @@ import 'package:widuri/model/m_barang.dart';
 import 'package:widuri/model/m_transaksi.dart';
 import 'package:widuri/views/Widget/alert_dialog.dart';
 import 'package:widuri/views/Widget/loader_dialog.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 // ignore: camel_case_types
 class C_Transaksi extends GetxController {
@@ -22,16 +25,33 @@ class C_Transaksi extends GetxController {
   var isTambah = true.obs;
   final listTransaksi = [].obs;
   var dataGrafik = {}.obs;
+  var analisisCategory = 0.obs;
+  late Rx<DateTimeRange> dateAnalisis;
+  var activeCategory = 0.obs;
+  var analisis = {}.obs;
+  var listDateAnlisis = [].obs;
 
   @override
   void onInit() {
+    dateAnalisis = DateTimeRange(
+            end: getDate(DateTime.now().add(
+                Duration(days: DateTime.daysPerWeek - DateTime.now().weekday))),
+            start: getDate(DateTime.now()
+                .subtract(Duration(days: DateTime.now().weekday - 1))))
+        .obs;
     listTransaksi.bindStream(M_Transaksi.getTransaksiStream());
     updateDataGrafik();
     listTransaksi.listen((value) {
       updateDataGrafik();
     });
+    dateAnalisis.listen((value) {
+      updateDataAnalisis();
+    });
+
     super.onInit();
   }
+
+  DateTime getDate(DateTime d) => DateTime(d.year, d.month, d.day);
 
   void reset() {
     date.value = '';
@@ -40,6 +60,55 @@ class C_Transaksi extends GetxController {
     catatan.value = '';
     barang.value = {};
     refresh();
+  }
+
+  updateDataAnalisis() async {
+    var pemasukan = 0;
+    var pengeluaran = 0;
+    var keungtungan = 0;
+    var barangTerlaris = {};
+    listDateAnlisis.value = List.generate(
+        dateAnalisis.value.end.difference(dateAnalisis.value.start).inDays,
+        (i) => DateFormat("dd-MM-yyyy").format(DateTime(
+            dateAnalisis.value.end.year,
+            dateAnalisis.value.end.month,
+            dateAnalisis.value.end.day - (i))));
+    var result = await M_Transaksi.getTransaksi(listDateAnlisis) as List;
+    result.forEach((element) {
+      var barang = element.values.first['barang'] as Map;
+      barang.forEach((key, value) {
+        if (barangTerlaris.keys.contains(value['namaBarang'])) {
+          barangTerlaris[value['namaBarang']] += value['jumlahTransaksi'];
+        } else {
+          barangTerlaris
+              .addAll({value['namaBarang']: value['jumlahTransaksi']});
+        }
+      });
+      pemasukan += element.values.first['hargaDeal'] as int;
+      pengeluaran += (element.values.first['hargaDeal'] -
+          element.values.first['laba']) as int;
+      keungtungan += element.values.first['laba'] as int;
+    });
+    var jmlhTerlaris = 0;
+    var keyTerlaris = '';
+
+    barangTerlaris.forEach((key, value) {
+      if (value > jmlhTerlaris) {
+        jmlhTerlaris = value;
+        keyTerlaris = key;
+      }
+    });
+    if (jmlhTerlaris == 0) {
+      keyTerlaris = 'Tidak ada Transaksi';
+    }
+    analisis.value = {
+      'pemasukan': pemasukan,
+      'pengeluaran': pengeluaran,
+      'keuntungan': keungtungan,
+      'namaBarangTerlaris': keyTerlaris,
+      'jumlahBarangTerlaris': jmlhTerlaris
+    };
+    print(analisis);
   }
 
   updateDataGrafik() async {
@@ -193,13 +262,56 @@ class C_Transaksi extends GetxController {
   }
 
   catatTransaksi() {
+    var column = ['A', 'B', 'C', 'D', 'E'];
+    var date = dateAnalisis.value;
+    var start = DateFormat('dd/MM/yyyy').format(date.start);
+    var end = DateFormat('dd/MM/yyyy').format(date.end);
+    String label = "$start - $end";
     var excel =
         Excel.createExcel(); // automatically creates 1 empty sheet: Sheet1
-    Sheet h1 = excel['Sheet1'];
-    h1.merge(CellIndex.indexByString("A2"), CellIndex.indexByString("E2"),
+    Sheet r = excel['Sheet1'];
+    //Judul
+    r.merge(CellIndex.indexByString("A2"), CellIndex.indexByString("E2"),
         customValue: "Catatan Transaksi Widuri");
-    h1.merge(CellIndex.indexByString("A3"), CellIndex.indexByString("E3"),
-        customValue: "Tanggal");
+    r.merge(CellIndex.indexByString("A3"), CellIndex.indexByString("E3"),
+        customValue: "$label");
+    r.cell(CellIndex.indexByString("A2")).cellStyle = CellStyle(
+        bold: true,
+        horizontalAlign: HorizontalAlign.Center,
+        verticalAlign: VerticalAlign.Center);
+    r.cell(CellIndex.indexByString("A3")).cellStyle = CellStyle(
+        horizontalAlign: HorizontalAlign.Center,
+        verticalAlign: VerticalAlign.Center);
+    //header kolom
+    r.cell(CellIndex.indexByString("A5")).value = 'NO.';
+    r.cell(CellIndex.indexByString("B5")).value = 'ID TRANSAKSI';
+    r.cell(CellIndex.indexByString("C5")).value = 'BARANG';
+    r.cell(CellIndex.indexByString("D5")).value = 'JUMLAH';
+    r.cell(CellIndex.indexByString("E5")).value = 'CATATAN';
+    for (var i = 0; i < column.length; i++) {
+      r.cell(CellIndex.indexByString("${column[i]}5")).cellStyle = CellStyle(
+          horizontalAlign: HorizontalAlign.Center,
+          verticalAlign: VerticalAlign.Center,
+          backgroundColorHex: '#FFFF00');
+    }
+    if (kIsWeb) {
+      // prepare
+      final bytes = excel.encode();
+      final blob = html.Blob([bytes]);
+      final url = html.Url.createObjectUrlFromBlob(blob);
+      final anchor = html.document.createElement('a') as html.AnchorElement
+        ..href = url
+        ..style.display = 'none'
+        ..download = 'widuri ($label).xlsx';
+      html.document.body!.children.add(anchor);
+
+// download
+      anchor.click();
+
+// cleanup
+      html.document.body!.children.remove(anchor);
+      html.Url.revokeObjectUrl(url);
+    }
   }
 
   int jumlahRekomendasiHarga() {

@@ -41,6 +41,7 @@ dependencies:
   flutter_svg: ^0.22.0
   translator: ^0.1.7
   excel: any
+  path_provider: ^2.0.2
 
 dev_dependencies:
   change_app_package_name: ^1.0.0

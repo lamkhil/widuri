@@ -138,7 +138,7 @@ Widget grafik() {
                 show: true,
               ),
               belowBarData: BarAreaData(
-                show: true,
+                show: false,
               ),
             ),
           ],
