@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:widuri/colors.dart';
 import 'package:widuri/controller/c_barang.dart';
 import 'package:widuri/controller/c_transaksi.dart';
+import 'package:widuri/controller/c_user.dart';
 import '../gambar.dart';
 import 'Widget/card_barang.dart';
 import 'Widget/graphic.dart';
@@ -28,6 +29,7 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     transaksiController.updateDataGrafik();
+    transaksiController.getPendapatanUser();
     super.initState();
   }
 
@@ -155,11 +157,13 @@ class _HomeState extends State<Home> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Text('Hasil kamu hari ini'),
+                                          Text('Keuntungan kamu hari ini'),
                                           Row(
                                             children: [
                                               Text('Rp '),
-                                              Text('20000')
+                                              Obx(() => Text(transaksiController
+                                                  .keuntunganUser.value
+                                                  .toString()))
                                             ],
                                           )
                                         ],

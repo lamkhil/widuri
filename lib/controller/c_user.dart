@@ -4,9 +4,11 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:widuri/colors.dart';
+import 'package:widuri/model/m_transaksi.dart';
 import 'package:widuri/model/m_user.dart';
 import 'package:widuri/views/Widget/alert_dialog.dart';
 import 'package:widuri/views/Widget/loader_dialog.dart';
+import 'package:intl/intl.dart';
 
 class C_User extends GetxController {
   static var name = ''.obs;
@@ -73,13 +75,13 @@ class C_User extends GetxController {
     }
   }
 
-  static Future <void> ubahNama(BuildContext context, String nama) async{
+  static Future<void> ubahNama(BuildContext context, String nama) async {
     var result = await M_User.ubahNama(nama);
     Navigator.of(context).pop();
     if (!(result is String)) {
       Get.offNamed('/main', arguments: nama);
       name.value = auth.currentUser!.displayName!.toString();
-    }else{
+    } else {
       customDialog(context, 'Oppss!', result);
     }
   }
