@@ -62,13 +62,15 @@ class C_Transaksi extends GetxController {
   DateTime getDate(DateTime d) => DateTime(d.year, d.month, d.day);
 
   getPendapatanUser() async {
+    var a = 0;
     var result = await M_Transaksi.getTransaksi(
         [DateFormat("dd-MM-yyyy").format(DateTime.now())]) as List;
     result.forEach((element) {
       if (element.values.first['penjual'] == auth.currentUser!.displayName) {
-        keuntunganUser.value += element.values.first['laba'] as int;
+        a += element.values.first['laba'] as int;
       }
     });
+    keuntunganUser.value = a;
   }
 
   void reset() {
