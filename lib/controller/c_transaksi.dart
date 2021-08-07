@@ -304,7 +304,36 @@ class C_Transaksi extends GetxController {
             dateAnalisis.value.end.month,
             dateAnalisis.value.end.day - (i))));
     var result = await M_Transaksi.getTransaksi(listDateAnlisis) as List;
-    result.forEach((element) {});
+    int n = 1;
+    result.forEach((element) {
+      r.cell(CellIndex.indexByString("${column[0]}$row")).value = n;
+      r.cell(CellIndex.indexByString("${column[1]}$row")).value =
+          element.keys.first;
+      var barang = element.values.first['barang'] as Map;
+      if (barang.length > 1) {
+        var catatan = element.values.first['catatan'];
+        r.merge(CellIndex.indexByString("${column[4]}$row"),
+            CellIndex.indexByString("${column[4]}${row + barang.length - 1}"),
+            customValue: "${catatan != null ? catatan : ""}");
+      }
+      barang.forEach((key, value) {
+        r.cell(CellIndex.indexByString("${column[2]}$row")).value =
+            value['namaBarang'];
+        r.cell(CellIndex.indexByString("${column[3]}$row")).value =
+            value['jumlahTransaksi'];
+        row++;
+      });
+      r.cell(CellIndex.indexByString("${column[3]}$row")).value =
+          'Total Harga:';
+      r.cell(CellIndex.indexByString("${column[4]}$row")).value =
+          element.values.first['hargaDeal'];
+      row++;
+      r.cell(CellIndex.indexByString("${column[3]}$row")).value = 'Laba:';
+      r.cell(CellIndex.indexByString("${column[4]}$row")).value =
+          element.values.first['laba'];
+      row++;
+      n++;
+    });
     //export
     if (kIsWeb) {
       // prepare
