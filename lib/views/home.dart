@@ -40,6 +40,15 @@ class _HomeState extends State<Home> {
     return Scaffold(
         backgroundColor: backgroundColor,
         appBar: AppBar(
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.centerLeft,
+                  end: Alignment.centerRight,
+                  colors: <Color>[primaryColor, orange],
+                  tileMode: TileMode.repeated),
+            ),
+          ),
           title: Container(
             child: new Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -81,7 +90,11 @@ class _HomeState extends State<Home> {
               Container(
                 height: 100,
                 decoration: BoxDecoration(
-                    color: primaryColor,
+                    gradient: LinearGradient(
+                        begin: Alignment.centerLeft,
+                        end: Alignment.centerRight,
+                        colors: <Color>[primaryColor, orange],
+                        tileMode: TileMode.repeated),
                     borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(12),
                         bottomRight: Radius.circular(12))),

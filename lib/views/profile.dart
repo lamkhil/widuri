@@ -41,61 +41,69 @@ class _ProfilState extends State<Profil> with SingleTickerProviderStateMixin {
         ? ''
         : auth.currentUser!.displayName;
     return Scaffold(
-      extendBodyBehindAppBar: true,
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+                begin: Alignment.centerLeft,
+                end: Alignment.centerRight,
+                colors: <Color>[primaryColor, orange],
+                tileMode: TileMode.repeated),
+          ),
+        ),
+        title: Container(
+          child: new Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Text(
+                'Profil',
+                style: TextStyle(
+                    fontSize: 22.0,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'RobotoMono',
+                    color: backgroundColor),
+              ),
+              Card(
+                color: backgroundColor,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12.0),
+                ),
+                child: IconButton(
+                  onPressed: () {
+                    NotifBuildShowDialog(context);
+                  },
+                  icon: Icon(
+                    Icons.notifications,
+                    size: 20.0,
+                    color: primaryColor,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        backgroundColor: orange,
         elevation: 0,
       ),
       body: Container(
-        padding: EdgeInsets.only(top: 20),
         child: Stack(
           alignment: Alignment.center,
           children: <Widget>[
             Column(
               children: [
                 Container(
-                    padding:
-                    EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-                    width: double.infinity,
-                    height: h * 0.2,
-                    decoration: const BoxDecoration(
-                      gradient: LinearGradient(
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                          colors: <Color>[primaryColor, orange],
-                          tileMode: TileMode.repeated),
-                    ),
-                    child: Align(
-                      alignment: Alignment.topCenter,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Profil',
-                            style: TextStyle(
-                                fontSize: 22,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white),
-                          ),
-                          Card(
-                            color: backgroundColor,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12.0),
-                            ),
-                            child: IconButton(
-                              onPressed: () {
-                                NotifBuildShowDialog(context);
-                              },
-                              icon: Icon(
-                                Icons.notifications,
-                                size: 20.0,
-                                color: primaryColor,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    )),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+                  width: double.infinity,
+                  height: h * 0.2,
+                  decoration: const BoxDecoration(
+                    gradient: LinearGradient(
+                        begin: Alignment.centerLeft,
+                        end: Alignment.centerRight,
+                        colors: <Color>[primaryColor, orange],
+                        tileMode: TileMode.repeated),
+                  ),
+                ),
                 Expanded(
                     child: Container(
                         padding: EdgeInsets.fromLTRB(20, 60, 20, 20),
@@ -103,7 +111,7 @@ class _ProfilState extends State<Profil> with SingleTickerProviderStateMixin {
                         child: Column(
                           children: [
                             Obx(
-                                  () => Text(
+                              () => Text(
                                 C_User.name.value,
                                 style: TextStyle(
                                     fontSize: 18.0,
@@ -154,20 +162,20 @@ class _ProfilState extends State<Profil> with SingleTickerProviderStateMixin {
                             ),
                             Expanded(
                                 child: TabBarView(
-                                  controller: _tabController,
-                                  children: [
-                                    //tabview pertama
-                                    new ProfilNama.ProfileNama(),
-                                    // second tab bar view widget
-                                    new ProfilSetting.ProfileSetting(),
-                                  ],
-                                ))
+                              controller: _tabController,
+                              children: [
+                                //tabview pertama
+                                new ProfilNama.ProfileNama(),
+                                // second tab bar view widget
+                                new ProfilSetting.ProfileSetting(),
+                              ],
+                            ))
                           ],
                         ))),
               ],
             ),
             Positioned(
-              // (background container size(size container/appbar atas)) - (circle height / 2)
+                // (background container size(size container/appbar atas)) - (circle height / 2)
                 top: (h * 0.2) - (100 / 2),
                 child: Container(
                     height: 100.0,
