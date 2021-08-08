@@ -10,6 +10,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:widuri/Util/request_permission.dart';
 import 'package:widuri/colors.dart';
 import 'package:widuri/controller/c_barang.dart';
 import 'package:widuri/model/m_barang.dart';
@@ -376,7 +377,7 @@ class C_Transaksi extends GetxController {
       if (Platform.isAndroid) {
         //for phone
         try {
-          if (await _requestPermission(Permission.storage)) {
+          if (await requestPermission(Permission.storage)) {
             Directory? tempPath = await getExternalStorageDirectory();
             String nwDirectory =
                 tempPath!.path.split('Android')[0] + "Widuri Apps";
@@ -389,7 +390,7 @@ class C_Transaksi extends GetxController {
         }
       }
       try {
-        if (await _requestPermission(Permission.manageExternalStorage)) {
+        if (await requestPermission(Permission.manageExternalStorage)) {
           loaderDialog(
               context,
               SpinKitFadingCube(
@@ -419,19 +420,6 @@ class C_Transaksi extends GetxController {
         }
       } catch (e) {
         print(e);
-      }
-    }
-  }
-
-  Future<bool> _requestPermission(Permission p) async {
-    if (await p.isGranted) {
-      return true;
-    } else {
-      var result = await p.request();
-      if (result.isGranted) {
-        return true;
-      } else {
-        return false;
       }
     }
   }

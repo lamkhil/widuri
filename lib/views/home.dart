@@ -115,10 +115,14 @@ class _HomeState extends State<Home> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: <Widget>[
-                            CircleAvatar(
-                              backgroundImage: AssetImage(me),
-                              maxRadius: 30.0,
-                            ),
+                            Obx(() => CircleAvatar(
+                                  backgroundImage: C_User.photoUrl.value == ""
+                                      ? AssetImage(me)
+                                      : NetworkImage(C_User.photoUrl.value)
+                                          as ImageProvider,
+                                  backgroundColor: backgroundColor,
+                                  radius: 30,
+                                )),
                             SizedBox(
                               width: 20.0,
                             ),

@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:widuri/controller/c_user.dart';
+import 'package:widuri/views/Widget/alert_dialog.dart';
 
 import './profile_nama.dart' as ProfilNama;
 import './profile_setting.dart' as ProfilSetting;
@@ -180,13 +181,77 @@ class _ProfilState extends State<Profil> with SingleTickerProviderStateMixin {
                 child: Container(
                     height: 100.0,
                     width: 100.0,
-                    child: CircleAvatar(
-                      backgroundImage: AssetImage(me),
-                      radius: 25.0,
-                    )))
+                    child: Obx(() => CircleAvatar(
+                          backgroundImage: C_User.photoUrl.value == ""
+                              ? AssetImage(me)
+                              : NetworkImage(C_User.photoUrl.value)
+                                  as ImageProvider,
+                          backgroundColor: backgroundColor,
+                          radius: 25.0,
+                        )))),
+            Positioned(
+                // (background container size(size container/appbar atas)) - (circle height / 2)
+                top: (h * 0.2) - (100 / 2) + 60,
+                left: w * 0.5 + 10,
+                child: Container(
+                  decoration:
+                      BoxDecoration(shape: BoxShape.circle, color: orange),
+                  child: IconButton(
+                    onPressed: () {
+                      _showPicker(context);
+                    },
+                    icon: Icon(
+                      Icons.edit_rounded,
+                      color: backgroundColor,
+                    ),
+                  ),
+                ))
           ],
         ),
       ),
     );
+  }
+
+  void _showPicker(context) {
+    var i = 0;
+    showModalBottomSheet(
+        context: context,
+        builder: (BuildContext bc) {
+          return SafeArea(
+            child: Container(
+              child: new Wrap(
+                children: <Widget>[
+                  new ListTile(
+                      leading: new Icon(Icons.photo_library),
+                      title: new Text('Photo Library'),
+                      onTap: () {
+                        i = 1;
+                        Navigator.of(context).pop();
+                      }),
+                  new ListTile(
+                    leading: new Icon(Icons.photo_camera),
+                    title: new Text('Camera'),
+                    onTap: () {
+                      i = 2;
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              ),
+            ),
+          );
+        }).then((value) async {
+      if (i == 1) {
+        if (!await C_User.imgFromGallery(context)) {
+          customDialog(context, "Gagal", "Izin belum diberikan");
+        }
+      }
+      if (i == 2) {
+        if (!await C_User.imgFromCamera(context)) {
+          customDialog(context, "Gagal", "Izin belum diberikan");
+        }
+      }
+      i = 0;
+    });
   }
 }

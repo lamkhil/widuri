@@ -28,6 +28,7 @@ class _NavBarState extends State<NavBar> {
     _controller = PersistentTabController(initialIndex: 0);
     _hideNavBar = false;
     C_User.name.value = auth.currentUser!.displayName!;
+    C_User.photoUrl.value = auth.currentUser!.photoURL!;
     super.initState();
   }
 
