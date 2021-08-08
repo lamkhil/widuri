@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:widuri/colors.dart';
 import 'package:widuri/controller/c_transaksi.dart';
 import 'package:widuri/views/Widget/popup_barang.dart';
+import 'package:intl/intl.dart';
 
 class CardBarang extends StatelessWidget {
   CardBarang(
@@ -23,6 +24,9 @@ class CardBarang extends StatelessWidget {
   int rekomendasi;
   bool transaksi;
   RxInt jumlahTransaksi = 0.obs;
+  final formatCurrency =
+      new NumberFormat.currency(locale: 'id', decimalDigits: 0, symbol: "Rp ");
+
   @override
   Widget build(BuildContext context) {
     var w = MediaQuery.of(context).size.width;
@@ -124,7 +128,8 @@ class CardBarang extends StatelessWidget {
                                   height: 4.0,
                                 ),
                                 FittedBox(
-                                  child: Text('Rp $harga', style: TextStyle()),
+                                  child: Text('${formatCurrency.format(harga)}',
+                                      style: TextStyle()),
                                 ),
                               ],
                             ),
@@ -150,7 +155,9 @@ class CardBarang extends StatelessWidget {
                                   SizedBox(
                                     height: 4.0,
                                   ),
-                                  FittedBox(child: Text('Rp $rekomendasi')),
+                                  FittedBox(
+                                      child: Text(
+                                          '${formatCurrency.format(rekomendasi)}')),
                                 ],
                               ),
                             ),

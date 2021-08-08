@@ -6,8 +6,8 @@ import 'package:get/get.dart';
 import 'package:widuri/colors.dart';
 import 'package:widuri/controller/c_barang.dart';
 import 'package:widuri/controller/c_transaksi.dart';
-import 'package:widuri/views/riwayat_transaksi.dart';
-
+import 'package:widuri/controller/c_user.dart';
+import 'package:widuri/views/Widget/profil_Image.dart';
 import '../gambar.dart';
 import 'Widget/card_barang.dart';
 import 'Widget/graphic.dart';
@@ -30,6 +30,7 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     transaksiController.updateDataGrafik();
+    transaksiController.getPendapatanUser();
     super.initState();
   }
 
@@ -40,6 +41,15 @@ class _HomeState extends State<Home> {
     return Scaffold(
         backgroundColor: backgroundColor,
         appBar: AppBar(
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.centerLeft,
+                  end: Alignment.centerRight,
+                  colors: <Color>[primaryColor, orange],
+                  tileMode: TileMode.repeated),
+            ),
+          ),
           title: Container(
             child: new Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -81,7 +91,11 @@ class _HomeState extends State<Home> {
               Container(
                 height: 100,
                 decoration: BoxDecoration(
-                    color: primaryColor,
+                    gradient: LinearGradient(
+                        begin: Alignment.centerLeft,
+                        end: Alignment.centerRight,
+                        colors: <Color>[primaryColor, orange],
+                        tileMode: TileMode.repeated),
                     borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(12),
                         bottomRight: Radius.circular(12))),
@@ -102,10 +116,7 @@ class _HomeState extends State<Home> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: <Widget>[
-                            CircleAvatar(
-                              backgroundImage: AssetImage(me),
-                              maxRadius: 30.0,
-                            ),
+                            profilImage(),
                             SizedBox(
                               width: 20.0,
                             ),
@@ -144,9 +155,7 @@ class _HomeState extends State<Home> {
                                           InkWell(
                                             child: Icon(Icons.history_rounded,
                                                 size: 25),
-                                            onTap: (){
-                                              Get.to(RiwayatTransaksi());
-                                            },
+                                            onTap: () {},
                                           ),
                                           Text('Transaksi')
                                         ],
@@ -159,11 +168,13 @@ class _HomeState extends State<Home> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Text('Hasil kamu hari ini'),
+                                          Text('Keuntungan kamu hari ini'),
                                           Row(
                                             children: [
                                               Text('Rp '),
-                                              Text('20000')
+                                              Obx(() => Text(transaksiController
+                                                  .keuntunganUser.value
+                                                  .toString()))
                                             ],
                                           )
                                         ],

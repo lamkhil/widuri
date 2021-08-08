@@ -1,8 +1,13 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:widuri/controller/c_barang.dart';
 import 'package:widuri/controller/c_transaksi.dart';
+import 'package:widuri/views/Widget/loader_dialog.dart';
 
 import '../colors.dart';
 import 'Widget/category_widget.dart';
@@ -21,8 +26,14 @@ class _AnalisisState extends State<Analisis> {
   var _catatanController = TextEditingController();
   var transaksiController = Get.put(C_Transaksi());
 
-  static const List<String> items = ['Bulan ini', 'Bulan Lalu'];
-  int _activeCategory = 0;
+  static const List<String> items = ['Minggu ini', 'Minggu Lalu'];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    transaksiController.updateDataAnalisis();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +47,7 @@ class _AnalisisState extends State<Analisis> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Text(
-                'Stock Barang',
+                'Analisis',
                 style: TextStyle(
                     fontSize: 22.0,
                     fontWeight: FontWeight.bold,
@@ -81,76 +92,140 @@ class _AnalisisState extends State<Analisis> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Container(
-                              height: h * 0.05,
-                              padding: EdgeInsets.only(left: 10, right: 10),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  border: Border.all(
-                                    color: primaryColor,
-                                    width: 1.0,
-                                  )),
-                              child: Obx(() {
-                                var date = DateTime.now();
-
-                                if (transaksiController.date.value == '') {
-                                  transaksiController.date.value =
-                                      DateFormat('dd-MM-yyyy').format(date);
-                                }
-                                return ElevatedButton.icon(
-                                  style: ElevatedButton.styleFrom(
-                                      elevation: 0, primary: backgroundColor),
-                                  onPressed: () async {
-                                    DateTime selectedDate = date;
-                                    final DateTime? picked =
-                                        await showDatePicker(
+                          Obx(
+                            () {
+                              var date = transaksiController.dateAnalisis.value;
+                              var start =
+                                  DateFormat('dd/MM/yyyy').format(date.start);
+                              var end =
+                                  DateFormat('dd/MM/yyyy').format(date.end);
+                              String label = "$start - $end";
+                              bool isActive =
+                                  transaksiController.activeCategory.value == 3;
+                              return Container(
+                                height: h * 0.05,
+                                width: w * 0.4,
+                                alignment: Alignment.center,
+                                padding: EdgeInsets.only(left: 10, right: 10),
+                                decoration: BoxDecoration(
+                                    color: isActive
+                                        ? primaryColor
+                                        : backgroundColor,
+                                    borderRadius: BorderRadius.circular(10),
+                                    border: Border.all(
+                                      color: primaryColor,
+                                      width: 1.0,
+                                    )),
+                                child: InkWell(
+                                  onTap: () async {
+                                    transaksiController.activeCategory.value =
+                                        3;
+                                    final DateTimeRange? picked =
+                                        await showDateRangePicker(
                                       context: context,
-                                      initialDate: selectedDate,
-                                      firstDate: DateTime(1975),
-                                      lastDate: DateTime(2050),
-                                      // selectableDayPredicate: (DateTime val) =>
-                                      //     val.weekday == 6 || val.weekday == 7 ? true : false,
+                                      firstDate:
+                                          DateTime(DateTime.now().year - 5),
+                                      lastDate:
+                                          DateTime(DateTime.now().year + 5),
+                                      initialDateRange: DateTimeRange(
+                                        end: transaksiController
+                                            .dateAnalisis.value.end,
+                                        start: transaksiController
+                                            .dateAnalisis.value.start,
+                                      ),
                                     );
                                     if (picked != null) {
-                                      transaksiController.date.value =
-                                          DateFormat('dd-MM-yyyy')
-                                              .format(picked);
+                                      transaksiController.dateAnalisis.value =
+                                          picked;
                                     }
                                   },
-                                  icon: Icon(
-                                    Icons.date_range,
-                                    color: primaryColor,
+                                  child: Row(
+                                    children: [
+                                      Icon(
+                                        Icons.date_range,
+                                        color: isActive
+                                            ? backgroundColor
+                                            : primaryColor,
+                                      ),
+                                      SizedBox(
+                                        width: 6,
+                                      ),
+                                      SizedBox(
+                                        width: w * 0.25,
+                                        child: FittedBox(
+                                          child: Text(
+                                            label,
+                                            style: TextStyle(
+                                                color: isActive
+                                                    ? backgroundColor
+                                                    : Colors.black),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                  label: Text(
-                                    transaksiController.date.value,
-                                    style: TextStyle(color: Colors.black),
-                                  ),
-                                );
-                              })),
+                                ),
+                              );
+                            },
+                          ),
                           SizedBox(
-                            width: 20.0,
+                            width: 6,
                           ),
                           Expanded(
                             child: Container(
-                              height: h * 0.05,
-                              child: ListView.separated(
-                                  clipBehavior: Clip.none,
-                                  scrollDirection: Axis.horizontal,
-                                  itemBuilder: (context, i) => CategoryWidget(
-                                        name: '${items[i]}',
-                                        isActive: _activeCategory == i,
-                                        onClick: () {
-                                          setState(() {
-                                            _activeCategory = i;
-                                          });
-                                        },
-                                      ),
-                                  separatorBuilder: (context, i) => SizedBox(
-                                        width: 20.0,
-                                      ),
-                                  itemCount: 2),
-                            ),
-                          )
+                                height: h * 0.05,
+                                child: ListView.separated(
+                                    clipBehavior: Clip.none,
+                                    scrollDirection: Axis.horizontal,
+                                    itemBuilder: (context, i) => Obx(
+                                          () => CategoryWidget(
+                                            name: '${items[i]}',
+                                            isActive: transaksiController
+                                                    .activeCategory.value ==
+                                                i,
+                                            onClick: () {
+                                              transaksiController
+                                                  .activeCategory.value = i;
+
+                                              switch (i) {
+                                                case 0:
+                                                  var date = DateTime.now();
+                                                  transaksiController.dateAnalisis.value = DateTimeRange(
+                                                      end: transaksiController
+                                                          .getDate(date.add(Duration(
+                                                              days: DateTime
+                                                                      .daysPerWeek -
+                                                                  date
+                                                                      .weekday))),
+                                                      start: transaksiController
+                                                          .getDate(date.subtract(
+                                                              Duration(days: date.weekday - 1))));
+                                                  break;
+                                                case 1:
+                                                  var date = DateTime(
+                                                      DateTime.now().year,
+                                                      DateTime.now().month,
+                                                      DateTime.now().day - 7);
+                                                  transaksiController.dateAnalisis.value = DateTimeRange(
+                                                      end: transaksiController
+                                                          .getDate(date.add(Duration(
+                                                              days: DateTime
+                                                                      .daysPerWeek -
+                                                                  date
+                                                                      .weekday))),
+                                                      start: transaksiController
+                                                          .getDate(date.subtract(
+                                                              Duration(days: date.weekday - 1))));
+                                                  break;
+                                              }
+                                            },
+                                          ),
+                                        ),
+                                    separatorBuilder: (context, i) => SizedBox(
+                                          width: 6.0,
+                                        ),
+                                    itemCount: 2)),
+                          ),
                         ],
                       ),
                       SizedBox(
@@ -165,12 +240,17 @@ class _AnalisisState extends State<Analisis> {
                                 fontFamily: 'Roboto',
                                 fontSize: 14.0,
                               )),
-                          Text('+ Rp 1.900.000',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontFamily: 'Roboto',
-                                  fontSize: 14.0,
-                                  color: greenFontColor)),
+                          Obx(
+                            () => Text(
+                                '+' +
+                                    transaksiController.analisis['pemasukan']
+                                        .toString(),
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontFamily: 'Roboto',
+                                    fontSize: 14.0,
+                                    color: greenFontColor)),
+                          ),
                         ],
                       ),
                       SizedBox(
@@ -185,12 +265,17 @@ class _AnalisisState extends State<Analisis> {
                                 fontFamily: 'Roboto',
                                 fontSize: 14.0,
                               )),
-                          Text('- Rp 900.000',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontFamily: 'Roboto',
-                                  fontSize: 14.0,
-                                  color: greenFontColor)),
+                          Obx(
+                            () => Text(
+                                '-' +
+                                    transaksiController.analisis['pengeluaran']
+                                        .toString(),
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontFamily: 'Roboto',
+                                    fontSize: 14.0,
+                                    color: primaryColor)),
+                          ),
                         ],
                       ),
                       SizedBox(
@@ -209,12 +294,17 @@ class _AnalisisState extends State<Analisis> {
                                 fontFamily: 'Roboto',
                                 fontSize: 14.0,
                               )),
-                          Text('+ Rp 900.000',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontFamily: 'Roboto',
-                                  fontSize: 14.0,
-                                  color: greenFontColor)),
+                          Obx(
+                            () => Text(
+                                '+' +
+                                    transaksiController.analisis['keuntungan']
+                                        .toString(),
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontFamily: 'Roboto',
+                                    fontSize: 14.0,
+                                    color: greenFontColor)),
+                          ),
                         ],
                       ),
                       SizedBox(
@@ -239,12 +329,17 @@ class _AnalisisState extends State<Analisis> {
                               SizedBox(
                                 height: 5.0,
                               ),
-                              Text('Baju Gamis Putih',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.normal,
-                                    fontFamily: 'Roboto',
-                                    fontSize: 13.0,
-                                  )),
+                              Obx(
+                                () => Text(
+                                    transaksiController
+                                        .analisis['namaBarangTerlaris']
+                                        .toString(),
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.normal,
+                                      fontFamily: 'Roboto',
+                                      fontSize: 13.0,
+                                    )),
+                              ),
                             ],
                           ),
                           Column(
@@ -258,12 +353,17 @@ class _AnalisisState extends State<Analisis> {
                               SizedBox(
                                 height: 5.0,
                               ),
-                              Text('8',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.normal,
-                                    fontFamily: 'Roboto',
-                                    fontSize: 13.0,
-                                  )),
+                              Obx(
+                                () => Text(
+                                    transaksiController
+                                        .analisis['jumlahBarangTerlaris']
+                                        .toString(),
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.normal,
+                                      fontFamily: 'Roboto',
+                                      fontSize: 13.0,
+                                    )),
+                              ),
                             ],
                           ),
                         ],
@@ -338,7 +438,9 @@ class _AnalisisState extends State<Analisis> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12.0),
                         )),
-                    onPressed: () {},
+                    onPressed: () async {
+                      await transaksiController.catatTransaksi(context);
+                    },
                     child: Text('Catat Transaksi',
                         style: TextStyle(
                           fontWeight: FontWeight.w600,

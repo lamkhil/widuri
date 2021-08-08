@@ -2,12 +2,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:widuri/controller/c_user.dart';
-
+import 'package:widuri/views/Widget/alert_dialog.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import './profile_nama.dart' as ProfilNama;
 import './profile_setting.dart' as ProfilSetting;
 import '../colors.dart';
 import '../gambar.dart';
 import 'Widget/notif_popup.dart';
+import 'Widget/profil_Image.dart';
 
 class Profil extends StatefulWidget {
   const Profil({Key? key}) : super(key: key);
@@ -41,61 +43,69 @@ class _ProfilState extends State<Profil> with SingleTickerProviderStateMixin {
         ? ''
         : auth.currentUser!.displayName;
     return Scaffold(
-      extendBodyBehindAppBar: true,
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+                begin: Alignment.centerLeft,
+                end: Alignment.centerRight,
+                colors: <Color>[primaryColor, orange],
+                tileMode: TileMode.repeated),
+          ),
+        ),
+        title: Container(
+          child: new Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Text(
+                'Profil',
+                style: TextStyle(
+                    fontSize: 22.0,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'RobotoMono',
+                    color: backgroundColor),
+              ),
+              Card(
+                color: backgroundColor,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12.0),
+                ),
+                child: IconButton(
+                  onPressed: () {
+                    NotifBuildShowDialog(context);
+                  },
+                  icon: Icon(
+                    Icons.notifications,
+                    size: 20.0,
+                    color: primaryColor,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        backgroundColor: orange,
         elevation: 0,
       ),
       body: Container(
-        padding: EdgeInsets.only(top: 20),
         child: Stack(
           alignment: Alignment.center,
           children: <Widget>[
             Column(
               children: [
                 Container(
-                    padding:
-                    EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-                    width: double.infinity,
-                    height: h * 0.2,
-                    decoration: const BoxDecoration(
-                      gradient: LinearGradient(
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                          colors: <Color>[primaryColor, orange],
-                          tileMode: TileMode.repeated),
-                    ),
-                    child: Align(
-                      alignment: Alignment.topCenter,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Profil',
-                            style: TextStyle(
-                                fontSize: 22,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white),
-                          ),
-                          Card(
-                            color: backgroundColor,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12.0),
-                            ),
-                            child: IconButton(
-                              onPressed: () {
-                                NotifBuildShowDialog(context);
-                              },
-                              icon: Icon(
-                                Icons.notifications,
-                                size: 20.0,
-                                color: primaryColor,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    )),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+                  width: double.infinity,
+                  height: h * 0.2,
+                  decoration: const BoxDecoration(
+                    gradient: LinearGradient(
+                        begin: Alignment.centerLeft,
+                        end: Alignment.centerRight,
+                        colors: <Color>[primaryColor, orange],
+                        tileMode: TileMode.repeated),
+                  ),
+                ),
                 Expanded(
                     child: Container(
                         padding: EdgeInsets.fromLTRB(20, 60, 20, 20),
@@ -103,7 +113,7 @@ class _ProfilState extends State<Profil> with SingleTickerProviderStateMixin {
                         child: Column(
                           children: [
                             Obx(
-                                  () => Text(
+                              () => Text(
                                 C_User.name.value,
                                 style: TextStyle(
                                     fontSize: 18.0,
@@ -154,31 +164,93 @@ class _ProfilState extends State<Profil> with SingleTickerProviderStateMixin {
                             ),
                             Expanded(
                                 child: TabBarView(
-                                  controller: _tabController,
-                                  children: [
-                                    //tabview pertama
-                                    new ProfilNama.ProfileNama(),
-                                    // second tab bar view widget
-                                    new ProfilSetting.ProfileSetting(),
-                                  ],
-                                ))
+                              controller: _tabController,
+                              children: [
+                                //tabview pertama
+                                new ProfilNama.ProfileNama(),
+                                // second tab bar view widget
+                                new ProfilSetting.ProfileSetting(),
+                              ],
+                            ))
                           ],
                         ))),
               ],
             ),
             Positioned(
-              // (background container size(size container/appbar atas)) - (circle height / 2)
+                // (background container size(size container/appbar atas)) - (circle height / 2)
                 top: (h * 0.2) - (100 / 2),
                 child: Container(
-                    height: 100.0,
-                    width: 100.0,
-                    child: CircleAvatar(
-                      backgroundImage: AssetImage(me),
-                      radius: 25.0,
-                    )))
+                    height: 100.0, width: 100.0, child: profilImage())),
+            Positioned(
+                // (background container size(size container/appbar atas)) - (circle height / 2)
+                top: (h * 0.2) - (100 / 2) + 60,
+                left: w * 0.5 + 10,
+                child: Container(
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: orange,
+                      border: Border.all(color: backgroundColor, width: 6)),
+                  child: IconButton(
+                    onPressed: () {
+                      if (kIsWeb) {
+                        customDialog(context, "Oops!",
+                            "Gunakan perangkat mobile untuk mengubah foto");
+                      } else {
+                        _showPicker(context);
+                      }
+                    },
+                    icon: Icon(
+                      Icons.edit_rounded,
+                      color: backgroundColor,
+                    ),
+                  ),
+                ))
           ],
         ),
       ),
     );
+  }
+
+  void _showPicker(context) {
+    var i = 0;
+    showModalBottomSheet(
+        context: context,
+        builder: (BuildContext bc) {
+          return SafeArea(
+            child: Container(
+              child: new Wrap(
+                children: <Widget>[
+                  new ListTile(
+                      leading: new Icon(Icons.photo_library),
+                      title: new Text('Photo Library'),
+                      onTap: () {
+                        i = 1;
+                        Navigator.of(context).pop();
+                      }),
+                  new ListTile(
+                    leading: new Icon(Icons.photo_camera),
+                    title: new Text('Camera'),
+                    onTap: () {
+                      i = 2;
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              ),
+            ),
+          );
+        }).then((value) async {
+      if (i == 1) {
+        if (!await C_User.imgFromGallery(context)) {
+          customDialog(context, "Gagal", "Izin belum diberikan");
+        }
+      }
+      if (i == 2) {
+        if (!await C_User.imgFromCamera(context)) {
+          customDialog(context, "Gagal", "Izin belum diberikan");
+        }
+      }
+      i = 0;
+    });
   }
 }

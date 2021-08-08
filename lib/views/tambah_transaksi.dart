@@ -18,6 +18,8 @@ class TambahTransaksi extends StatefulWidget {
 }
 
 class _TambahTransaksiState extends State<TambahTransaksi> {
+  final formatCurrency =
+      new NumberFormat.currency(locale: 'id', decimalDigits: 0, symbol: "Rp ");
   C_Transaksi transaksiController =
       C_Transaksi().initialized ? Get.find() : Get.put(C_Transaksi());
 
@@ -442,9 +444,10 @@ class _TambahTransaksiState extends State<TambahTransaksi> {
                                         children: [
                                           Text("Total harga awal : "),
                                           Obx(() {
-                                            return Text(transaksiController
-                                                .jumlahHargaAwal()
-                                                .toString());
+                                            return Text(formatCurrency.format(
+                                                transaksiController
+                                                    .jumlahHargaAwal()
+                                                    ).toString());
                                           })
                                         ],
                                       ),
@@ -457,9 +460,10 @@ class _TambahTransaksiState extends State<TambahTransaksi> {
                                         children: [
                                           Text("Rekomendasi harga jual : "),
                                           Obx(() {
-                                            return Text(transaksiController
-                                                .jumlahRekomendasiHarga()
-                                                .toString());
+                                            return Text(formatCurrency.format(
+                                                transaksiController
+                                                    .jumlahRekomendasiHarga()
+                                            ).toString());
                                           })
                                         ],
                                       ),
@@ -472,9 +476,10 @@ class _TambahTransaksiState extends State<TambahTransaksi> {
                                         children: [
                                           Text("Harga deal saat ini : "),
                                           Obx(() {
-                                            return Text(transaksiController
-                                                .hargaDeal()
-                                                .toString());
+                                            return Text(formatCurrency.format(
+                                                transaksiController
+                                                    .hargaDeal()
+                                            ).toString());
                                           })
                                         ],
                                       ),
@@ -491,7 +496,9 @@ class _TambahTransaksiState extends State<TambahTransaksi> {
                                                     .hargaDeal() -
                                                 transaksiController
                                                     .jumlahHargaAwal();
-                                            return Text(laba.toString());
+                                            return Text(formatCurrency
+                                                .format(laba)
+                                                .toString());
                                           })
                                         ],
                                       )

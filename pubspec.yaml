@@ -41,6 +41,12 @@ dependencies:
   flutter_svg: ^0.22.0
   translator: ^0.1.7
   excel: any
+  path_provider: ^2.0.2
+  universal_html: ^2.0.8
+  permission_handler: ^8.1.4+2
+  firebase_storage: ^10.0.1
+  firebase_storage_web: ^3.0.0
+  image_picker: ^0.8.3+1
 
 dev_dependencies:
   change_app_package_name: ^1.0.0

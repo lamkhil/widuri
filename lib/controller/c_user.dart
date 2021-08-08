@@ -1,8 +1,13 @@
+import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:widuri/Util/request_permission.dart';
 import 'package:widuri/colors.dart';
 import 'package:widuri/model/m_user.dart';
 import 'package:widuri/views/Widget/alert_dialog.dart';
@@ -12,6 +17,10 @@ class C_User extends GetxController {
   static var name = ''.obs;
   static final storage = GetStorage();
   static final auth = FirebaseAuth.instance;
+  static var photoUrl = "".obs;
+
+  static var imagePicker = ImagePicker();
+  static late Rx<File> imagePick;
 
   static Future<void> registerUser(
       BuildContext context, String email, String password, String nama) async {
@@ -37,6 +46,62 @@ class C_User extends GetxController {
     } else {
       customDialog(context, "Oops!", "Lengkapi Formnya dulu");
     }
+  }
+
+  static Future<bool> imgFromCamera(BuildContext context) async {
+    if (await requestPermission(Permission.camera)) {
+      XFile? image = await imagePicker.pickImage(
+          source: ImageSource.camera, imageQuality: 50);
+      if (image != null) {
+        imagePick = File(image.path).obs;
+
+        uploadImage(context);
+        return true;
+      }
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  static Future<bool> imgFromGallery(BuildContext context) async {
+    if (await requestPermission(Permission.accessMediaLocation)) {
+      XFile? image = await imagePicker.pickImage(
+          source: ImageSource.gallery, imageQuality: 50);
+      if (image != null) {
+        imagePick = File(image.path).obs;
+
+        uploadImage(context);
+        return true;
+      }
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  static uploadImage(BuildContext context) async {
+    loaderDialog(
+        context,
+        SpinKitFadingCube(
+          color: primaryColor,
+        ),
+        "Upload gambar...");
+    try {
+      var firebaseStorage = FirebaseStorage.instance;
+      await firebaseStorage
+          .ref('uploads/${auth.currentUser!.uid}.png')
+          .putFile(imagePick.value);
+
+      var url = await firebaseStorage
+          .ref('uploads/${auth.currentUser!.uid}.png')
+          .getDownloadURL();
+      await auth.currentUser!.updatePhotoURL(url);
+      photoUrl.value = url;
+    } catch (e) {
+      print(e);
+    }
+    Navigator.pop(Get.overlayContext!);
   }
 
   static Future<void> lupaPassword(BuildContext context, String email) async {
@@ -73,13 +138,13 @@ class C_User extends GetxController {
     }
   }
 
-  static Future <void> ubahNama(BuildContext context, String nama) async{
+  static Future<void> ubahNama(BuildContext context, String nama) async {
     var result = await M_User.ubahNama(nama);
     Navigator.of(context).pop();
     if (!(result is String)) {
       Get.offNamed('/main', arguments: nama);
       name.value = auth.currentUser!.displayName!.toString();
-    }else{
+    } else {
       customDialog(context, 'Oppss!', result);
     }
   }

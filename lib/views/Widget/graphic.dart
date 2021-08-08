@@ -8,10 +8,9 @@ import '../../colors.dart';
 
 Widget grafik() {
   C_Transaksi transaksiController =
-  C_Transaksi().initialized ? Get.find() : Get.put(C_Transaksi());
+      C_Transaksi().initialized ? Get.find() : Get.put(C_Transaksi());
   return Obx(() {
     var data = transaksiController.dataGrafik.value;
-    print(data);
     if (transaksiController.dataGrafik.isEmpty) {
       return SpinKitFadingCube(color: primaryColor);
     } else {
@@ -61,7 +60,6 @@ Widget grafik() {
                 fontFamily: 'Roboto',
                 fontSize: 12,
               ),
-              rotateAngle: 45,
               margin: 10,
               getTitles: (value) {
                 for (var i = 1; i <= 7; i++) {
@@ -82,15 +80,18 @@ Widget grafik() {
               getTitles: (value) {
                 for (var i = 0; i < 4; i++) {
                   if (value.toInt() == data['leftTiles'][i]) {
-                    var left = data['leftTiles'][i];
-                    var pembilang = left.toString().length > 5 ? 1000000 : 1000;
+                    var left = data['leftTiles'][i].toInt();
+                    var pembilang = left.toString().length > 6 ? 1000000 : 1000;
                     var penyebut =
-                    pembilang.toString() == 1000.toString() ? "K" : "Jt";
+                        pembilang.toString() == 1000.toString() ? "K" : "Jt";
                     var sederhana = left / pembilang;
                     var split = sederhana.toString().split('.');
-                    var result = split.length > 0
+                    var result = split.length > 1
                         ? (split[1] == '0' ? split[0] : sederhana.toString())
                         : sederhana.toString();
+                    result = data['leftTiles'][i] < 5
+                        ? (sederhana * 1000).toInt().toString()
+                        : result;
                     return result + penyebut;
                   }
                 }
@@ -125,8 +126,8 @@ Widget grafik() {
           minY: 0,
           lineBarsData: [
             LineChartBarData(
-              spots: List.generate(
-                  7, (i) => FlSpot(i.toDouble() + 1, data['laba'][i].toDouble())),
+              spots: List.generate(7,
+                  (i) => FlSpot(i.toDouble() + 1, data['laba'][i].toDouble())),
               isCurved: false,
               colors: [
                 orange,
@@ -138,7 +139,7 @@ Widget grafik() {
                 show: true,
               ),
               belowBarData: BarAreaData(
-                show: true,
+                show: false,
               ),
             ),
           ],
