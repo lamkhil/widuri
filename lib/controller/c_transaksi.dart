@@ -1,3 +1,4 @@
+import 'dart:collection';
 import 'dart:io';
 import 'dart:math';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -315,7 +316,7 @@ class C_Transaksi extends GetxController {
           bold: true,
           horizontalAlign: HorizontalAlign.Center,
           verticalAlign: VerticalAlign.Center,
-          backgroundColorHex: '#FFFF00');
+          backgroundColorHex: '#00FF00');
     }
     //isi
     var row = 6;
@@ -338,7 +339,8 @@ class C_Transaksi extends GetxController {
             CellIndex.indexByString("${column[4]}${row + barang.length - 1}"),
             customValue: "${catatan != null ? catatan : ""}");
       }
-      barang.forEach((key, value) {
+      final barangReverse = LinkedHashMap.fromEntries(barang.entries.toList().reversed);
+      barangReverse.forEach((key, value) {
         r.cell(CellIndex.indexByString("${column[2]}$row")).value =
             value['namaBarang'];
         r.cell(CellIndex.indexByString("${column[3]}$row")).value =
