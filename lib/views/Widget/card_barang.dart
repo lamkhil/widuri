@@ -24,8 +24,8 @@ class CardBarang extends StatelessWidget {
   int rekomendasi;
   bool transaksi;
   RxInt jumlahTransaksi = 0.obs;
-  final formatCurrency = new NumberFormat.currency(locale:'id', decimalDigits: 0, symbol: "Rp ");
-
+  final formatCurrency =
+      new NumberFormat.currency(locale: 'id', decimalDigits: 0, symbol: "Rp ");
 
   @override
   Widget build(BuildContext context) {
@@ -128,7 +128,8 @@ class CardBarang extends StatelessWidget {
                                   height: 4.0,
                                 ),
                                 FittedBox(
-                                  child: Text('${formatCurrency.format(harga)}', style: TextStyle()),
+                                  child: Text('${formatCurrency.format(harga)}',
+                                      style: TextStyle()),
                                 ),
                               ],
                             ),
@@ -154,7 +155,9 @@ class CardBarang extends StatelessWidget {
                                   SizedBox(
                                     height: 4.0,
                                   ),
-                                  FittedBox(child: Text('${formatCurrency.format(rekomendasi)}')),
+                                  FittedBox(
+                                      child: Text(
+                                          '${formatCurrency.format(rekomendasi)}')),
                                 ],
                               ),
                             ),

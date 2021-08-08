@@ -32,7 +32,6 @@ class _AnalisisState extends State<Analisis> {
   void initState() {
     // TODO: implement initState
     transaksiController.updateDataAnalisis();
-    print(transaksiController.dateAnalisis);
     super.initState();
   }
 
@@ -48,7 +47,7 @@ class _AnalisisState extends State<Analisis> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Text(
-                'Stock Barang',
+                'Analisis',
                 style: TextStyle(
                     fontSize: 22.0,
                     fontWeight: FontWeight.bold,
@@ -104,66 +103,73 @@ class _AnalisisState extends State<Analisis> {
                               bool isActive =
                                   transaksiController.activeCategory.value == 3;
                               return Container(
-                                  height: h * 0.05,
-                                  padding: EdgeInsets.only(left: 10, right: 10),
-                                  decoration: BoxDecoration(
-                                      color: isActive
-                                          ? primaryColor
-                                          : backgroundColor,
-                                      borderRadius: BorderRadius.circular(10),
-                                      border: Border.all(
-                                        color: primaryColor,
-                                        width: 1.0,
-                                      )),
-                                  child: ElevatedButton.icon(
-                                    style: ElevatedButton.styleFrom(
-                                        elevation: 0,
-                                        primary: Colors.transparent),
-                                    onPressed: () async {
-                                      transaksiController.activeCategory.value =
-                                          3;
-                                      final DateTimeRange? picked =
-                                          await showDateRangePicker(
-                                        context: context,
-                                        firstDate:
-                                            DateTime(DateTime.now().year - 5),
-                                        lastDate:
-                                            DateTime(DateTime.now().year + 5),
-                                        initialDateRange: DateTimeRange(
-                                          end: transaksiController
-                                              .dateAnalisis.value.end,
-                                          start: transaksiController
-                                              .dateAnalisis.value.start,
-                                        ),
-                                      );
-                                      if (picked != null) {
-                                        transaksiController.dateAnalisis.value =
-                                            picked;
-                                      }
-                                    },
-                                    icon: Icon(
-                                      Icons.date_range,
-                                      color: isActive
-                                          ? backgroundColor
-                                          : primaryColor,
-                                    ),
-                                    label: SizedBox(
-                                      width: w * 0.275,
-                                      child: FittedBox(
-                                        child: Text(
-                                          label,
-                                          style: TextStyle(
-                                              color: isActive
-                                                  ? backgroundColor
-                                                  : Colors.black),
+                                height: h * 0.05,
+                                width: w * 0.4,
+                                alignment: Alignment.center,
+                                padding: EdgeInsets.only(left: 10, right: 10),
+                                decoration: BoxDecoration(
+                                    color: isActive
+                                        ? primaryColor
+                                        : backgroundColor,
+                                    borderRadius: BorderRadius.circular(10),
+                                    border: Border.all(
+                                      color: primaryColor,
+                                      width: 1.0,
+                                    )),
+                                child: InkWell(
+                                  onTap: () async {
+                                    transaksiController.activeCategory.value =
+                                        3;
+                                    final DateTimeRange? picked =
+                                        await showDateRangePicker(
+                                      context: context,
+                                      firstDate:
+                                          DateTime(DateTime.now().year - 5),
+                                      lastDate:
+                                          DateTime(DateTime.now().year + 5),
+                                      initialDateRange: DateTimeRange(
+                                        end: transaksiController
+                                            .dateAnalisis.value.end,
+                                        start: transaksiController
+                                            .dateAnalisis.value.start,
+                                      ),
+                                    );
+                                    if (picked != null) {
+                                      transaksiController.dateAnalisis.value =
+                                          picked;
+                                    }
+                                  },
+                                  child: Row(
+                                    children: [
+                                      Icon(
+                                        Icons.date_range,
+                                        color: isActive
+                                            ? backgroundColor
+                                            : primaryColor,
+                                      ),
+                                      SizedBox(
+                                        width: 6,
+                                      ),
+                                      SizedBox(
+                                        width: w * 0.25,
+                                        child: FittedBox(
+                                          child: Text(
+                                            label,
+                                            style: TextStyle(
+                                                color: isActive
+                                                    ? backgroundColor
+                                                    : Colors.black),
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  ));
+                                    ],
+                                  ),
+                                ),
+                              );
                             },
                           ),
                           SizedBox(
-                            width: 20.0,
+                            width: 6,
                           ),
                           Expanded(
                             child: Container(
@@ -216,7 +222,7 @@ class _AnalisisState extends State<Analisis> {
                                           ),
                                         ),
                                     separatorBuilder: (context, i) => SizedBox(
-                                          width: 12.0,
+                                          width: 6.0,
                                         ),
                                     itemCount: 2)),
                           ),

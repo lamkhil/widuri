@@ -11,7 +11,6 @@ Widget grafik() {
       C_Transaksi().initialized ? Get.find() : Get.put(C_Transaksi());
   return Obx(() {
     var data = transaksiController.dataGrafik.value;
-    print(data);
     if (transaksiController.dataGrafik.isEmpty) {
       return SpinKitFadingCube(color: primaryColor);
     } else {
@@ -61,7 +60,6 @@ Widget grafik() {
                 fontFamily: 'Roboto',
                 fontSize: 12,
               ),
-              rotateAngle: 45,
               margin: 10,
               getTitles: (value) {
                 for (var i = 1; i <= 7; i++) {
@@ -91,6 +89,9 @@ Widget grafik() {
                     var result = split.length > 1
                         ? (split[1] == '0' ? split[0] : sederhana.toString())
                         : sederhana.toString();
+                    result = data['leftTiles'][i] < 5
+                        ? (sederhana * 1000).toInt().toString()
+                        : result;
                     return result + penyebut;
                   }
                 }

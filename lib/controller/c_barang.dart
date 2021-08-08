@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
+import 'package:widuri/colors.dart';
 import 'package:widuri/model/m_barang.dart';
 import 'package:widuri/views/Widget/alert_dialog.dart';
+import 'package:widuri/views/Widget/loader_dialog.dart';
 
 // ignore: camel_case_types
 class C_Barang extends GetxController {
-
   var _textController = TextEditingController(text: '0').obs;
   var query = ''.obs;
   var barangList = <dynamic>[].obs;
-  static var isLoadingStatic = false.obs;
   static const List<String> listDropdownHome = [
     'Harian',
     'Mingguan',
@@ -46,10 +47,14 @@ class C_Barang extends GetxController {
   }
 
   static Future<void> hapusBarang(BuildContext context, String id) async {
-    isLoadingStatic.value = true;
+    loaderDialog(
+        context,
+        SpinKitFadingCube(
+          color: primaryColor,
+        ),
+        "Tunggu Sebentar!");
     var result = await M_Barang.hapusBarang(id);
-    isLoadingStatic.value = false;
-    Navigator.of(context).pop();
+    Navigator.of(Get.overlayContext!).pop();
     if (!(result is String)) {
       customDialog(context, "Alhamdulillah!", 'Barang berhasil dihapus');
     } else {
@@ -65,11 +70,15 @@ class C_Barang extends GetxController {
       int rekomendasiHarga,
       int jmlh,
       String idBarang) async {
-    isLoadingStatic.value = true;
+    loaderDialog(
+        context,
+        SpinKitFadingCube(
+          color: primaryColor,
+        ),
+        "Tunggu Sebentar!");
     var result = await M_Barang.tambahBarang(
         kategori, namaBarang, hargaAwal, rekomendasiHarga, jmlh, idBarang);
-    isLoadingStatic.value = false;
-    Navigator.of(context).pop();
+    Navigator.of(Get.overlayContext!).pop();
     if (!(result is String)) {
       if (idBarang == '') {
         customDialog(context, "Alhamdulillah!", 'Barang berhasil ditambah');

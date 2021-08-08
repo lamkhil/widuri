@@ -128,7 +128,6 @@ class C_Transaksi extends GetxController {
       'namaBarangTerlaris': keyTerlaris,
       'jumlahBarangTerlaris': jmlhTerlaris
     };
-    print(analisis);
   }
 
   updateDataGrafik() async {
@@ -139,18 +138,18 @@ class C_Transaksi extends GetxController {
     var start = DateTime(date.year, date.month, date.day);
     List<String> months = [
       '',
-      'JAN',
-      'FEB',
-      'MAR',
-      'APR',
-      'MEI',
-      'JUN',
-      'JUL',
-      'AGU',
-      'SEP',
-      'OKT',
-      'NOV',
-      'DES'
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'Mei',
+      'Jun',
+      'Jul',
+      'Agu',
+      'Sep',
+      'Okt',
+      'Nov',
+      'Des'
     ];
     switch (barangController.valueDropdownHome.value) {
       case 'Harian':
@@ -185,8 +184,9 @@ class C_Transaksi extends GetxController {
             }
           }
           var bottomTile = listDate[i].split('-');
-          bottomTiles[i] =
-              bottomTile[0] + ' ' + months[int.parse(bottomTile[1])];
+          bottomTiles[i] = int.parse(bottomTile[0]).toString() +
+              ' ' +
+              months[int.parse(bottomTile[1])];
         }
 
         break;
@@ -194,8 +194,9 @@ class C_Transaksi extends GetxController {
         var weekDate = ['', '', '', '', '', '', ''];
         for (var i = 0; i < 7; i++) {
           var bottomTile = listDate[i * 7 + 1].split('-');
-          bottomTiles[i] =
-              bottomTile[0] + ' ' + months[int.parse(bottomTile[1])];
+          bottomTiles[i] = int.parse(bottomTile[0]).toString() +
+              ' ' +
+              months[int.parse(bottomTile[1])];
           weekDate[i] = listDate[i * 7 + 1];
           var jarak = i == 0 ? listDate[0] : weekDate[i - 1];
           var count = DateFormat("dd-MM-yyyy")
@@ -233,7 +234,6 @@ class C_Transaksi extends GetxController {
                 .where((element) =>
                     element.values.first['tanggal'] == monthDate[i][j])
                 .toList();
-            print(temp);
             if (temp.isNotEmpty) {
               for (var item in temp) {
                 laba[i] += item.values.first['laba'];
@@ -378,9 +378,8 @@ class C_Transaksi extends GetxController {
         try {
           if (await _requestPermission(Permission.storage)) {
             Directory? tempPath = await getExternalStorageDirectory();
-            print(tempPath!.path);
             String nwDirectory =
-                tempPath.path.split('Android')[0] + "Widuri Apps";
+                tempPath!.path.split('Android')[0] + "Widuri Apps";
             directory = Directory(nwDirectory);
           } else {
             customDialog(context, "Gagal!", "Izin penyimpanan ditolak");
