@@ -7,6 +7,7 @@ import 'package:widuri/colors.dart';
 import 'package:widuri/controller/c_barang.dart';
 import 'package:widuri/controller/c_transaksi.dart';
 import 'package:widuri/controller/c_user.dart';
+import 'package:widuri/views/Widget/profil_Image.dart';
 import '../gambar.dart';
 import 'Widget/card_barang.dart';
 import 'Widget/graphic.dart';
@@ -115,14 +116,7 @@ class _HomeState extends State<Home> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: <Widget>[
-                            Obx(() => CircleAvatar(
-                                  backgroundImage: C_User.photoUrl.value == ""
-                                      ? AssetImage(me)
-                                      : NetworkImage(C_User.photoUrl.value)
-                                          as ImageProvider,
-                                  backgroundColor: backgroundColor,
-                                  radius: 30,
-                                )),
+                            profilImage(),
                             SizedBox(
                               width: 20.0,
                             ),

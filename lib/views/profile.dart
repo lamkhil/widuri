@@ -3,12 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:widuri/controller/c_user.dart';
 import 'package:widuri/views/Widget/alert_dialog.dart';
-
+import 'package:flutter/foundation.dart' show kIsWeb;
 import './profile_nama.dart' as ProfilNama;
 import './profile_setting.dart' as ProfilSetting;
 import '../colors.dart';
 import '../gambar.dart';
 import 'Widget/notif_popup.dart';
+import 'Widget/profil_Image.dart';
 
 class Profil extends StatefulWidget {
   const Profil({Key? key}) : super(key: key);
@@ -179,26 +180,24 @@ class _ProfilState extends State<Profil> with SingleTickerProviderStateMixin {
                 // (background container size(size container/appbar atas)) - (circle height / 2)
                 top: (h * 0.2) - (100 / 2),
                 child: Container(
-                    height: 100.0,
-                    width: 100.0,
-                    child: Obx(() => CircleAvatar(
-                          backgroundImage: C_User.photoUrl.value == ""
-                              ? AssetImage(me)
-                              : NetworkImage(C_User.photoUrl.value)
-                                  as ImageProvider,
-                          backgroundColor: backgroundColor,
-                          radius: 25.0,
-                        )))),
+                    height: 100.0, width: 100.0, child: profilImage())),
             Positioned(
                 // (background container size(size container/appbar atas)) - (circle height / 2)
                 top: (h * 0.2) - (100 / 2) + 60,
                 left: w * 0.5 + 10,
                 child: Container(
-                  decoration:
-                      BoxDecoration(shape: BoxShape.circle, color: orange),
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: orange,
+                      border: Border.all(color: backgroundColor, width: 6)),
                   child: IconButton(
                     onPressed: () {
-                      _showPicker(context);
+                      if (kIsWeb) {
+                        customDialog(context, "Oops!",
+                            "Gunakan perangkat mobile untuk mengubah foto");
+                      } else {
+                        _showPicker(context);
+                      }
                     },
                     icon: Icon(
                       Icons.edit_rounded,
