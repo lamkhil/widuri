@@ -80,7 +80,7 @@ Widget grafik() {
               getTitles: (value) {
                 for (var i = 0; i < 4; i++) {
                   if (value.toInt() == data['leftTiles'][i]) {
-                    var left = data['leftTiles'][i];
+                    var left = data['leftTiles'][i].toInt();
                     var pembilang = left.toString().length > 6 ? 1000000 : 1000;
                     var penyebut =
                         pembilang.toString() == 1000.toString() ? "K" : "Jt";
