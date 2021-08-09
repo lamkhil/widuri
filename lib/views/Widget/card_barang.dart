@@ -37,7 +37,7 @@ class CardBarang extends StatelessWidget {
           child: Padding(
               padding: EdgeInsets.all(12.0),
               child: SizedBox(
-                height: 40,
+                height: 45,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
@@ -48,7 +48,7 @@ class CardBarang extends StatelessWidget {
                           color: Colors.amber,
                         ),
                         SizedBox(
-                          width: 12.0,
+                          width: w * 0.01,
                         ),
                         Container(
                           width: w * 0.275,
@@ -240,9 +240,10 @@ class CardBarang extends StatelessWidget {
                             } else {
                               return Container(
                                 width: w * 0.05,
+                                constraints: BoxConstraints(maxWidth: 50),
                                 child: FittedBox(
-                                  child: IconButton(
-                                    onPressed: () {
+                                  child: InkWell(
+                                    onTap: () {
                                       PopUpBarang(
                                               edit: true,
                                               context: context,
@@ -254,7 +255,8 @@ class CardBarang extends StatelessWidget {
                                               idBarang: this.idBarang)
                                           .popUpTambahBarang();
                                     },
-                                    icon: Icon(Icons.arrow_forward_ios_rounded),
+                                    child:
+                                        Icon(Icons.arrow_forward_ios_rounded),
                                   ),
                                 ),
                               );

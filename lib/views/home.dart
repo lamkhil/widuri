@@ -111,20 +111,19 @@ class _HomeState extends State<Home> {
                         borderRadius: BorderRadius.circular(12.0)),
                     child: Container(
                         width: w * 0.75,
+                        height: 75,
                         decoration: BoxDecoration(),
                         margin: EdgeInsets.all(10),
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: <Widget>[
                             profilImage(),
-                            SizedBox(
-                              width: 20.0,
-                            ),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     Text('Hai '),
                                     Obx(() => Text(
@@ -164,20 +163,28 @@ class _HomeState extends State<Home> {
                                         width: 3.0,
                                         color: Colors.black,
                                       ),
-                                      Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text('Keuntungan kamu hari ini'),
-                                          Row(
+                                      SizedBox(
+                                        width: w * 0.3,
+                                        child: FittedBox(
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
                                             children: [
-                                              Text('Rp '),
-                                              Obx(() => Text(transaksiController
-                                                  .keuntunganUser.value
-                                                  .toString()))
+                                              Text(
+                                                'Hasil kamu hari ini',
+                                              ),
+                                              Row(
+                                                children: [
+                                                  Text('Rp '),
+                                                  Obx(() => Text(
+                                                      transaksiController
+                                                          .keuntunganUser.value
+                                                          .toString()))
+                                                ],
+                                              )
                                             ],
-                                          )
-                                        ],
+                                          ),
+                                        ),
                                       ),
                                     ],
                                   )),

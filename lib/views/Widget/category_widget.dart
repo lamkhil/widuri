@@ -4,9 +4,9 @@ import 'package:widuri/colors.dart';
 class CategoryWidget extends StatelessWidget {
   const CategoryWidget(
       {Key? key,
-        required this.name,
-        this.isActive = false,
-        required this.onClick})
+      required this.name,
+      this.isActive = false,
+      required this.onClick})
       : super(key: key);
   final String name;
   final bool isActive;
@@ -24,11 +24,12 @@ class CategoryWidget extends StatelessWidget {
                 width: 0.5)),
         padding: EdgeInsets.fromLTRB(15, 5, 15, 5),
         child: Center(
-            child: Text(
-              name,
-              style: TextStyle(
-                  fontSize: 12, color: isActive ? Colors.white : Colors.black),
-            )),
+            child: FittedBox(
+          child: Text(
+            name,
+            style: TextStyle(color: isActive ? Colors.white : Colors.black),
+          ),
+        )),
       ),
     );
   }

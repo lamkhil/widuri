@@ -4,7 +4,6 @@ import 'package:widuri/colors.dart';
 import 'package:widuri/controller/c_user.dart';
 import 'package:widuri/gambar.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
-import 'package:cached_network_image/cached_network_image.dart';
 
 Widget profilImage() {
   if (kIsWeb) {
