@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:widuri/controller/c_user.dart';
+import 'package:widuri/gambar.dart';
 import 'package:widuri/views/Widget/popup_riwayat.dart';
 import 'package:widuri/views/riwayat_transaksi.dart';
 
@@ -28,49 +29,40 @@ class _ProfileSettingState extends State<ProfileSetting> {
                 contentPadding: EdgeInsets.fromLTRB(20, 0, 20, 0),
                 leading: Icon(Icons.history),
                 title: Text(
-                  'Riwayat Pembayaran',
+                  'Riwayat Transaksi Anda',
                   style: TextStyle(
                       fontSize: 16.0,
                       fontWeight: FontWeight.w600,
                       fontFamily: 'RobotoMono',
                       color: Colors.black),
                 ),
-                onTap: (){
-                  Get.to(RiwayatTransaksi());
+                onTap: () {
+                  Get.to(RiwayatTransaksi(), arguments: "bySelf");
                 },
               ),
               Divider(),
               ListTile(
+                onTap: () {
+                  showAboutDialog(
+                      context: context,
+                      applicationVersion: '1.0.0',
+                      applicationIcon: CircleAvatar(
+                        backgroundImage: AssetImage(me),
+                        backgroundColor: backgroundColor,
+                        radius: 25.0,
+                      ),
+                      applicationName: 'Widuri Apps',
+                      applicationLegalese:
+                          "Widuri Apps adalah sebuah aplikasi akuntansi untuk toko Widuri di Pasar Dolopo, Madiun.\n\n\n" +
+                              "Dibuat oleh :\n" +
+                              "\nMuhammad Lamkhil Bashor (185150201111015)" +
+                              "\nRyan Sutawijaya (185150200111033)" +
+                              "\nYualief Riswanda (185150207111008)");
+                },
                 contentPadding: EdgeInsets.fromLTRB(20, 0, 20, 0),
-                leading: Icon(Icons.notifications_none_rounded),
+                leading: Icon(Icons.warning_amber_outlined),
                 title: Text(
-                  'Permberitahuan',
-                  style: TextStyle(
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.w600,
-                      fontFamily: 'RobotoMono',
-                      color: Colors.black),
-                ),
-              ),
-              Divider(),
-              ListTile(
-                contentPadding: EdgeInsets.fromLTRB(20, 0, 20, 0),
-                leading: Icon(Icons.help_outline_rounded),
-                title: Text(
-                  'Panduan',
-                  style: TextStyle(
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.w600,
-                      fontFamily: 'RobotoMono',
-                      color: Colors.black),
-                ),
-              ),
-              Divider(),
-              ListTile(
-                contentPadding: EdgeInsets.fromLTRB(20, 0, 20, 0),
-                leading: Icon(Icons.verified_user_outlined),
-                title: Text(
-                  'Kebijakan Privasi',
+                  'About',
                   style: TextStyle(
                       fontSize: 16.0,
                       fontWeight: FontWeight.w600,

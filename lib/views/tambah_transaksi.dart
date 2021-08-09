@@ -46,20 +46,20 @@ class _TambahTransaksiState extends State<TambahTransaksi> {
                       fontFamily: 'RobotoMono',
                       color: Colors.black),
                 ),
-                Card(
-                  color: backgroundColor,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12.0),
-                  ),
-                  child: IconButton(
-                    onPressed: () {},
-                    icon: Icon(
-                      Icons.notifications,
-                      size: 20.0,
-                      color: primaryColor,
-                    ),
-                  ),
-                ),
+                // Card(
+                //   color: backgroundColor,
+                //   shape: RoundedRectangleBorder(
+                //     borderRadius: BorderRadius.circular(12.0),
+                //   ),
+                //   child: IconButton(
+                //     onPressed: () {},
+                //     icon: Icon(
+                //       Icons.notifications,
+                //       size: 20.0,
+                //       color: primaryColor,
+                //     ),
+                //   ),
+                // ),
               ],
             ),
           ),
@@ -154,30 +154,29 @@ class _TambahTransaksiState extends State<TambahTransaksi> {
                                                   listHelperHarga[index]
                                                       .toString();
                                             } else {
-                                              var temp = int.parse(
-                                                  transaksiController
-                                                      .controllerHarga
-                                                      .value
-                                                      .text);
-                                              transaksiController
+                                              var temp = transaksiController
                                                   .controllerHarga
                                                   .value
-                                                  .text = (temp +
-                                                      listHelperHarga[index])
-                                                  .toString();
+                                                  .numberValue;
+                                              transaksiController
+                                                  .controllerHarga.value
+                                                  .updateValue(temp +
+                                                      listHelperHarga[index]);
                                             }
                                           } else if (transaksiController
                                                   .controllerHarga.value.text !=
                                               "") {
-                                            var temp = int.parse(
-                                                transaksiController
-                                                    .controllerHarga
-                                                    .value
-                                                    .text);
-                                            transaksiController.controllerHarga
-                                                    .value.text =
-                                                (temp - listHelperHarga[index])
-                                                    .toString();
+                                            var temp = transaksiController
+                                                .controllerHarga
+                                                .value
+                                                .numberValue;
+                                            var hasil =
+                                                temp - listHelperHarga[index];
+                                            if (hasil >= 0) {
+                                              transaksiController
+                                                  .controllerHarga.value
+                                                  .updateValue(hasil);
+                                            }
                                           }
                                           transaksiController.controllerHarga
                                               .refresh();
@@ -227,13 +226,12 @@ class _TambahTransaksiState extends State<TambahTransaksi> {
                                     FilteringTextInputFormatter.digitsOnly
                                   ],
                                   decoration: InputDecoration(
-                                    hintText: "contoh: 100.000",
+                                    hintText: "Rp 100.000",
                                     hintStyle: TextStyle(
                                         fontWeight: FontWeight.w300,
                                         fontFamily: 'Roboto',
                                         fontSize: 13.0),
                                     border: InputBorder.none,
-                                    suffixText: "Rupiah",
                                   ),
                                 ),
                               ),
@@ -321,8 +319,7 @@ class _TambahTransaksiState extends State<TambahTransaksi> {
                                     },
                                     decoration: InputDecoration(
                                       counterText: '',
-                                      hintText:
-                                          "contoh : Ini merupakan transaksi lama dari ibu sumiati yang ngutang dan sekarang baru dibayar.",
+                                      hintText: "Opsional",
                                       hintStyle: TextStyle(
                                           fontWeight: FontWeight.w300,
                                           fontFamily: 'Roboto',
@@ -444,10 +441,10 @@ class _TambahTransaksiState extends State<TambahTransaksi> {
                                         children: [
                                           Text("Total harga awal : "),
                                           Obx(() {
-                                            return Text(formatCurrency.format(
-                                                transaksiController
-                                                    .jumlahHargaAwal()
-                                                    ).toString());
+                                            return Text(formatCurrency
+                                                .format(transaksiController
+                                                    .jumlahHargaAwal())
+                                                .toString());
                                           })
                                         ],
                                       ),
@@ -460,10 +457,10 @@ class _TambahTransaksiState extends State<TambahTransaksi> {
                                         children: [
                                           Text("Rekomendasi harga jual : "),
                                           Obx(() {
-                                            return Text(formatCurrency.format(
-                                                transaksiController
-                                                    .jumlahRekomendasiHarga()
-                                            ).toString());
+                                            return Text(formatCurrency
+                                                .format(transaksiController
+                                                    .jumlahRekomendasiHarga())
+                                                .toString());
                                           })
                                         ],
                                       ),
@@ -476,10 +473,10 @@ class _TambahTransaksiState extends State<TambahTransaksi> {
                                         children: [
                                           Text("Harga deal saat ini : "),
                                           Obx(() {
-                                            return Text(formatCurrency.format(
-                                                transaksiController
-                                                    .hargaDeal()
-                                            ).toString());
+                                            return Text(formatCurrency
+                                                .format(transaksiController
+                                                    .hargaDeal())
+                                                .toString());
                                           })
                                         ],
                                       ),

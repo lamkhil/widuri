@@ -6,13 +6,10 @@ import 'package:get/get.dart';
 import 'package:widuri/colors.dart';
 import 'package:widuri/controller/c_barang.dart';
 import 'package:widuri/controller/c_transaksi.dart';
-import 'package:widuri/controller/c_user.dart';
 import 'package:widuri/views/Widget/profil_Image.dart';
 import 'package:widuri/views/riwayat_transaksi.dart';
-import '../gambar.dart';
 import 'Widget/card_barang.dart';
 import 'Widget/graphic.dart';
-import 'Widget/notif_popup.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -63,22 +60,22 @@ class _HomeState extends State<Home> {
                       fontFamily: 'RobotoMono',
                       color: backgroundColor),
                 ),
-                Card(
-                  color: backgroundColor,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12.0),
-                  ),
-                  child: IconButton(
-                    onPressed: () {
-                      NotifBuildShowDialog(context);
-                    },
-                    icon: Icon(
-                      Icons.notifications,
-                      size: 20.0,
-                      color: primaryColor,
-                    ),
-                  ),
-                ),
+                // Card(
+                //   color: backgroundColor,
+                //   shape: RoundedRectangleBorder(
+                //     borderRadius: BorderRadius.circular(12.0),
+                //   ),
+                //   child: IconButton(
+                //     onPressed: () {
+                //       NotifBuildShowDialog(context);
+                //     },
+                //     icon: Icon(
+                //       Icons.notifications,
+                //       size: 20.0,
+                //       color: primaryColor,
+                //     ),
+                //   ),
+                // ),
               ],
             ),
           ),
@@ -112,7 +109,7 @@ class _HomeState extends State<Home> {
                         borderRadius: BorderRadius.circular(12.0)),
                     child: Container(
                         width: w * 0.75,
-                        height: 75,
+                        height: 80,
                         decoration: BoxDecoration(),
                         margin: EdgeInsets.all(10),
                         child: Row(
@@ -139,35 +136,39 @@ class _HomeState extends State<Home> {
                                   ],
                                 ),
                                 SizedBox(
-                                  height: 10.0,
-                                ),
-                                SizedBox(
                                   width: w * 0.5,
                                   child: IntrinsicHeight(
                                       child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: <Widget>[
-                                      Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          InkWell(
-                                            child: Icon(Icons.history_rounded,
-                                                size: 25),
-                                            onTap: () {
-                                              Get.to(RiwayatTransaksi());
-                                            },
+                                      Flexible(
+                                        flex: 3,
+                                        child: InkWell(
+                                          child: FittedBox(
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Icon(Icons.history_rounded),
+                                                Text('Transaksi')
+                                              ],
+                                            ),
                                           ),
-                                          Text('Transaksi')
-                                        ],
+                                          onTap: () {
+                                            Get.to(RiwayatTransaksi());
+                                          },
+                                        ),
                                       ),
-                                      VerticalDivider(
-                                        width: 3.0,
-                                        color: Colors.black,
+                                      Flexible(
+                                        flex: 1,
+                                        child: VerticalDivider(
+                                          color: Colors.black,
+                                        ),
                                       ),
-                                      SizedBox(
-                                        width: w * 0.3,
+                                      Flexible(
+                                        flex: 7,
                                         child: FittedBox(
                                           child: Column(
                                             mainAxisAlignment:
@@ -175,6 +176,10 @@ class _HomeState extends State<Home> {
                                             children: [
                                               Text(
                                                 'Hasil kamu hari ini',
+                                                style: TextStyle(
+                                                    color: orange,
+                                                    fontWeight:
+                                                        FontWeight.bold),
                                               ),
                                               Row(
                                                 children: [

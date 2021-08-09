@@ -58,7 +58,6 @@ class _NavBarState extends State<NavBar> {
         ),
         colorBehindNavBar: Colors.white,
       ),
-
       popAllScreensOnTapOfSelectedTab: true,
       popActionScreens: PopActionScreensType.all,
       itemAnimationProperties: ItemAnimationProperties(
@@ -91,13 +90,13 @@ class _NavBarState extends State<NavBar> {
       ),
       PersistentBottomNavBarItem(
         icon: Icon(CupertinoIcons.archivebox),
-        title: ("Daftar Barang"),
+        title: ("Barang"),
         activeColorPrimary: CupertinoColors.white,
         inactiveColorPrimary: CupertinoColors.white,
       ),
       PersistentBottomNavBarItem(
         icon: Icon(CupertinoIcons.plus_square),
-        title: ("Tambah Transaksi"),
+        title: ("Transaksi"),
         activeColorPrimary: CupertinoColors.white,
         inactiveColorPrimary: CupertinoColors.white,
       ),

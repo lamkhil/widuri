@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:widuri/colors.dart';
 import 'package:widuri/controller/c_user.dart';
@@ -16,9 +17,16 @@ Widget profilImage() {
     return Obx(() => CircleAvatar(
           backgroundImage: C_User.photoUrl.value == ""
               ? AssetImage(me)
-              : NetworkImage(C_User.photoUrl.value) as ImageProvider,
+              : NetworkImage(
+                  C_User.photoUrl.value,
+                ) as ImageProvider,
           backgroundColor: backgroundColor,
           radius: 25.0,
+          child: Visibility(
+              visible: C_User.photoUrl.value == "",
+              child: SpinKitFadingCube(
+                color: primaryColor,
+              )),
         ));
   }
 }

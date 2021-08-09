@@ -1,12 +1,13 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:translator/translator.dart';
+import 'package:widuri/Util/set_searchParam.dart';
+import 'package:widuri/main.dart';
 
 class M_Barang {
   static final _translator = GoogleTranslator();
   static FirebaseFirestore firestore = FirebaseFirestore.instance;
   static CollectionReference _barang =
-      FirebaseFirestore.instance.collection('barang');
+      FirebaseFirestore.instance.collection(barang);
   static Future<List<dynamic>> cekBarang() async {
     var list = [];
     var result = await _barang.get();
@@ -43,16 +44,6 @@ class M_Barang {
         return widget;
       }
     });
-  }
-
-  static List<String> setSearchParam(String caseString) {
-    List<String> caseSearchList = [];
-    String temp = "";
-    for (int i = 0; i < caseString.length; i++) {
-      temp = temp + caseString[i];
-      caseSearchList.add(temp);
-    }
-    return caseSearchList;
   }
 
   static Future<dynamic> hapusBarang(String id) async {

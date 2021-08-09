@@ -1,6 +1,7 @@
 import 'dart:collection';
 import 'dart:io';
 import 'dart:math';
+import 'package:extended_masked_text/extended_masked_text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:path/path.dart';
 import 'package:excel/excel.dart';
@@ -21,19 +22,23 @@ import 'package:widuri/views/Widget/loader_dialog.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import "package:universal_html/html.dart" as html;
 
-import 'c_user.dart';
-
 // ignore: camel_case_types
 class C_Transaksi extends GetxController {
   final auth = FirebaseAuth.instance;
   var date = ''.obs;
   var controllerCatatan = TextEditingController().obs;
-  var controllerHarga = TextEditingController().obs;
+  var controllerHarga = MoneyMaskedTextController(
+          leftSymbol: "Rp ",
+          thousandSeparator: '.',
+          precision: 0,
+          decimalSeparator: "")
+      .obs;
   var catatan = ''.obs;
   var barang = {}.obs;
   var isTambah = true.obs;
-  final listTransaksi = [].obs;
+  var listTransaksi = [].obs;
   var dataGrafik = {}.obs;
+  var query = ''.obs;
   var analisisCategory = 0.obs;
   late Rx<DateTimeRange> dateAnalisis;
   var activeCategory = 0.obs;
@@ -339,7 +344,8 @@ class C_Transaksi extends GetxController {
             CellIndex.indexByString("${column[4]}${row + barang.length - 1}"),
             customValue: "${catatan != null ? catatan : ""}");
       }
-      final barangReverse = LinkedHashMap.fromEntries(barang.entries.toList().reversed);
+      final barangReverse =
+          LinkedHashMap.fromEntries(barang.entries.toList().reversed);
       barangReverse.forEach((key, value) {
         r.cell(CellIndex.indexByString("${column[2]}$row")).value =
             value['namaBarang'];
@@ -446,7 +452,7 @@ class C_Transaksi extends GetxController {
   int hargaDeal() {
     var hargaDeal = controllerHarga.value.text == ''
         ? jumlahRekomendasiHarga()
-        : int.parse(controllerHarga.value.text);
+        : controllerHarga.value.numberValue.toInt();
     return hargaDeal;
   }
 }

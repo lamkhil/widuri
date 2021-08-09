@@ -16,6 +16,10 @@ void main() async {
   runApp(MyApp());
 }
 
+const debug = true;
+const String transaksi = debug ? 'transaksiDebug' : 'transaksi';
+const String barang = debug ? 'barangDebug' : 'barang';
+
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override

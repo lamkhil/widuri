@@ -1,9 +1,9 @@
+import 'package:extended_masked_text/extended_masked_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:widuri/controller/c_barang.dart';
-
 import '../../colors.dart';
 
 class PopUpBarang {
@@ -27,8 +27,16 @@ class PopUpBarang {
 
   final _k = TextEditingController();
   final _n = TextEditingController();
-  final _hA = TextEditingController();
-  final _rH = TextEditingController();
+  final _hA = MoneyMaskedTextController(
+      leftSymbol: "Rp ",
+      thousandSeparator: '.',
+      precision: 0,
+      decimalSeparator: "");
+  final _rH = MoneyMaskedTextController(
+      leftSymbol: "Rp ",
+      thousandSeparator: '.',
+      precision: 0,
+      decimalSeparator: "");
   final _jmlh = C_Barang();
 
   void popUpTambahBarang() {
@@ -86,7 +94,7 @@ class PopUpBarang {
                               },
                               controller: _k,
                               decoration: new InputDecoration(
-                                  hintText: 'contoh : Baju',
+                                  hintText: 'Baju',
                                   focusColor: primaryColor,
                                   hintStyle:
                                       TextStyle(fontWeight: FontWeight.w300),
@@ -133,7 +141,7 @@ class PopUpBarang {
                               },
                               controller: _n,
                               decoration: new InputDecoration(
-                                  hintText: 'contoh : Baju Gamis L21',
+                                  hintText: 'Baju Polo M',
                                   hintStyle:
                                       TextStyle(fontWeight: FontWeight.w300),
                                   focusedBorder: new OutlineInputBorder(
@@ -159,26 +167,26 @@ class PopUpBarang {
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Text(
-                                  'Harga Awal',
-                                  style: TextStyle(
-                                      fontSize: 16.0,
-                                      fontWeight: FontWeight.w600,
-                                      fontFamily: 'RobotoMono'),
-                                ),
-                                SizedBox(
-                                  height: 6.0,
-                                ),
-                                Container(
-                                  constraints:
-                                      BoxConstraints(maxWidth: w * 0.335),
-                                  child: Padding(
+                            Flexible(
+                              flex: 8,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  FittedBox(
+                                    child: Text(
+                                      'Harga Awal                ',
+                                      style: TextStyle(
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.w600,
+                                          fontFamily: 'RobotoMono'),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 6.0,
+                                  ),
+                                  Padding(
                                     padding: EdgeInsets.zero,
                                     child: new TextFormField(
                                       validator: (value) {
@@ -194,7 +202,7 @@ class PopUpBarang {
                                             .digitsOnly,
                                       ],
                                       decoration: new InputDecoration(
-                                          hintText: 'contoh : 13000',
+                                          hintText: '13000',
                                           hintStyle: TextStyle(
                                               fontWeight: FontWeight.w300),
                                           focusedBorder: new OutlineInputBorder(
@@ -219,27 +227,29 @@ class PopUpBarang {
                                       // onChanged: onSearchTextChanged,
                                     ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Text(
-                                  'Rekomendasi Harga',
-                                  style: TextStyle(
-                                      fontSize: 16.0,
-                                      fontWeight: FontWeight.w600,
-                                      fontFamily: 'RobotoMono'),
-                                ),
-                                SizedBox(
-                                  height: 6.0,
-                                ),
-                                Container(
-                                  constraints:
-                                      BoxConstraints(maxWidth: w * 0.335),
-                                  child: Padding(
+                            Flexible(flex: 1, child: Container()),
+                            Flexible(
+                              flex: 8,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  FittedBox(
+                                    child: Text(
+                                      'Rekomendasi Harga',
+                                      style: TextStyle(
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.w600,
+                                          fontFamily: 'RobotoMono'),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 6.0,
+                                  ),
+                                  Padding(
                                     padding: EdgeInsets.zero,
                                     child: new TextFormField(
                                       validator: (value) {
@@ -255,7 +265,7 @@ class PopUpBarang {
                                             .digitsOnly,
                                       ],
                                       decoration: new InputDecoration(
-                                          hintText: 'contoh : 13000',
+                                          hintText: '20000',
                                           hintStyle: TextStyle(
                                               fontWeight: FontWeight.w300),
                                           focusedBorder: new OutlineInputBorder(
@@ -280,8 +290,8 @@ class PopUpBarang {
                                       // onChanged: onSearchTextChanged,
                                     ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             )
                           ],
                         ),
@@ -470,8 +480,8 @@ class PopUpBarang {
         if (_formKey.currentState!.validate()) {
           var kategori = _k.text;
           var nama = _n.text;
-          var hargaAwal = _hA.text;
-          var rekomHarga = _rH.text;
+          var hargaAwal = _hA.numberValue.toString();
+          var rekomHarga = _rH.numberValue.toString();
           var j = _jmlh.textController.value.text.toString();
           _k.text = '';
           _n.text = '';

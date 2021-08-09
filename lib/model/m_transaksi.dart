@@ -1,13 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:translator/translator.dart';
+import 'package:widuri/Util/set_searchParam.dart';
+import 'package:widuri/main.dart';
 
 class M_Transaksi {
   static final auth = FirebaseAuth.instance;
   static final _translator = GoogleTranslator();
   static FirebaseFirestore firestore = FirebaseFirestore.instance;
   static CollectionReference _transaksi =
-      FirebaseFirestore.instance.collection('transaksi');
+      FirebaseFirestore.instance.collection(transaksi);
+  // ignore: non_constant_identifier_names
   static Future<dynamic> TambahTransaksi(int laba, int hargaDeal,
       String catatan, String date, Map<dynamic, dynamic> barang) async {
     var id = await _transaksi.where('tanggal', isEqualTo: date).get();
@@ -16,6 +19,12 @@ class M_Transaksi {
       i = int.parse(id.docs.last.id.split('#')[1]) + 1;
     }
     var idTransaksi = "$date#$i";
+    var caseSearch =
+        setSearchParam(auth.currentUser!.displayName.toString().toLowerCase());
+    caseSearch.addAll(setSearchParam(date));
+    barang.forEach((key, value) {
+      caseSearch.addAll(setSearchParam(value['namaBarang']));
+    });
     try {
       await _transaksi.doc(idTransaksi).set({
         'barang': barang,
@@ -24,7 +33,8 @@ class M_Transaksi {
         'catatan': catatan,
         'hargaDeal': hargaDeal,
         'laba': laba,
-        'dibuat': DateTime.now()
+        'dibuat': DateTime.now(),
+        'caseSearch': caseSearch
       });
       return 1;
     } catch (e) {
@@ -72,7 +82,8 @@ class M_Transaksi {
                     'laba': e['laba'],
                     'penjual': e['penjual'],
                     'tanggal': e['tanggal'],
-                    'dibuat': e['dibuat']
+                    'dibuat': e['dibuat'],
+                    'caseSearch': e['caseSearch']
                   }
                 })
             .toList();

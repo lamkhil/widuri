@@ -72,22 +72,22 @@ class _DaftarBarangState extends State<DaftarBarang>
                       fontFamily: 'RobotoMono',
                       color: Colors.black),
                 ),
-                Card(
-                  color: backgroundColor,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12.0),
-                  ),
-                  child: IconButton(
-                    onPressed: () {
-                      NotifBuildShowDialog(context);
-                    },
-                    icon: Icon(
-                      Icons.notifications,
-                      size: 20.0,
-                      color: primaryColor,
-                    ),
-                  ),
-                ),
+                // Card(
+                //   color: backgroundColor,
+                //   shape: RoundedRectangleBorder(
+                //     borderRadius: BorderRadius.circular(12.0),
+                //   ),
+                //   child: IconButton(
+                //     onPressed: () {
+                //       NotifBuildShowDialog(context);
+                //     },
+                //     icon: Icon(
+                //       Icons.notifications,
+                //       size: 20.0,
+                //       color: primaryColor,
+                //     ),
+                //   ),
+                // ),
               ],
             ),
           ),

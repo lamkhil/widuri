@@ -10,8 +10,3 @@ const greyIconColor = Color(0xFF8B8A8A);
 const greyTextColor = Color(0xFF666666);
 const pressBlueText = Color(0xFF006BCE);
 const orange = Color(0xFFF89572);
-
-
-
-
-

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:get/get.dart';
 import 'package:widuri/colors.dart';
+import 'package:widuri/controller/c_transaksi.dart';
 import 'package:widuri/views/Widget/card_riwayat.dart';
 
 class RiwayatTransaksi extends StatefulWidget {
@@ -10,6 +13,18 @@ class RiwayatTransaksi extends StatefulWidget {
 }
 
 class _RiwayatTransaksiState extends State<RiwayatTransaksi> {
+  C_Transaksi transaksiController =
+      C_Transaksi().initialized ? Get.find() : Get.put(C_Transaksi());
+
+  TextEditingController _search = TextEditingController(text: '');
+  var args = Get.arguments;
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    _search.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +49,12 @@ class _RiwayatTransaksiState extends State<RiwayatTransaksi> {
                 child: new ListTile(
                   leading: new Icon(Icons.search),
                   title: new TextField(
+                    controller: _search,
                     autofocus: false,
+                    onChanged: (value) {
+                      transaksiController.query.value =
+                          _search.text.toLowerCase();
+                    },
                     decoration: new InputDecoration(
                         hintText: 'Search', border: InputBorder.none),
                     // onChanged: onSearchTextChanged,
@@ -45,7 +65,7 @@ class _RiwayatTransaksiState extends State<RiwayatTransaksi> {
                   alignment: Alignment.centerLeft,
                   margin: EdgeInsets.all(12),
                   child: Text(
-                    'Daftar Barang',
+                    'Daftar Transaksi',
                     style: TextStyle(
                         fontSize: 16.0,
                         fontWeight: FontWeight.bold,
@@ -53,22 +73,68 @@ class _RiwayatTransaksiState extends State<RiwayatTransaksi> {
                         color: Colors.black),
                   )),
               Expanded(
-                  child: ListView.builder(
-                      itemCount: 6,
-                      itemBuilder: (context, index) {
-                        if (index < 6) {
-                          return CardRiwayat(
-                            namaPenjual: "Lamkhilus",
-                            harga: 100000,
-                            tanggal: "27-Sept-2021",
-                            listBarang: [1, 2, 3],
-                          );
+                child: Obx(() {
+                  if (transaksiController.listTransaksi.isEmpty) {
+                    return Center(
+                        child: SpinKitFadingCube(
+                      color: primaryColor,
+                    ));
+                  } else {
+                    var viewList = [];
+                    if (transaksiController.query.value == '') {
+                      viewList = transaksiController.listTransaksi;
+                    } else {
+                      if (!(transaksiController.listTransaksi.value[0]
+                          is int)) {
+                        if (transaksiController.listTransaksi
+                            .where((value) => value.values.first['caseSearch']
+                                .contains(transaksiController.query.value))
+                            .toList()
+                            .isEmpty) {
+                          return Text('Transaksi tidak ditemukan');
                         } else {
-                          return SizedBox(
-                            height: 40,
-                          );
+                          viewList = transaksiController.listTransaksi
+                              .where((value) => value.values.first['caseSearch']
+                                  .contains(transaksiController.query.value))
+                              .toList();
                         }
-                      })),
+                      } else {
+                        return Text('Masih Belum ada transaksi');
+                      }
+                    }
+                    if (viewList[0] is int) {
+                      return Text('Belum ada Transaksi');
+                    } else {
+                      if (args != null) {
+                        viewList = viewList
+                            .where((element) =>
+                                element.values.first['penjual'] ==
+                                transaksiController
+                                    .auth.currentUser!.displayName
+                                    .toString())
+                            .toList();
+                      }
+                      return ListView.builder(
+                          itemCount: viewList.length,
+                          itemBuilder: (context, index) {
+                            return CardRiwayat(
+                                namaPenjual:
+                                    viewList[index].values.first['penjual'],
+                                tanggal:
+                                    viewList[index].values.first['tanggal'],
+                                laba: viewList[index].values.first['laba'],
+                                hargaDeal:
+                                    viewList[index].values.first['hargaDeal'],
+                                listBarang: viewList[index]
+                                    .values
+                                    .first['barang']
+                                    .values
+                                    .toList());
+                          });
+                    }
+                  }
+                }),
+              ),
               SizedBox(height: 23.0),
             ],
           ),
