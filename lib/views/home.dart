@@ -112,20 +112,19 @@ class _HomeState extends State<Home> {
                         borderRadius: BorderRadius.circular(12.0)),
                     child: Container(
                         width: w * 0.75,
+                        height: 75,
                         decoration: BoxDecoration(),
                         margin: EdgeInsets.all(10),
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: <Widget>[
                             profilImage(),
-                            SizedBox(
-                              width: 20.0,
-                            ),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     Text('Hai '),
                                     Obx(() => Text(
@@ -172,7 +171,7 @@ class _HomeState extends State<Home> {
                                         child: FittedBox(
                                           child: Column(
                                             mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                                MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
                                                 'Hasil kamu hari ini',

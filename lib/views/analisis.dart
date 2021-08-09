@@ -105,6 +105,7 @@ class _AnalisisState extends State<Analisis> {
                               return Container(
                                 height: h * 0.05,
                                 width: w * 0.4,
+                                constraints: BoxConstraints(maxWidth: 250),
                                 alignment: Alignment.center,
                                 padding: EdgeInsets.only(left: 10, right: 10),
                                 decoration: BoxDecoration(
@@ -140,18 +141,26 @@ class _AnalisisState extends State<Analisis> {
                                     }
                                   },
                                   child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
                                     children: [
-                                      Icon(
-                                        Icons.date_range,
-                                        color: isActive
-                                            ? backgroundColor
-                                            : primaryColor,
+                                      Container(
+                                        width: w * 0.05,
+                                        constraints:
+                                            BoxConstraints(maxWidth: h * 0.04),
+                                        child: FittedBox(
+                                          child: Icon(
+                                            Icons.date_range,
+                                            color: isActive
+                                                ? backgroundColor
+                                                : primaryColor,
+                                          ),
+                                        ),
                                       ),
-                                      SizedBox(
-                                        width: 6,
-                                      ),
-                                      SizedBox(
+                                      Container(
                                         width: w * 0.25,
+                                        constraints:
+                                            BoxConstraints(maxWidth: 150),
                                         child: FittedBox(
                                           child: Text(
                                             label,
@@ -178,47 +187,50 @@ class _AnalisisState extends State<Analisis> {
                                     clipBehavior: Clip.none,
                                     scrollDirection: Axis.horizontal,
                                     itemBuilder: (context, i) => Obx(
-                                          () => CategoryWidget(
-                                            name: '${items[i]}',
-                                            isActive: transaksiController
-                                                    .activeCategory.value ==
-                                                i,
-                                            onClick: () {
-                                              transaksiController
-                                                  .activeCategory.value = i;
+                                          () => Container(
+                                            width: w * 0.2,
+                                            child: CategoryWidget(
+                                              name: '${items[i]}',
+                                              isActive: transaksiController
+                                                      .activeCategory.value ==
+                                                  i,
+                                              onClick: () {
+                                                transaksiController
+                                                    .activeCategory.value = i;
 
-                                              switch (i) {
-                                                case 0:
-                                                  var date = DateTime.now();
-                                                  transaksiController.dateAnalisis.value = DateTimeRange(
-                                                      end: transaksiController
-                                                          .getDate(date.add(Duration(
-                                                              days: DateTime
-                                                                      .daysPerWeek -
-                                                                  date
-                                                                      .weekday))),
-                                                      start: transaksiController
-                                                          .getDate(date.subtract(
-                                                              Duration(days: date.weekday - 1))));
-                                                  break;
-                                                case 1:
-                                                  var date = DateTime(
-                                                      DateTime.now().year,
-                                                      DateTime.now().month,
-                                                      DateTime.now().day - 7);
-                                                  transaksiController.dateAnalisis.value = DateTimeRange(
-                                                      end: transaksiController
-                                                          .getDate(date.add(Duration(
-                                                              days: DateTime
-                                                                      .daysPerWeek -
-                                                                  date
-                                                                      .weekday))),
-                                                      start: transaksiController
-                                                          .getDate(date.subtract(
-                                                              Duration(days: date.weekday - 1))));
-                                                  break;
-                                              }
-                                            },
+                                                switch (i) {
+                                                  case 0:
+                                                    var date = DateTime.now();
+                                                    transaksiController.dateAnalisis.value = DateTimeRange(
+                                                        end: transaksiController
+                                                            .getDate(date.add(Duration(
+                                                                days: DateTime
+                                                                        .daysPerWeek -
+                                                                    date
+                                                                        .weekday))),
+                                                        start: transaksiController
+                                                            .getDate(date.subtract(
+                                                                Duration(days: date.weekday - 1))));
+                                                    break;
+                                                  case 1:
+                                                    var date = DateTime(
+                                                        DateTime.now().year,
+                                                        DateTime.now().month,
+                                                        DateTime.now().day - 7);
+                                                    transaksiController.dateAnalisis.value = DateTimeRange(
+                                                        end: transaksiController
+                                                            .getDate(date.add(Duration(
+                                                                days: DateTime
+                                                                        .daysPerWeek -
+                                                                    date
+                                                                        .weekday))),
+                                                        start: transaksiController
+                                                            .getDate(date.subtract(
+                                                                Duration(days: date.weekday - 1))));
+                                                    break;
+                                                }
+                                              },
+                                            ),
                                           ),
                                         ),
                                     separatorBuilder: (context, i) => SizedBox(
