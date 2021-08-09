@@ -8,6 +8,7 @@ import 'package:widuri/controller/c_barang.dart';
 import 'package:widuri/controller/c_transaksi.dart';
 import 'package:widuri/controller/c_user.dart';
 import 'package:widuri/views/Widget/profil_Image.dart';
+import 'package:widuri/views/riwayat_transaksi.dart';
 import '../gambar.dart';
 import 'Widget/card_barang.dart';
 import 'Widget/graphic.dart';
@@ -154,7 +155,9 @@ class _HomeState extends State<Home> {
                                           InkWell(
                                             child: Icon(Icons.history_rounded,
                                                 size: 25),
-                                            onTap: () {},
+                                            onTap: () {
+                                              Get.to(RiwayatTransaksi());
+                                            },
                                           ),
                                           Text('Transaksi')
                                         ],
