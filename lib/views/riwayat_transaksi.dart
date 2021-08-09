@@ -16,7 +16,7 @@ class _RiwayatTransaksiState extends State<RiwayatTransaksi> {
         appBar: AppBar(
           backgroundColor: backgroundColor,
           title: Text(
-            'Tambah Transaksi',
+            'Riwayat Transaksi',
             style: TextStyle(color: Colors.black),
           ),
           elevation: 0,
@@ -38,10 +38,6 @@ class _RiwayatTransaksiState extends State<RiwayatTransaksi> {
                     decoration: new InputDecoration(
                         hintText: 'Search', border: InputBorder.none),
                     // onChanged: onSearchTextChanged,
-                  ),
-                  trailing: new IconButton(
-                    icon: new Icon(Icons.filter_list_rounded),
-                    onPressed: () {},
                   ),
                 ),
               ),

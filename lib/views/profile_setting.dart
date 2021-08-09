@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:widuri/controller/c_user.dart';
+import 'package:widuri/views/Widget/popup_riwayat.dart';
+import 'package:widuri/views/riwayat_transaksi.dart';
 
 import '../colors.dart';
 
@@ -32,6 +35,9 @@ class _ProfileSettingState extends State<ProfileSetting> {
                       fontFamily: 'RobotoMono',
                       color: Colors.black),
                 ),
+                onTap: (){
+                  Get.to(RiwayatTransaksi());
+                },
               ),
               Divider(),
               ListTile(

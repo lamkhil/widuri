@@ -4,6 +4,9 @@ import 'package:get/get.dart';
 import 'package:widuri/colors.dart';
 import 'package:widuri/controller/c_transaksi.dart';
 import 'package:widuri/views/Widget/popup_barang.dart';
+import 'package:widuri/views/Widget/popup_riwayat.dart';
+
+import 'notif_popup.dart';
 
 class CardRiwayat extends StatelessWidget {
   CardRiwayat(
@@ -69,16 +72,22 @@ class CardRiwayat extends StatelessWidget {
                       ],
                     ),
                     Container(
-                      width: w * 0.45,
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
+                          Container(
+                            child: Text("27-Feb-2021",
+                            style: TextStyle(
+                              fontSize: 14,
+                            ),
+                            ),
+                          ),
                               Container(
                                 width: w * 0.05,
                                 child: FittedBox(
                                   child: IconButton(
                                     onPressed: () {
-
+                                      HistoryBuildShowDialog(context);
                                     },
                                     icon: Icon(Icons.arrow_forward_ios_rounded),
                                   ),

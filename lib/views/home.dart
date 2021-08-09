@@ -167,20 +167,28 @@ class _HomeState extends State<Home> {
                                         width: 3.0,
                                         color: Colors.black,
                                       ),
-                                      Column(
-                                        mainAxisAlignment:
+                                      SizedBox(
+                                        width: w * 0.3,
+                                        child: FittedBox(
+                                          child: Column(
+                                            mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text('Keuntungan kamu hari ini'),
-                                          Row(
                                             children: [
-                                              Text('Rp '),
-                                              Obx(() => Text(transaksiController
-                                                  .keuntunganUser.value
-                                                  .toString()))
+                                              Text(
+                                                'Hasil kamu hari ini',
+                                              ),
+                                              Row(
+                                                children: [
+                                                  Text('Rp '),
+                                                  Obx(() => Text(
+                                                      transaksiController
+                                                          .keuntunganUser.value
+                                                          .toString()))
+                                                ],
+                                              )
                                             ],
-                                          )
-                                        ],
+                                          ),
+                                        ),
                                       ),
                                     ],
                                   )),
