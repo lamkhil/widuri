@@ -5,6 +5,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:widuri/Util/formatCurrency.dart';
 import 'package:widuri/controller/c_barang.dart';
 import 'package:widuri/controller/c_transaksi.dart';
 import 'package:widuri/views/Widget/loader_dialog.dart';
@@ -255,7 +256,9 @@ class _AnalisisState extends State<Analisis> {
                           Obx(
                             () => Text(
                                 '+' +
-                                    transaksiController.analisis['pemasukan']
+                                    formatCurrency
+                                        .format(transaksiController
+                                            .analisis['pemasukan'])
                                         .toString(),
                                 style: TextStyle(
                                     fontWeight: FontWeight.w600,
@@ -280,7 +283,9 @@ class _AnalisisState extends State<Analisis> {
                           Obx(
                             () => Text(
                                 '-' +
-                                    transaksiController.analisis['pengeluaran']
+                                    formatCurrency
+                                        .format(transaksiController
+                                            .analisis['pengeluaran'])
                                         .toString(),
                                 style: TextStyle(
                                     fontWeight: FontWeight.w600,
@@ -309,7 +314,9 @@ class _AnalisisState extends State<Analisis> {
                           Obx(
                             () => Text(
                                 '+' +
-                                    transaksiController.analisis['keuntungan']
+                                    formatCurrency
+                                        .format(transaksiController
+                                            .analisis['keuntungan'])
                                         .toString(),
                                 style: TextStyle(
                                     fontWeight: FontWeight.w600,
@@ -415,8 +422,11 @@ class _AnalisisState extends State<Analisis> {
                           iconSize: 24,
                           elevation: 16,
                           style: TextStyle(color: Colors.black),
-                          onChanged: (var newValue) => barangController
-                              .valueDropdownHome.value = newValue!,
+                          onChanged: (var newValue) {
+                            barangController.valueDropdownHome.value =
+                                newValue!;
+                            transaksiController.updateDataGrafik();
+                          },
                           items: C_Barang.listDropdownHome
                               .map((String item) => DropdownMenuItem<String>(
                                   child: Text(item), value: item))
@@ -426,7 +436,7 @@ class _AnalisisState extends State<Analisis> {
                     ),
                     Expanded(
                       child: Padding(
-                        padding: const EdgeInsets.only(right: 16.0, left: 6.0),
+                        padding: const EdgeInsets.only(right: 16.0, left: 16.0),
                         child: grafik(),
                       ),
                     ),

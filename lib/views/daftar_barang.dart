@@ -128,10 +128,6 @@ class BodyBarang {
                   barangController.query.value = value.toLowerCase();
                 },
               ),
-              trailing: new IconButton(
-                icon: new Icon(Icons.filter_list_rounded),
-                onPressed: () {},
-              ),
             ),
           ),
           Container(

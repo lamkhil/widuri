@@ -3,6 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:widuri/Util/formatCurrency.dart';
 import 'package:widuri/colors.dart';
 import 'package:widuri/controller/c_barang.dart';
 import 'package:widuri/controller/c_transaksi.dart';
@@ -181,15 +183,10 @@ class _HomeState extends State<Home> {
                                                     fontWeight:
                                                         FontWeight.bold),
                                               ),
-                                              Row(
-                                                children: [
-                                                  Text('Rp '),
-                                                  Obx(() => Text(
-                                                      transaksiController
-                                                          .keuntunganUser.value
-                                                          .toString()))
-                                                ],
-                                              )
+                                              Obx(() => Text(formatCurrency
+                                                  .format(transaksiController
+                                                      .keuntunganUser.value)
+                                                  .toString()))
                                             ],
                                           ),
                                         ),
@@ -226,7 +223,9 @@ class _HomeState extends State<Home> {
                         );
                       } else {
                         var viewList = barangController.barangList
-                            .where((value) => value['jumlah'] < 3)
+                            .where((value) =>
+                                value['jumlah'] <=
+                                barangController.minStock.value)
                             .toList();
                         if (viewList.isEmpty) {
                           return Center(
@@ -299,8 +298,8 @@ class _HomeState extends State<Home> {
                           ),
                           Expanded(
                             child: Padding(
-                              padding:
-                                  const EdgeInsets.only(right: 16.0, left: 6.0),
+                              padding: const EdgeInsets.only(
+                                  right: 16.0, left: 16.0),
                               child: grafik(),
                             ),
                           ),

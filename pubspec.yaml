@@ -79,6 +79,29 @@ flutter:
     - assets/ilustrasi.svg
     - assets/amico.png
     - assets/me.png
+  fonts:
+    - family: RobotoMono
+      fonts:
+        - asset: assets/fonts/BalooThambi2-Regular.ttf
+        - asset: assets/fonts/BalooThambi2-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/BalooThambi2-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/BalooThambi2-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/BalooThambi2-ExtraBold.ttf
+          weight: 800
+    - family: Roboto
+      fonts:
+        - asset: assets/fonts/BalooThambi2-Regular.ttf
+        - asset: assets/fonts/BalooThambi2-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/BalooThambi2-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/BalooThambi2-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/BalooThambi2-ExtraBold.ttf
+          weight: 800
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

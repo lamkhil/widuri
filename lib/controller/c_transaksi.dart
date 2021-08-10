@@ -42,7 +42,13 @@ class C_Transaksi extends GetxController {
   var analisisCategory = 0.obs;
   late Rx<DateTimeRange> dateAnalisis;
   var activeCategory = 0.obs;
-  var analisis = {}.obs;
+  var analisis = {
+    'pemasukan': 0,
+    'pengeluaran': 0,
+    'keuntungan': 0,
+    'namaBarangTerlaris': 'Baju',
+    'jumlahBarangTerlaris': 1
+  }.obs;
   var listDateAnlisis = [].obs;
   var keuntunganUser = 0.obs;
 

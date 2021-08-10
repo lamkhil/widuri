@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:widuri/Util/formatCurrency.dart';
 
 import '../../colors.dart';
 import '../../gambar.dart';
@@ -83,7 +84,7 @@ Future<dynamic> HistoryBuildShowDialog(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text("Harga deal"),
-                    Text(hargaDeal.toString()),
+                    Text(formatCurrency.format(hargaDeal).toString()),
                   ],
                 ),
                 SizedBox(
@@ -93,7 +94,7 @@ Future<dynamic> HistoryBuildShowDialog(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text("Laba"),
-                    Text(laba.toString()),
+                    Text(formatCurrency.format(laba).toString()),
                   ],
                 ),
               ],

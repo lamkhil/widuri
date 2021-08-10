@@ -37,7 +37,7 @@ class CardBarang extends StatelessWidget {
           child: Padding(
               padding: EdgeInsets.all(12.0),
               child: SizedBox(
-                height: 45,
+                height: 50,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[

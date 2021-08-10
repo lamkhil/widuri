@@ -1,12 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:widuri/colors.dart';
 import 'package:widuri/controller/c_transaksi.dart';
-import 'package:widuri/views/Widget/popup_barang.dart';
 import 'package:widuri/views/Widget/popup_riwayat.dart';
-
-import 'notif_popup.dart';
+import 'package:widuri/Util/formatCurrency.dart';
 
 class CardRiwayat extends StatelessWidget {
   CardRiwayat({
@@ -37,7 +34,7 @@ class CardRiwayat extends StatelessWidget {
           child: Padding(
               padding: EdgeInsets.all(12.0),
               child: SizedBox(
-                height: 40,
+                height: 50,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
@@ -65,7 +62,7 @@ class CardRiwayat extends StatelessWidget {
                                 height: 4,
                               ),
                               Text(
-                                'Laba : Rp${laba.toString()}',
+                                'Laba : ${formatCurrency.format(laba)}',
                                 style: TextStyle(
                                     fontSize: 10.0,
                                     fontWeight: FontWeight.w200),
