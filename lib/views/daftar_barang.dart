@@ -9,7 +9,6 @@ import 'package:widuri/controller/c_barang.dart';
 import 'package:widuri/views/Widget/popup_barang.dart';
 
 import 'Widget/card_barang.dart';
-import 'Widget/notif_popup.dart';
 
 class DaftarBarang extends StatefulWidget {
   const DaftarBarang({Key? key}) : super(key: key);

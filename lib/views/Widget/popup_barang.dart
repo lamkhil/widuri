@@ -1,9 +1,9 @@
 import 'package:extended_masked_text/extended_masked_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:widuri/controller/c_barang.dart';
+
 import '../../colors.dart';
 
 class PopUpBarang {
@@ -480,16 +480,16 @@ class PopUpBarang {
         if (_formKey.currentState!.validate()) {
           var kategori = _k.text;
           var nama = _n.text;
-          var hargaAwal = _hA.numberValue.toString();
-          var rekomHarga = _rH.numberValue.toString();
+          var hargaAwal = _hA.numberValue.toInt();
+          var rekomHarga = _rH.numberValue.toInt();
           var j = _jmlh.textController.value.text.toString();
           _k.text = '';
           _n.text = '';
           _hA.text = '';
           _rH.text = '';
           _jmlh.textController.value.text = '1';
-          C_Barang.tambahBarang(context, kategori, nama, int.parse(hargaAwal),
-              int.parse(rekomHarga), int.parse(j), idBarang);
+          C_Barang.tambahBarang(context, kategori, nama, hargaAwal,
+              rekomHarga, int.parse(j), idBarang);
         }
       }
     });

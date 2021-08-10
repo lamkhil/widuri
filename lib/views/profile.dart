@@ -1,14 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:widuri/controller/c_user.dart';
 import 'package:widuri/views/Widget/alert_dialog.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
+
 import './profile_nama.dart' as ProfilNama;
 import './profile_setting.dart' as ProfilSetting;
 import '../colors.dart';
-import '../gambar.dart';
-import 'Widget/notif_popup.dart';
 import 'Widget/profil_Image.dart';
 
 class Profil extends StatefulWidget {
