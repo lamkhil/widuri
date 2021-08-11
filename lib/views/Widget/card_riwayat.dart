@@ -12,6 +12,7 @@ class CardRiwayat extends StatelessWidget {
     required this.laba,
     required this.hargaDeal,
     required this.listBarang,
+    required this.id,
   });
 
   String namaPenjual;
@@ -19,6 +20,7 @@ class CardRiwayat extends StatelessWidget {
   int laba;
   int hargaDeal;
   List listBarang;
+  String id;
   RxInt jumlahTransaksi = 0.obs;
   @override
   Widget build(BuildContext context) {
@@ -90,7 +92,7 @@ class CardRiwayat extends StatelessWidget {
                               child: IconButton(
                                 onPressed: () {
                                   HistoryBuildShowDialog(
-                                      context, laba, hargaDeal, listBarang);
+                                      context, laba, hargaDeal, id, listBarang);
                                 },
                                 icon: Icon(Icons.arrow_forward_ios_rounded),
                               ),

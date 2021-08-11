@@ -99,11 +99,11 @@ class _RiwayatTransaksiState extends State<RiwayatTransaksi> {
                               .toList();
                         }
                       } else {
-                        return Text('Masih Belum ada transaksi');
+                        return Text('Transaksi tidak ditemukan');
                       }
                     }
                     if (viewList[0] is int) {
-                      return Text('Belum ada Transaksi');
+                      return Text('Transaksi tidak ditemukan');
                     } else {
                       if (args != null) {
                         viewList = viewList
@@ -113,11 +113,15 @@ class _RiwayatTransaksiState extends State<RiwayatTransaksi> {
                                     .auth.currentUser!.displayName
                                     .toString())
                             .toList();
+                        if (viewList.isEmpty) {
+                          return Text('Transaksi tidak ditemukan');
+                        }
                       }
                       return ListView.builder(
                           itemCount: viewList.length,
                           itemBuilder: (context, index) {
                             return CardRiwayat(
+                                id: viewList[index].keys.first,
                                 namaPenjual:
                                     viewList[index].values.first['penjual'],
                                 tanggal:

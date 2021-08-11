@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:widuri/Util/formatCurrency.dart';
+import 'package:widuri/controller/c_transaksi.dart';
 
 import '../../colors.dart';
 import '../../gambar.dart';
@@ -11,8 +12,10 @@ Future<dynamic> HistoryBuildShowDialog(
   BuildContext context,
   int laba,
   int hargaDeal,
+  String id,
   List listBarang,
 ) {
+  bool hapus = false;
   return showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -100,6 +103,117 @@ Future<dynamic> HistoryBuildShowDialog(
               ],
             ),
           ),
+          actions: [
+            Container(
+              height: h * 0.05,
+              width: w,
+              child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12.0),
+                        side: BorderSide(color: primaryColor)),
+                    primary: backgroundColor,
+                  ),
+                  onPressed: () {
+                    hapus = true;
+                    Navigator.pop(Get.overlayContext!);
+                  },
+                  child: Text(
+                    'Hapus Transaksi',
+                    style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontFamily: 'Roboto',
+                        fontSize: 16.0,
+                        color: primaryColor),
+                  )),
+            ),
+            Container(
+              height: h * 0.05,
+              width: w,
+              margin: EdgeInsets.only(top: h * 0.01),
+              child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12.0)),
+                    primary: primaryColor,
+                  ),
+                  onPressed: () {
+                    Navigator.pop(Get.overlayContext!);
+                  },
+                  child: Text(
+                    'Tutup',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontFamily: 'Roboto',
+                      fontSize: 16.0,
+                    ),
+                  )),
+            )
+          ],
         );
-      });
+      }).then((value) {
+    if (hapus) {
+      _verifHapus(context, id);
+    }
+  });
+}
+
+void _verifHapus(BuildContext context, String id) {
+  bool _hapus = false;
+  showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+            title: Text(
+              'Peringatan!',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+            ),
+            content: Text("Yakin ingin hapus transaksi ini?"),
+            actions: [
+              ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12.0),
+                        side: BorderSide(color: primaryColor)),
+                    primary: backgroundColor,
+                  ),
+                  onPressed: () {
+                    _hapus = true;
+                    Navigator.pop(Get.overlayContext!);
+                  },
+                  child: Text(
+                    'Ya',
+                    style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontFamily: 'Roboto',
+                        fontSize: 16.0,
+                        color: primaryColor),
+                  )),
+              ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12.0)),
+                    primary: primaryColor,
+                  ),
+                  onPressed: () {
+                    _hapus = false;
+                    Navigator.pop(Get.overlayContext!);
+                  },
+                  child: Text(
+                    'Tidak',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontFamily: 'Roboto',
+                      fontSize: 16.0,
+                    ),
+                  ))
+            ],
+          )).whenComplete(() {
+    if (_hapus) {
+      try {
+        C_Transaksi.hapusTransaksi(context, id);
+      } catch (e) {
+        print(e);
+      }
+    }
+  });
 }

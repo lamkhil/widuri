@@ -39,6 +39,8 @@ class PopUpBarang {
       decimalSeparator: "");
   final _jmlh = C_Barang();
 
+  bool _simpan = false;
+  bool _hapus = false;
   void popUpTambahBarang() {
     final _formKey = GlobalKey<FormState>();
     var _title = '';
@@ -52,8 +54,6 @@ class PopUpBarang {
     } else {
       _title = 'Tambah Barang';
     }
-    bool simpan = false;
-    bool hapus = false;
     showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -239,7 +239,7 @@ class PopUpBarang {
                                 children: <Widget>[
                                   FittedBox(
                                     child: Text(
-                                      'Rekomendasi Harga',
+                                      'HET',
                                       style: TextStyle(
                                           fontSize: 16.0,
                                           fontWeight: FontWeight.w600,
@@ -425,8 +425,8 @@ class PopUpBarang {
                                   primary: backgroundColor,
                                 ),
                                 onPressed: () {
-                                  hapus = true;
-                                  simpan = false;
+                                  _hapus = true;
+                                  _simpan = false;
                                   Navigator.pop(Get.overlayContext!);
                                 },
                                 child: Text(
@@ -450,8 +450,8 @@ class PopUpBarang {
                             ),
                             onPressed: () {
                               if (_formKey.currentState!.validate()) {
-                                simpan = true;
-                                hapus = false;
+                                _simpan = true;
+                                _hapus = false;
                                 Navigator.pop(Get.overlayContext!);
                               }
                             },
@@ -469,14 +469,14 @@ class PopUpBarang {
                 )
               ]);
         }).whenComplete(() {
-      if (hapus) {
+      if (_hapus) {
         _k.text = '';
         _n.text = '';
         _hA.text = '';
         _rH.text = '';
-        C_Barang.hapusBarang(context, idBarang);
+        _verifHapus();
       }
-      if (simpan) {
+      if (_simpan) {
         if (_formKey.currentState!.validate()) {
           var kategori = _k.text;
           var nama = _n.text;
@@ -488,8 +488,85 @@ class PopUpBarang {
           _hA.text = '';
           _rH.text = '';
           _jmlh.textController.value.text = '1';
-          C_Barang.tambahBarang(context, kategori, nama, hargaAwal,
-              rekomHarga, int.parse(j), idBarang);
+          C_Barang.tambahBarang(context, kategori, nama, hargaAwal, rekomHarga,
+              int.parse(j), idBarang);
+        }
+      }
+    });
+  }
+
+  void _verifHapus() {
+    showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+              title: Text(
+                'Peringatan!',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+              ),
+              content: Text(
+                  "Yakin ingin hapus barang?\nNama barang: $namaBarang\nID: $idBarang"),
+              actions: [
+                Padding(
+                  padding: EdgeInsets.all(20.0),
+                  child: Column(
+                    children: [
+                      Visibility(
+                          visible: edit,
+                          child: Container(
+                            height: MediaQuery.of(context).size.height * 0.05,
+                            width: MediaQuery.of(context).size.width,
+                            child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(12.0),
+                                      side: BorderSide(color: primaryColor)),
+                                  primary: backgroundColor,
+                                ),
+                                onPressed: () {
+                                  Navigator.pop(Get.overlayContext!);
+                                },
+                                child: Text(
+                                  'Hapus Barang',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontFamily: 'Roboto',
+                                      fontSize: 16.0,
+                                      color: primaryColor),
+                                )),
+                          )),
+                      SizedBox(height: 10.0),
+                      Container(
+                        height: MediaQuery.of(context).size.height * 0.05,
+                        width: MediaQuery.of(context).size.width,
+                        child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12.0)),
+                              primary: primaryColor,
+                            ),
+                            onPressed: () {
+                              _hapus = false;
+                              Navigator.pop(Get.overlayContext!);
+                            },
+                            child: Text(
+                              'Tutup',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontFamily: 'Roboto',
+                                fontSize: 16.0,
+                              ),
+                            )),
+                      )
+                    ],
+                  ),
+                )
+              ],
+            )).whenComplete(() {
+      if (_hapus) {
+        try {
+          C_Barang.hapusBarang(context, idBarang);
+        } catch (e) {
+          print(e);
         }
       }
     });

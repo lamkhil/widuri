@@ -1,7 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:widuri/controller/c_transaksi.dart';
 import 'package:widuri/controller/c_user.dart';
 import 'package:widuri/views/Widget/alert_dialog.dart';
 
@@ -30,17 +32,14 @@ class _ProfilState extends State<Profil> with SingleTickerProviderStateMixin {
 
   @override
   void dispose() {
-    super.dispose();
     _tabController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     var h = MediaQuery.of(context).size.height;
     var w = MediaQuery.of(context).size.width;
-    var name = auth.currentUser!.displayName == null
-        ? ''
-        : auth.currentUser!.displayName;
     return Scaffold(
       appBar: AppBar(
         flexibleSpace: Container(
@@ -119,13 +118,6 @@ class _ProfilState extends State<Profil> with SingleTickerProviderStateMixin {
                                     fontWeight: FontWeight.w600,
                                     color: Colors.black),
                               ),
-                            ),
-                            Text(
-                              'id : ${auth.currentUser!.uid}',
-                              style: TextStyle(
-                                  fontSize: 14.0,
-                                  fontWeight: FontWeight.w300,
-                                  color: Colors.black38),
                             ),
                             SizedBox(
                               height: 20.0,
@@ -234,6 +226,14 @@ class _ProfilState extends State<Profil> with SingleTickerProviderStateMixin {
                       Navigator.of(context).pop();
                     },
                   ),
+                  new ListTile(
+                    leading: new Icon(Icons.delete),
+                    title: new Text('Hapus'),
+                    onTap: () {
+                      i = 3;
+                      Navigator.of(context).pop();
+                    },
+                  ),
                 ],
               ),
             ),
@@ -248,6 +248,14 @@ class _ProfilState extends State<Profil> with SingleTickerProviderStateMixin {
         if (!await C_User.imgFromCamera(context)) {
           customDialog(context, "Gagal", "Izin belum diberikan");
         }
+      }
+      if (i == 3 && auth.currentUser!.photoURL != null) {
+        auth.currentUser!.updatePhotoURL(null);
+        C_User.photoUrl.value = "";
+        var firebaseStorage = FirebaseStorage.instance;
+        await firebaseStorage
+            .ref('uploads/${auth.currentUser!.uid}.png')
+            .delete();
       }
       i = 0;
     });

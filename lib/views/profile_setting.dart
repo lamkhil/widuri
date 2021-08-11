@@ -58,7 +58,7 @@ class _ProfileSettingState extends State<ProfileSetting> {
                       color: Colors.black),
                 ),
                 onTap: () {
-                  Get.to(RiwayatTransaksi(), arguments: "bySelf");
+                  Get.to(() => RiwayatTransaksi(), arguments: "bySelf");
                 },
               ),
               Divider(),
@@ -110,7 +110,56 @@ class _ProfileSettingState extends State<ProfileSetting> {
               Divider(),
               ListTile(
                 onTap: () {
-                  C_User.logOutUser(context);
+                  showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                            title: Text("Peringatan!"),
+                            content: Text("Yakin ingin keluar?"),
+                            actions: [
+                              Container(
+                                child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(12.0),
+                                          side:
+                                              BorderSide(color: primaryColor)),
+                                      primary: backgroundColor,
+                                    ),
+                                    onPressed: () {
+                                      C_User.logOutUser(context);
+                                    },
+                                    child: Text(
+                                      'Ya',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          fontFamily: 'Roboto',
+                                          fontSize: 16.0,
+                                          color: primaryColor),
+                                    )),
+                              ),
+                              Container(
+                                child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(12.0)),
+                                      primary: primaryColor,
+                                    ),
+                                    onPressed: () {
+                                      Navigator.pop(Get.overlayContext!);
+                                    },
+                                    child: Text(
+                                      'Tidak',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontFamily: 'Roboto',
+                                        fontSize: 16.0,
+                                      ),
+                                    )),
+                              )
+                            ],
+                          ));
                 },
                 contentPadding: EdgeInsets.fromLTRB(20, 0, 20, 0),
                 leading: Icon(Icons.logout_rounded),

@@ -44,6 +44,17 @@ class M_Transaksi {
     }
   }
 
+  static Future<dynamic> hapusTransaksi(String id) async {
+    try {
+      await _transaksi.doc(id).delete();
+      return 1;
+    } catch (e) {
+      var result = await _translator.translate(e.toString().split('] ')[1],
+          from: 'en', to: 'id');
+      return result.toString();
+    }
+  }
+
   static Future<dynamic> getTransaksi(List date) async {
     try {
       var result = await _transaksi.get();

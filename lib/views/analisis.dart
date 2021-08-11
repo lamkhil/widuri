@@ -1,19 +1,13 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:widuri/Util/formatCurrency.dart';
 import 'package:widuri/controller/c_barang.dart';
 import 'package:widuri/controller/c_transaksi.dart';
-import 'package:widuri/views/Widget/loader_dialog.dart';
 
 import '../colors.dart';
 import 'Widget/category_widget.dart';
 import 'Widget/graphic.dart';
-import 'Widget/notif_popup.dart';
 
 class Analisis extends StatefulWidget {
   const Analisis({Key? key}) : super(key: key);

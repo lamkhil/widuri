@@ -406,7 +406,7 @@ class _TambahTransaksiState extends State<TambahTransaksi> {
                                   borderRadius: BorderRadius.circular(10)),
                               primary: primaryColor),
                           onPressed: () {
-                            Get.to(TambahBarangTransaksi());
+                            Get.to(() => TambahBarangTransaksi());
                           },
                           icon: Icon(
                             Icons.add_circle_rounded,
@@ -455,7 +455,7 @@ class _TambahTransaksiState extends State<TambahTransaksi> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Text("Rekomendasi harga jual : "),
+                                          Text("HET: "),
                                           Obx(() {
                                             return Text(formatCurrency
                                                 .format(transaksiController
@@ -519,7 +519,14 @@ class _TambahTransaksiState extends State<TambahTransaksi> {
                               if (transaksiController
                                       .controllerHarga.value.text !=
                                   '') {
-                                transaksiController.tambahTransaksi(context);
+                                if (transaksiController
+                                        .jumlahRekomendasiHarga() >
+                                    transaksiController.hargaDeal()) {
+                                  customDialog(
+                                      context, "Oops!", "Harga Terlalu Rendah");
+                                } else {
+                                  transaksiController.tambahTransaksi(context);
+                                }
                               } else {
                                 bool ikutRekom = false;
                                 showDialog(
@@ -527,7 +534,7 @@ class _TambahTransaksiState extends State<TambahTransaksi> {
                                     builder: (context) => AlertDialog(
                                           title: Text('Harga belum diatur'),
                                           content: Text(
-                                              "Ingin memakai harga rekomendasi?\nRp ${transaksiController.jumlahRekomendasiHarga()}"),
+                                              "Ingin memakai harga eceran terendah?\nRp ${transaksiController.jumlahRekomendasiHarga()}"),
                                           actions: [
                                             ElevatedButton(
                                                 style: ElevatedButton.styleFrom(

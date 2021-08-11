@@ -294,6 +294,22 @@ class C_Transaksi extends GetxController {
     reset();
   }
 
+  static Future<void> hapusTransaksi(BuildContext context, String id) async {
+    loaderDialog(
+        context,
+        SpinKitFadingCube(
+          color: primaryColor,
+        ),
+        "Tunggu Sebentar!");
+    var result = await M_Transaksi.hapusTransaksi(id);
+    Navigator.of(Get.overlayContext!).pop();
+    if (!(result is String)) {
+      customDialog(context, "Alhamdulillah!", 'Transaksi berhasil dihapus');
+    } else {
+      customDialog(context, "Oops!", result);
+    }
+  }
+
   catatTransaksi(BuildContext context) async {
     var column = ['A', 'B', 'C', 'D', 'E'];
     var date = dateAnalisis.value;

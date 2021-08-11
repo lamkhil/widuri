@@ -8,6 +8,7 @@ import 'package:widuri/Util/formatCurrency.dart';
 import 'package:widuri/colors.dart';
 import 'package:widuri/controller/c_barang.dart';
 import 'package:widuri/controller/c_transaksi.dart';
+import 'package:widuri/controller/c_user.dart';
 import 'package:widuri/views/Widget/profil_Image.dart';
 import 'package:widuri/views/riwayat_transaksi.dart';
 import 'Widget/card_barang.dart';
@@ -37,7 +38,6 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     var w = MediaQuery.of(context).size.width;
-    var name = auth.currentUser!.displayName.obs;
     return Scaffold(
         backgroundColor: backgroundColor,
         appBar: AppBar(
@@ -127,7 +127,7 @@ class _HomeState extends State<Home> {
                                   children: [
                                     Text('Hai '),
                                     Obx(() => Text(
-                                          '$name',
+                                          C_User.name.value,
                                           style: TextStyle(
                                               fontWeight: FontWeight.bold),
                                         )),
@@ -159,7 +159,7 @@ class _HomeState extends State<Home> {
                                             ),
                                           ),
                                           onTap: () {
-                                            Get.to(RiwayatTransaksi());
+                                            Get.to(() => RiwayatTransaksi());
                                           },
                                         ),
                                       ),
@@ -254,7 +254,7 @@ class _HomeState extends State<Home> {
                       margin: EdgeInsets.all(12),
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        'Tren Penjualan',
+                        'Grafik Penjualan',
                         style: TextStyle(
                             fontSize: 16.0,
                             fontWeight: FontWeight.bold,

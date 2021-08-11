@@ -15,18 +15,33 @@ Widget profilImage() {
     );
   } else {
     return Obx(() => CircleAvatar(
-          backgroundImage: C_User.photoUrl.value == ""
-              ? AssetImage(me)
-              : NetworkImage(
-                  C_User.photoUrl.value,
-                ) as ImageProvider,
+          backgroundImage: AssetImage(me),
           backgroundColor: backgroundColor,
           radius: 25.0,
-          child: Visibility(
-              visible: C_User.photoUrl.value == "",
-              child: SpinKitFadingCube(
-                color: primaryColor,
-              )),
+          child: ClipOval(
+            child: Visibility(
+              visible: C_User.photoUrl.value != "",
+              child: AspectRatio(
+                aspectRatio: 1,
+                child: Image.network(
+                  C_User.photoUrl.value,
+                  fit: BoxFit.cover,
+                  loadingBuilder: (BuildContext context, Widget child,
+                      ImageChunkEvent? loadingProgress) {
+                    if (loadingProgress == null) return child;
+                    return Center(
+                      child: CircularProgressIndicator(
+                        value: loadingProgress.expectedTotalBytes != null
+                            ? loadingProgress.cumulativeBytesLoaded /
+                                (loadingProgress.expectedTotalBytes as int)
+                            : null,
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ),
+          ),
         ));
   }
 }
