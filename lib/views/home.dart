@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:widuri/Util/formatCurrency.dart';
 import 'package:widuri/colors.dart';
 import 'package:widuri/controller/c_barang.dart';
@@ -11,6 +10,7 @@ import 'package:widuri/controller/c_transaksi.dart';
 import 'package:widuri/controller/c_user.dart';
 import 'package:widuri/views/Widget/profil_Image.dart';
 import 'package:widuri/views/riwayat_transaksi.dart';
+
 import 'Widget/card_barang.dart';
 import 'Widget/graphic.dart';
 

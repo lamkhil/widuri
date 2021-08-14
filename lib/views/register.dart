@@ -28,6 +28,7 @@ class _RegisterState extends State<Register> {
     var h = MediaQuery.of(context).size.height;
     var w = MediaQuery.of(context).size.width;
     return Scaffold(
+        backgroundColor: backgroundColor,
         appBar: AppBar(
           backgroundColor: backgroundColor,
           elevation: 0,

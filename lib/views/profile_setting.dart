@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:widuri/controller/c_barang.dart';
-import 'package:widuri/controller/c_transaksi.dart';
 import 'package:widuri/controller/c_user.dart';
 import 'package:widuri/gambar.dart';
 import 'package:widuri/views/riwayat_transaksi.dart';

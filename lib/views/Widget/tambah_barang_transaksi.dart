@@ -13,6 +13,7 @@ class _TambahBarangTransaksiState extends State<TambahBarangTransaksi> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: backgroundColor,
       appBar: AppBar(
         backgroundColor: backgroundColor,
         title: Text(

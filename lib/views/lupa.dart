@@ -18,6 +18,7 @@ class _LupaPasswordState extends State<LupaPassword> {
     var h = MediaQuery.of(context).size.height;
     var w = MediaQuery.of(context).size.width;
     return Scaffold(
+        backgroundColor: backgroundColor,
         appBar: AppBar(
           backgroundColor: backgroundColor,
           elevation: 0,
@@ -66,7 +67,9 @@ class _LupaPasswordState extends State<LupaPassword> {
                       SizedBox(height: 36),
                       MaterialButton(
                           onPressed: () {
+
                             C_User.lupaPassword(context, _email.text);
+                            _email.clear();
                           },
                           child: Container(
                             alignment: Alignment.center,

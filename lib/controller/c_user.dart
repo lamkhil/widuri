@@ -154,7 +154,7 @@ class C_User extends GetxController {
     var result = await M_User.logOut();
     if (!(result is String)) {
       storage.remove('user');
-      Get.offNamed('/login');
+      Get.offAllNamed('/login');
     }
   }
 }

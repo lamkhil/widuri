@@ -15,6 +15,7 @@ class PopUpBarang {
   String idBarang;
   bool edit;
   BuildContext context;
+
   PopUpBarang(
       {this.kategori,
       this.hargaAwal,
@@ -41,6 +42,7 @@ class PopUpBarang {
 
   bool _simpan = false;
   bool _hapus = false;
+
   void popUpTambahBarang() {
     final _formKey = GlobalKey<FormState>();
     var _title = '';
@@ -60,13 +62,27 @@ class PopUpBarang {
           var w = MediaQuery.of(context).size.width;
           var h = MediaQuery.of(context).size.height;
           return AlertDialog(
+              titlePadding: EdgeInsets.zero,
+              contentPadding: EdgeInsets.zero,
+              actionsPadding: EdgeInsets.zero,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10)),
               scrollable: true,
-              title: Text(
-                _title,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+              title: Container(
+                padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(10),
+                      topLeft: Radius.circular(10)),
+                  color: primaryColor,
+                ),
+                child: Text(
+                  _title,
+                  style: TextStyle(fontWeight: FontWeight.w600 ,fontSize: 20.0, color: Colors.white),
+                ),
               ),
               content: Container(
-                width: w - 23,
+                padding: EdgeInsets.all(20),
                 child: Form(
                   key: _formKey,
                   child: Column(
@@ -496,6 +512,7 @@ class PopUpBarang {
   }
 
   void _verifHapus() {
+   _hapus = false;
     showDialog(
         context: context,
         builder: (context) => AlertDialog(
@@ -508,13 +525,11 @@ class PopUpBarang {
               actions: [
                 Padding(
                   padding: EdgeInsets.all(20.0),
-                  child: Column(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       Visibility(
                           visible: edit,
-                          child: Container(
-                            height: MediaQuery.of(context).size.height * 0.05,
-                            width: MediaQuery.of(context).size.width,
                             child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
                                   shape: RoundedRectangleBorder(
@@ -523,22 +538,20 @@ class PopUpBarang {
                                   primary: backgroundColor,
                                 ),
                                 onPressed: () {
+                                  _hapus = true;
                                   Navigator.pop(Get.overlayContext!);
                                 },
                                 child: Text(
-                                  'Hapus Barang',
+                                  'Ya',
                                   style: TextStyle(
                                       fontWeight: FontWeight.w600,
                                       fontFamily: 'Roboto',
                                       fontSize: 16.0,
                                       color: primaryColor),
                                 )),
-                          )),
-                      SizedBox(height: 10.0),
-                      Container(
-                        height: MediaQuery.of(context).size.height * 0.05,
-                        width: MediaQuery.of(context).size.width,
-                        child: ElevatedButton(
+                          ),
+                         SizedBox(width: 10.0,),
+                         ElevatedButton(
                             style: ElevatedButton.styleFrom(
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(12.0)),
@@ -549,14 +562,14 @@ class PopUpBarang {
                               Navigator.pop(Get.overlayContext!);
                             },
                             child: Text(
-                              'Tutup',
+                              'Tidak',
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 fontFamily: 'Roboto',
                                 fontSize: 16.0,
                               ),
                             )),
-                      )
+
                     ],
                   ),
                 )

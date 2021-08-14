@@ -17,6 +17,7 @@ class _ProfileNamaState extends State<ProfileNama> {
   final TextEditingController _namaController = TextEditingController();
   bool _focus = true;
   var nama = ''.obs;
+  
 
   @override
   Widget build(BuildContext context) {

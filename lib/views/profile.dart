@@ -40,6 +40,9 @@ class _ProfilState extends State<Profil> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     var h = MediaQuery.of(context).size.height;
     var w = MediaQuery.of(context).size.width;
+    var name = auth.currentUser!.displayName == null
+        ? ''
+        : auth.currentUser!.displayName;
     return Scaffold(
       appBar: AppBar(
         flexibleSpace: Container(
@@ -118,6 +121,13 @@ class _ProfilState extends State<Profil> with SingleTickerProviderStateMixin {
                                     fontWeight: FontWeight.w600,
                                     color: Colors.black),
                               ),
+                            ),
+                            Text(
+                              'id : ${auth.currentUser!.uid}',
+                              style: TextStyle(
+                                  fontSize: 14.0,
+                                  fontWeight: FontWeight.w300,
+                                  color: Colors.black38),
                             ),
                             SizedBox(
                               height: 20.0,
