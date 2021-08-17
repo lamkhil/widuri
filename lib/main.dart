@@ -16,7 +16,7 @@ void main() async {
   runApp(MyApp());
 }
 
-const debug = true;
+const debug = false;
 const String transaksi = debug ? 'transaksiDebug' : 'transaksi';
 const String barang = debug ? 'barangDebug' : 'barang';
 

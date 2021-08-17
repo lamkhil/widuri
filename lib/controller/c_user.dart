@@ -155,6 +155,8 @@ class C_User extends GetxController {
     if (!(result is String)) {
       storage.remove('user');
       Get.offAllNamed('/login');
+    } else {
+      customDialog(context, 'Oppss!', result);
     }
   }
 }
