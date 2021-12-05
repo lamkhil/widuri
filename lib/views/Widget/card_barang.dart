@@ -186,6 +186,12 @@ class CardBarang extends StatelessWidget {
                                                   .remove(idBarang);
                                           }
                                           transaksiController.barang.refresh();
+                                          transaksiController.controllerHarga
+                                              .update((val) {
+                                            val!.updateValue(transaksiController
+                                                .jumlahRekomendasiHarga()
+                                                .toDouble());
+                                          });
                                         }
                                       },
                                       icon: Icon(
@@ -229,6 +235,12 @@ class CardBarang extends StatelessWidget {
                                             });
                                           }
                                           transaksiController.barang.refresh();
+                                          transaksiController.controllerHarga
+                                              .update((val) {
+                                            val!.updateValue(transaksiController
+                                                .jumlahRekomendasiHarga()
+                                                .toDouble());
+                                          });
                                         }
                                       },
                                       icon: Icon(

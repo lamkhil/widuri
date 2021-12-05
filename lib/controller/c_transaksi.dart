@@ -461,6 +461,7 @@ class C_Transaksi extends GetxController {
       rekomendasi +=
           element['rekomendasiHarga'] * element['jumlahTransaksi'] as int;
     });
+    
     return rekomendasi;
   }
 

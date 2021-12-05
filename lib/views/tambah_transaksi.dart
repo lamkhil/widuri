@@ -406,7 +406,13 @@ class _TambahTransaksiState extends State<TambahTransaksi> {
                                   borderRadius: BorderRadius.circular(10)),
                               primary: primaryColor),
                           onPressed: () {
-                            Get.to(() => TambahBarangTransaksi());
+                            Get.to(() => TambahBarangTransaksi())!.then(
+                                (value) => transaksiController.controllerHarga
+                                        .update((val) {
+                                      val!.updateValue(transaksiController
+                                          .jumlahRekomendasiHarga()
+                                          .toDouble());
+                                    }));
                           },
                           icon: Icon(
                             Icons.add_circle_rounded,
