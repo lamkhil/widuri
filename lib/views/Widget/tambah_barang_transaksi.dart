@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:widuri/colors.dart';
-import 'package:widuri/views/daftar_barang.dart';
+import 'package:widuri/views/screens/dashboard/daftar%20barang/daftar_barang.dart';
 
 class TambahBarangTransaksi extends StatefulWidget {
   const TambahBarangTransaksi({Key? key}) : super(key: key);

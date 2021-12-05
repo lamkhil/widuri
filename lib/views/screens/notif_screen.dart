@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../colors.dart';
+import 'package:widuri/colors.dart';
 
 class Notif extends StatelessWidget {
   const Notif({Key? key}) : super(key: key);
@@ -14,9 +13,13 @@ class Notif extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  IconButton(onPressed: (){
-                    Navigator.of(context).pop();
-                  }, icon: Icon(Icons.arrow_back_ios_new_rounded), iconSize: 20.0,),
+                  IconButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    icon: Icon(Icons.arrow_back_ios_new_rounded),
+                    iconSize: 20.0,
+                  ),
                   Text(
                     'Pemberitahuan',
                     style: TextStyle(

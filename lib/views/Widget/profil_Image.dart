@@ -19,11 +19,11 @@ Widget profilImage() {
           radius: 25.0,
           child: ClipOval(
             child: Visibility(
-              visible: C_User.photoUrl.value != "",
+              visible: UserController.photoUrl.value != "",
               child: AspectRatio(
                 aspectRatio: 1,
                 child: Image.network(
-                  C_User.photoUrl.value,
+                  UserController.photoUrl.value,
                   fit: BoxFit.cover,
                   loadingBuilder: (BuildContext context, Widget child,
                       ImageChunkEvent? loadingProgress) {

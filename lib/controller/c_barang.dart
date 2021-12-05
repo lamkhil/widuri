@@ -8,7 +8,7 @@ import 'package:widuri/views/Widget/alert_dialog.dart';
 import 'package:widuri/views/Widget/loader_dialog.dart';
 
 // ignore: camel_case_types
-class C_Barang extends GetxController {
+class BarangController extends GetxController {
   var _textController = TextEditingController(text: '0').obs;
   var query = ''.obs;
   final storage = GetStorage();

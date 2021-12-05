@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-
-import '../colors.dart';
+import 'package:widuri/colors.dart';
+import 'package:widuri/router/routes.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -33,9 +33,9 @@ class _SplashScreenState extends State<SplashScreen> {
       storage.write('minStock', 3);
     }
     if (user == null) {
-      Get.offNamed('/login');
+      Get.offNamed(Routes.loginScreen);
     } else {
-      Get.offNamed('/main');
+      Get.offNamed(Routes.dashboardScreen);
     }
   }
 

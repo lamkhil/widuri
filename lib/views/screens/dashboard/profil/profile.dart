@@ -3,14 +3,14 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:widuri/colors.dart';
 import 'package:widuri/controller/c_transaksi.dart';
 import 'package:widuri/controller/c_user.dart';
 import 'package:widuri/views/Widget/alert_dialog.dart';
+import 'package:widuri/views/Widget/profil_Image.dart';
 
 import './profile_nama.dart' as ProfilNama;
 import './profile_setting.dart' as ProfilSetting;
-import '../colors.dart';
-import 'Widget/profil_Image.dart';
 
 class Profil extends StatefulWidget {
   const Profil({Key? key}) : super(key: key);
@@ -115,7 +115,7 @@ class _ProfilState extends State<Profil> with SingleTickerProviderStateMixin {
                           children: [
                             Obx(
                               () => Text(
-                                C_User.name.value,
+                                UserController.name.value,
                                 style: TextStyle(
                                     fontSize: 18.0,
                                     fontWeight: FontWeight.w600,
@@ -250,18 +250,18 @@ class _ProfilState extends State<Profil> with SingleTickerProviderStateMixin {
           );
         }).then((value) async {
       if (i == 1) {
-        if (!await C_User.imgFromGallery(context)) {
+        if (!await UserController.imgFromGallery(context)) {
           customDialog(context, "Gagal", "Izin belum diberikan");
         }
       }
       if (i == 2) {
-        if (!await C_User.imgFromCamera(context)) {
+        if (!await UserController.imgFromCamera(context)) {
           customDialog(context, "Gagal", "Izin belum diberikan");
         }
       }
       if (i == 3 && auth.currentUser!.photoURL != null) {
         auth.currentUser!.updatePhotoURL(null);
-        C_User.photoUrl.value = "";
+        UserController.photoUrl.value = "";
         var firebaseStorage = FirebaseStorage.instance;
         await firebaseStorage
             .ref('uploads/${auth.currentUser!.uid}.png')

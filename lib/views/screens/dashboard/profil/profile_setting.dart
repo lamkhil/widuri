@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:widuri/colors.dart';
 import 'package:widuri/controller/c_barang.dart';
 import 'package:widuri/controller/c_user.dart';
 import 'package:widuri/gambar.dart';
-import 'package:widuri/views/riwayat_transaksi.dart';
-
-import '../colors.dart';
+import 'package:widuri/router/routes.dart';
+import 'package:widuri/views/screens/riwayat_transaksi.dart';
 
 class ProfileSetting extends StatefulWidget {
   const ProfileSetting({Key? key}) : super(key: key);
@@ -16,8 +16,7 @@ class ProfileSetting extends StatefulWidget {
 }
 
 class _ProfileSettingState extends State<ProfileSetting> {
-  C_Barang barangController =
-      C_Barang().initialized ? Get.find() : Get.put(C_Barang());
+  BarangController barangController = Get.find();
   final storage = GetStorage();
   final _minStockController = TextEditingController();
 
@@ -57,7 +56,7 @@ class _ProfileSettingState extends State<ProfileSetting> {
                       color: Colors.black),
                 ),
                 onTap: () {
-                  Get.to(() => RiwayatTransaksi(), arguments: "bySelf");
+                  Get.toNamed(Routes.riwayatTransaksi, arguments: "bySelf");
                 },
               ),
               Divider(),
@@ -126,7 +125,7 @@ class _ProfileSettingState extends State<ProfileSetting> {
                                       primary: backgroundColor,
                                     ),
                                     onPressed: () {
-                                      C_User.logOutUser(context);
+                                      UserController.logOutUser(context);
                                     },
                                     child: Text(
                                       'Ya',

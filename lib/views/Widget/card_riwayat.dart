@@ -26,8 +26,7 @@ class CardRiwayat extends StatelessWidget {
   Widget build(BuildContext context) {
     var w = MediaQuery.of(context).size.width;
 
-    C_Transaksi transaksiController =
-        C_Transaksi().initialized ? Get.find() : Get.put(C_Transaksi());
+    TransaksiController transaksiController = Get.find();
 
     return new Container(
       child: Card(

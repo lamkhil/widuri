@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:widuri/Util/formatCurrency.dart';
+import 'package:widuri/colors.dart';
 import 'package:widuri/controller/c_barang.dart';
 import 'package:widuri/controller/c_transaksi.dart';
-
-import '../colors.dart';
-import 'Widget/category_widget.dart';
-import 'Widget/graphic.dart';
+import 'package:widuri/views/Widget/category_widget.dart';
+import 'package:widuri/views/Widget/graphic.dart';
 
 class Analisis extends StatefulWidget {
   const Analisis({Key? key}) : super(key: key);
@@ -17,9 +16,9 @@ class Analisis extends StatefulWidget {
 }
 
 class _AnalisisState extends State<Analisis> {
-  final barangController = Get.put(C_Barang());
+  final BarangController barangController = Get.find();
   var _catatanController = TextEditingController();
-  var transaksiController = Get.put(C_Transaksi());
+  final TransaksiController transaksiController = Get.find();
 
   static const List<String> items = ['Minggu ini', 'Minggu Lalu'];
 
@@ -421,7 +420,7 @@ class _AnalisisState extends State<Analisis> {
                                 newValue!;
                             transaksiController.updateDataGrafik();
                           },
-                          items: C_Barang.listDropdownHome
+                          items: BarangController.listDropdownHome
                               .map((String item) => DropdownMenuItem<String>(
                                   child: Text(item), value: item))
                               .toList(),

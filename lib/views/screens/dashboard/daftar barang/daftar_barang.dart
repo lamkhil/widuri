@@ -6,9 +6,8 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:widuri/colors.dart';
 import 'package:widuri/controller/c_barang.dart';
+import 'package:widuri/views/Widget/card_barang.dart';
 import 'package:widuri/views/Widget/popup_barang.dart';
-
-import 'Widget/card_barang.dart';
 
 class DaftarBarang extends StatefulWidget {
   const DaftarBarang({Key? key}) : super(key: key);
@@ -102,8 +101,8 @@ class BodyBarang {
   static final n = TextEditingController();
   static final hA = TextEditingController();
   static final rH = TextEditingController();
-  static final jmlh = C_Barang();
-  static final barangController = Get.put(C_Barang());
+  static final jmlh = BarangController();
+  static final BarangController barangController = Get.find();
 
   static Widget bodyDaftarBarang(BuildContext context,
       [bool transaksi = false]) {

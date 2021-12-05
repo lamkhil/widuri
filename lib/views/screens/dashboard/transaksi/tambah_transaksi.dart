@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:widuri/colors.dart';
 import 'package:widuri/controller/c_transaksi.dart';
+import 'package:widuri/router/routes.dart';
 import 'package:widuri/views/Widget/alert_dialog.dart';
 import 'package:widuri/views/Widget/card_barang.dart';
 import 'package:widuri/views/Widget/tambah_barang_transaksi.dart';
-
-import '../colors.dart';
 
 class TambahTransaksi extends StatefulWidget {
   const TambahTransaksi({Key? key}) : super(key: key);
@@ -20,8 +20,7 @@ class TambahTransaksi extends StatefulWidget {
 class _TambahTransaksiState extends State<TambahTransaksi> {
   final formatCurrency =
       new NumberFormat.currency(locale: 'id', decimalDigits: 0, symbol: "Rp ");
-  C_Transaksi transaksiController =
-      C_Transaksi().initialized ? Get.find() : Get.put(C_Transaksi());
+  TransaksiController transaksiController = Get.find();
 
   var listHelperHarga = [500, 1000, 2000, 5000, 10000, 20000, 50000, 100000];
 
@@ -406,7 +405,7 @@ class _TambahTransaksiState extends State<TambahTransaksi> {
                                   borderRadius: BorderRadius.circular(10)),
                               primary: primaryColor),
                           onPressed: () {
-                            Get.to(() => TambahBarangTransaksi())!.then(
+                            Get.toNamed(Routes.tambahBarangTransaksi)!.then(
                                 (value) => transaksiController.controllerHarga
                                         .update((val) {
                                       val!.updateValue(transaksiController

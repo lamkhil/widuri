@@ -5,8 +5,6 @@ import 'package:widuri/Util/formatCurrency.dart';
 import 'package:widuri/controller/c_transaksi.dart';
 
 import '../../colors.dart';
-import '../../gambar.dart';
-import '../notif_screen.dart';
 
 Future<dynamic> HistoryBuildShowDialog(
   BuildContext context,
@@ -210,7 +208,7 @@ void _verifHapus(BuildContext context, String id) {
           )).whenComplete(() {
     if (_hapus) {
       try {
-        C_Transaksi.hapusTransaksi(context, id);
+        TransaksiController.hapusTransaksi(context, id);
       } catch (e) {
         print(e);
       }

@@ -24,7 +24,7 @@ import 'package:widuri/views/Widget/alert_dialog.dart';
 import 'package:widuri/views/Widget/loader_dialog.dart';
 
 // ignore: camel_case_types
-class C_Transaksi extends GetxController {
+class TransaksiController extends GetxController {
   final auth = FirebaseAuth.instance;
   var date = ''.obs;
   var controllerCatatan = TextEditingController().obs;
@@ -88,12 +88,11 @@ class C_Transaksi extends GetxController {
   }
 
   void reset() {
-    date.value = '';
     controllerCatatan.value.text = '';
     controllerHarga.value.text = '';
     catatan.value = '';
     barang.value = {};
-    refresh();
+    date.value = '';
   }
 
   updateDataAnalisis() async {
@@ -145,8 +144,9 @@ class C_Transaksi extends GetxController {
   }
 
   updateDataGrafik() async {
-    C_Barang barangController =
-        C_Barang().initialized ? Get.find() : Get.put(C_Barang());
+    BarangController barangController = BarangController().initialized
+        ? Get.find()
+        : Get.put(BarangController());
     var date = DateTime.now();
     var end = date;
     var start = DateTime(date.year, date.month, date.day);
@@ -461,7 +461,7 @@ class C_Transaksi extends GetxController {
       rekomendasi +=
           element['rekomendasiHarga'] * element['jumlahTransaksi'] as int;
     });
-    
+
     return rekomendasi;
   }
 

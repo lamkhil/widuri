@@ -7,8 +7,7 @@ import 'package:widuri/controller/c_transaksi.dart';
 import '../../colors.dart';
 
 Widget grafik() {
-  C_Transaksi transaksiController =
-      C_Transaksi().initialized ? Get.find() : Get.put(C_Transaksi());
+  TransaksiController transaksiController = Get.find();
   return Obx(() {
     var data = transaksiController.dataGrafik.value;
     if (transaksiController.dataGrafik.isEmpty) {

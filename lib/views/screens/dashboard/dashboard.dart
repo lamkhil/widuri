@@ -4,21 +4,21 @@ import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:widuri/colors.dart';
 import 'package:widuri/controller/c_user.dart';
+import 'package:widuri/views/screens/dashboard/profil/profile.dart';
 
-import 'analisis.dart';
-import 'daftar_barang.dart';
-import 'home.dart';
-import 'profile.dart';
-import 'tambah_transaksi.dart';
+import 'analisis/analisis.dart';
+import 'daftar barang/daftar_barang.dart';
+import 'home/home.dart';
+import 'transaksi/tambah_transaksi.dart';
 
-class NavBar extends StatefulWidget {
-  const NavBar({Key? key}) : super(key: key);
+class Dashboard extends StatefulWidget {
+  const Dashboard({Key? key}) : super(key: key);
 
   @override
-  _NavBarState createState() => _NavBarState();
+  _DashboardState createState() => _DashboardState();
 }
 
-class _NavBarState extends State<NavBar> {
+class _DashboardState extends State<Dashboard> {
   final auth = FirebaseAuth.instance;
   late PersistentTabController _controller;
   late bool _hideNavBar;
@@ -28,9 +28,9 @@ class _NavBarState extends State<NavBar> {
     _controller = PersistentTabController(initialIndex: 0);
     _hideNavBar = false;
     if (auth.currentUser != null) {
-      C_User.name.value = auth.currentUser!.displayName!;
+      UserController.name.value = auth.currentUser!.displayName!;
       if (auth.currentUser!.photoURL != null) {
-        C_User.photoUrl.value = auth.currentUser!.photoURL!;
+        UserController.photoUrl.value = auth.currentUser!.photoURL!;
       }
     }
     super.initState();

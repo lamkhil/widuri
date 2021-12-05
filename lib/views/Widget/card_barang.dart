@@ -164,7 +164,8 @@ class CardBarang extends StatelessWidget {
                           ),
                           Builder(builder: (context) {
                             if (transaksi) {
-                              C_Transaksi transaksiController = Get.find();
+                              TransaksiController transaksiController =
+                                  Get.find();
                               return Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,

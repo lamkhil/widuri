@@ -1,9 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:widuri/colors.dart';
 import 'package:widuri/controller/c_user.dart';
-
-import '../../colors.dart';
 
 class ProfileNama extends StatefulWidget {
   const ProfileNama({Key? key}) : super(key: key);
@@ -17,7 +16,6 @@ class _ProfileNamaState extends State<ProfileNama> {
   final TextEditingController _namaController = TextEditingController();
   bool _focus = true;
   var nama = ''.obs;
-  
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +59,7 @@ class _ProfileNamaState extends State<ProfileNama> {
                 ),
                 subtitle: Obx(
                   () => Text(
-                    C_User.name.value,
+                    UserController.name.value,
                     style: TextStyle(
                         fontSize: 16.0,
                         fontWeight: FontWeight.w600,
@@ -136,7 +134,7 @@ class _ProfileNamaState extends State<ProfileNama> {
                       height: 40.0,
                       child: ElevatedButton(
                           onPressed: () async {
-                            await C_User.ubahNama(
+                            await UserController.ubahNama(
                                 context, _namaController.text);
                             _namaController.text = '';
                           },

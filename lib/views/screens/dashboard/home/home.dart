@@ -8,11 +8,11 @@ import 'package:widuri/colors.dart';
 import 'package:widuri/controller/c_barang.dart';
 import 'package:widuri/controller/c_transaksi.dart';
 import 'package:widuri/controller/c_user.dart';
+import 'package:widuri/router/routes.dart';
+import 'package:widuri/views/Widget/card_barang.dart';
+import 'package:widuri/views/Widget/graphic.dart';
 import 'package:widuri/views/Widget/profil_Image.dart';
-import 'package:widuri/views/riwayat_transaksi.dart';
-
-import 'Widget/card_barang.dart';
-import 'Widget/graphic.dart';
+import 'package:widuri/views/screens/riwayat_transaksi.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -23,10 +23,8 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   final auth = FirebaseAuth.instance;
-  C_Barang barangController =
-      C_Barang().initialized ? Get.find() : Get.put(C_Barang());
-  C_Transaksi transaksiController =
-      C_Transaksi().initialized ? Get.find() : Get.put(C_Transaksi());
+  BarangController barangController = Get.find();
+  TransaksiController transaksiController = Get.find();
 
   @override
   void initState() {
@@ -127,7 +125,7 @@ class _HomeState extends State<Home> {
                                   children: [
                                     Text('Hai '),
                                     Obx(() => Text(
-                                          C_User.name.value,
+                                          UserController.name.value,
                                           style: TextStyle(
                                               fontWeight: FontWeight.bold),
                                         )),
@@ -159,7 +157,8 @@ class _HomeState extends State<Home> {
                                             ),
                                           ),
                                           onTap: () {
-                                            Get.to(() => RiwayatTransaksi());
+                                            Get.toNamed(
+                                                Routes.riwayatTransaksi);
                                           },
                                         ),
                                       ),
@@ -288,7 +287,7 @@ class _HomeState extends State<Home> {
                                       newValue!;
                                   transaksiController.updateDataGrafik();
                                 },
-                                items: C_Barang.listDropdownHome
+                                items: BarangController.listDropdownHome
                                     .map((String item) =>
                                         DropdownMenuItem<String>(
                                             child: Text(item), value: item))

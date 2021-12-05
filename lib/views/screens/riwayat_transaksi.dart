@@ -13,8 +13,7 @@ class RiwayatTransaksi extends StatefulWidget {
 }
 
 class _RiwayatTransaksiState extends State<RiwayatTransaksi> {
-  C_Transaksi transaksiController =
-      C_Transaksi().initialized ? Get.find() : Get.put(C_Transaksi());
+  TransaksiController transaksiController = Get.find();
 
   TextEditingController _search = TextEditingController(text: '');
   var args = Get.arguments;

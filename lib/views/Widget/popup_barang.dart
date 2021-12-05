@@ -38,7 +38,7 @@ class PopUpBarang {
       thousandSeparator: '.',
       precision: 0,
       decimalSeparator: "");
-  final _jmlh = C_Barang();
+  final _jmlh = BarangController();
 
   bool _simpan = false;
   bool _hapus = false;
@@ -78,7 +78,10 @@ class PopUpBarang {
                 ),
                 child: Text(
                   _title,
-                  style: TextStyle(fontWeight: FontWeight.w600 ,fontSize: 20.0, color: Colors.white),
+                  style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 20.0,
+                      color: Colors.white),
                 ),
               ),
               content: Container(
@@ -504,15 +507,15 @@ class PopUpBarang {
           _hA.text = '';
           _rH.text = '';
           _jmlh.textController.value.text = '1';
-          C_Barang.tambahBarang(context, kategori, nama, hargaAwal, rekomHarga,
-              int.parse(j), idBarang);
+          BarangController.tambahBarang(context, kategori, nama, hargaAwal,
+              rekomHarga, int.parse(j), idBarang);
         }
       }
     });
   }
 
   void _verifHapus() {
-   _hapus = false;
+    _hapus = false;
     showDialog(
         context: context,
         builder: (context) => AlertDialog(
@@ -529,47 +532,48 @@ class PopUpBarang {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       Visibility(
-                          visible: edit,
-                            child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(12.0),
-                                      side: BorderSide(color: primaryColor)),
-                                  primary: backgroundColor,
-                                ),
-                                onPressed: () {
-                                  _hapus = true;
-                                  Navigator.pop(Get.overlayContext!);
-                                },
-                                child: Text(
-                                  'Ya',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontFamily: 'Roboto',
-                                      fontSize: 16.0,
-                                      color: primaryColor),
-                                )),
-                          ),
-                         SizedBox(width: 10.0,),
-                         ElevatedButton(
+                        visible: edit,
+                        child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
                               shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(12.0)),
-                              primary: primaryColor,
+                                  borderRadius: BorderRadius.circular(12.0),
+                                  side: BorderSide(color: primaryColor)),
+                              primary: backgroundColor,
                             ),
                             onPressed: () {
-                              _hapus = false;
+                              _hapus = true;
                               Navigator.pop(Get.overlayContext!);
                             },
                             child: Text(
-                              'Tidak',
+                              'Ya',
                               style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontFamily: 'Roboto',
-                                fontSize: 16.0,
-                              ),
+                                  fontWeight: FontWeight.w600,
+                                  fontFamily: 'Roboto',
+                                  fontSize: 16.0,
+                                  color: primaryColor),
                             )),
-
+                      ),
+                      SizedBox(
+                        width: 10.0,
+                      ),
+                      ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12.0)),
+                            primary: primaryColor,
+                          ),
+                          onPressed: () {
+                            _hapus = false;
+                            Navigator.pop(Get.overlayContext!);
+                          },
+                          child: Text(
+                            'Tidak',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontFamily: 'Roboto',
+                              fontSize: 16.0,
+                            ),
+                          )),
                     ],
                   ),
                 )
@@ -577,7 +581,7 @@ class PopUpBarang {
             )).whenComplete(() {
       if (_hapus) {
         try {
-          C_Barang.hapusBarang(context, idBarang);
+          BarangController.hapusBarang(context, idBarang);
         } catch (e) {
           print(e);
         }

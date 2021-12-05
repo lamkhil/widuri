@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:widuri/gambar.dart';
+import 'package:widuri/router/routes.dart';
 
 class VerifikasiEmail extends StatefulWidget {
   const VerifikasiEmail({Key? key}) : super(key: key);
@@ -70,7 +71,7 @@ class _VerifikasiEmailState extends State<VerifikasiEmail> {
     if (user.emailVerified) {
       timer.cancel();
       await user.updateDisplayName(data);
-      Get.offAllNamed('/main');
+      Get.offAllNamed(Routes.dashboardScreen);
     }
   }
 }

@@ -98,7 +98,7 @@ class _RegisterState extends State<Register> {
               SizedBox(height: 36),
               MaterialButton(
                   onPressed: () async {
-                    C_User.registerUser(
+                    UserController.registerUser(
                         context, email.text, password.text, nama.text);
                   },
                   child: Container(

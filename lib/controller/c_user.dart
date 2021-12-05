@@ -11,10 +11,11 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:widuri/Util/request_permission.dart';
 import 'package:widuri/colors.dart';
 import 'package:widuri/model/m_user.dart';
+import 'package:widuri/router/routes.dart';
 import 'package:widuri/views/Widget/alert_dialog.dart';
 import 'package:widuri/views/Widget/loader_dialog.dart';
 
-class C_User extends GetxController {
+class UserController extends GetxController {
   static var name = ''.obs;
   static final storage = GetStorage();
   static final auth = FirebaseAuth.instance;
@@ -36,7 +37,7 @@ class C_User extends GetxController {
         Navigator.of(context).pop();
         if (!(result is String)) {
           storage.write('email', email);
-          Get.offNamed('/verif', arguments: nama);
+          Get.offNamed(Routes.verifyScreen, arguments: nama);
           storage.write('user', result.uid);
         } else {
           customDialog(context, "Oops!", result);
@@ -127,10 +128,10 @@ class C_User extends GetxController {
       await result.reload();
       if (result.emailVerified) {
         storage.write('user', result.uid);
-        Get.offNamed('/main');
+        Get.offNamed(Routes.dashboardScreen);
       } else {
         await result.delete();
-        Get.toNamed('/register');
+        Get.toNamed(Routes.registerScreen);
         customDialog(context, "Opps!",
             "Email Anda belum terverifikasi, silahkan ulangi pendaftaran!");
       }
@@ -143,7 +144,7 @@ class C_User extends GetxController {
     var result = await M_User.ubahNama(nama);
     Navigator.of(context).pop();
     if (!(result is String)) {
-      Get.offNamed('/main', arguments: nama);
+      Get.offNamed(Routes.dashboardScreen, arguments: nama);
       name.value = auth.currentUser!.displayName!.toString();
     } else {
       customDialog(context, 'Oppss!', result);
@@ -154,7 +155,7 @@ class C_User extends GetxController {
     var result = await M_User.logOut();
     if (!(result is String)) {
       storage.remove('user');
-      Get.offAllNamed('/login');
+      Get.offAllNamed(Routes.loginScreen);
     } else {
       customDialog(context, 'Oppss!', result);
     }
